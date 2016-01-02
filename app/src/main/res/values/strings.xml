@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">BarcodeScannerTest1</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_scan_barcode_text">scan barcode</string>
+    <string name="ok">OK</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+    <string name="title_activity_camera">CameraActivity</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="invalid_barcode_message">Sorry, that barcode is invalid.</string>
+    <string name="valid_barcode_message">Great, that\'s a valid barcode.</string>
+    <string name="btn_enter_user_text">Enter user details</string>
+    <string name="hint_first_name">first name</string>
+    <string name="hint_surname">Surname</string>
+    <string name="hint_CustomerId">Customer Id</string>
+    <string name="user_saved_successfully">User saved successfully.</string>
+    <string name="btn_scan_user_details">Scan user details from barcode</string>
+    <string name="or">or</string>
+    <string name="getting_appointments_message">Searching for appointments..</string>
+    <string name="dialogTitle">please wait...</string>
+    <string name="dialogMessage">...looking for appointments</string>
+</resources>
