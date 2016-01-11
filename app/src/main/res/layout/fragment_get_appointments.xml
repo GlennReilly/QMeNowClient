@@ -9,13 +9,13 @@
         android:id = "@+id/tvMessage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="" />
     <TextView
         android:id = "@+id/tvMessage2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="35dip"
-        android:text="@string/hello_blank_fragment" />
+        android:text="" />
 
     <ListView
         xmlns:android="http://schemas.android.com/apk/res/android"

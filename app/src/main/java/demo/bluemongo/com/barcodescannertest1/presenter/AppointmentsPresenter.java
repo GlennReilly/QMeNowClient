@@ -1,8 +1,6 @@
 package demo.bluemongo.com.barcodescannertest1.presenter;
 
-import java.util.List;
-
-import demo.bluemongo.com.barcodescannertest1.model.Appointment;
+import demo.bluemongo.com.barcodescannertest1.model.AppointmentsResponse;
 import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
 import demo.bluemongo.com.barcodescannertest1.model.UserDetails;
 import demo.bluemongo.com.barcodescannertest1.view.RetrieveAppointmentsView;
@@ -31,8 +29,8 @@ public class AppointmentsPresenter {
         view.displayAppointments(result);
     }*/
 
-    public void showAppointmentsList(List<Appointment> appointmentsList) {
-        view.displayAppointments(appointmentsList);
+    public void showAppointmentsList(AppointmentsResponse appointmentsResponse) {
+        view.displayAppointments(appointmentsResponse);
     }
 
     public void setMessage(String message) {

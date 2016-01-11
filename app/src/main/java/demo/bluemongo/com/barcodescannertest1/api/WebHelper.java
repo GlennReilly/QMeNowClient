@@ -63,7 +63,7 @@ public class WebHelper {
                             String result = firstAppointmentTest.getMessageToCustomer();*/
                             //retrieveAppointmentsView.displayAppointments(result);
                             //appointmentsPresenter.appointmentResultsCallback(result);
-                            appointmentsPresenter.showAppointmentsList(appointmentsResponse.getAppointmentList());
+                            appointmentsPresenter.showAppointmentsList(appointmentsResponse);
                         }
                     }
                 } else {

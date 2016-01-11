@@ -2,9 +2,7 @@ package demo.bluemongo.com.barcodescannertest1.view;
 
 import android.content.SharedPreferences;
 
-import java.util.List;
-
-import demo.bluemongo.com.barcodescannertest1.model.Appointment;
+import demo.bluemongo.com.barcodescannertest1.model.AppointmentsResponse;
 
 /**
  * Created by glenn on 5/10/15.
@@ -12,6 +10,6 @@ import demo.bluemongo.com.barcodescannertest1.model.Appointment;
 public interface RetrieveAppointmentsView {
     SharedPreferences getSharedPreferences();
     void retrieveAppointments();
-    void displayAppointments(List<Appointment> appointmentsList);
+    void displayAppointments(AppointmentsResponse appointmentsResponse);
     void showMessage(String message);
 }

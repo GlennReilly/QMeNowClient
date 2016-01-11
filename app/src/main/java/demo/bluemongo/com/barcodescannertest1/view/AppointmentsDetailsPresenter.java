@@ -9,4 +9,6 @@ public class AppointmentsDetailsPresenter {
     public AppointmentsDetailsPresenter(AppointmentDetailsView appointmentDetailsView) {
         this.view = appointmentDetailsView;
     }
+
+
 }

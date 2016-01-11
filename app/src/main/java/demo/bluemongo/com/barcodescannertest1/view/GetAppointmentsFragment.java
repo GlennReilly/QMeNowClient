@@ -19,6 +19,8 @@ import demo.bluemongo.com.barcodescannertest1.R;
 import demo.bluemongo.com.barcodescannertest1.adapter.AppointmentsAdapter;
 import demo.bluemongo.com.barcodescannertest1.api.WebHelper;
 import demo.bluemongo.com.barcodescannertest1.model.Appointment;
+import demo.bluemongo.com.barcodescannertest1.model.AppointmentWrapper;
+import demo.bluemongo.com.barcodescannertest1.model.AppointmentsResponse;
 import demo.bluemongo.com.barcodescannertest1.model.UserDetails;
 import demo.bluemongo.com.barcodescannertest1.presenter.AppointmentsPresenter;
 
@@ -46,7 +48,7 @@ public class GetAppointmentsFragment extends Fragment implements RetrieveAppoint
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener { //These are the ways this fragment communicates with the rest of the app, via the Activity.
-        void showAppointmentDetails(Appointment appointment);
+        void showAppointmentDetails(AppointmentWrapper appointment);
     }
 
     @Override
@@ -89,22 +91,26 @@ public class GetAppointmentsFragment extends Fragment implements RetrieveAppoint
     }
 
 
+
+
     @Override
-    public void displayAppointments(List<Appointment> appointmentsList) {
+    public void displayAppointments(final AppointmentsResponse appointmentsResponse) {
          progressDialog.dismiss();
-        this.appointmentList = appointmentsList;
-        if (appointmentsList.size()>0){
+        this.appointmentList = appointmentsResponse.getAppointmentList();
+        if (this.appointmentList.size()>0){
             appointmentListView.setVisibility(View.VISIBLE);
             tvMessage.setVisibility(View.GONE);
             tvMessage2.setVisibility(View.GONE);
-            appointmentsAdapter = new AppointmentsAdapter(getActivity().getApplicationContext(), appointmentsList);
+            appointmentsAdapter = new AppointmentsAdapter(getActivity().getApplicationContext(), appointmentsResponse);
             appointmentListView.setAdapter(appointmentsAdapter);
             appointmentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Appointment appointment = (Appointment)parent.getItemAtPosition(position);
-                    //Toast.makeText(getActivity().getApplicationContext(), appointment.getStrAppointmentTime(),Toast.LENGTH_SHORT).show();
-                    mListener.showAppointmentDetails(appointment);
+                    AppointmentWrapper appointmentWrapper = new AppointmentWrapper();
+                    appointmentWrapper.setAppointment(appointment);
+                    appointmentWrapper.setStatusList(appointmentsResponse.getAppointmentStatusList());
+                    mListener.showAppointmentDetails(appointmentWrapper);
                 }
             });
         }

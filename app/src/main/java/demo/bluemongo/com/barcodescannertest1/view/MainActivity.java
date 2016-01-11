@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import demo.bluemongo.com.barcodescannertest1.R;
-import demo.bluemongo.com.barcodescannertest1.model.Appointment;
+import demo.bluemongo.com.barcodescannertest1.model.AppointmentWrapper;
 
 public class MainActivity extends AppCompatActivity implements
         MainMenuFragment.OnFragmentInteractionListener,
@@ -94,10 +94,10 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void showAppointmentDetails(Appointment appointment) {
+    public void showAppointmentDetails(AppointmentWrapper appointmentWrapper) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        Fragment fragment = AppointmentDetailsFragment.newInstance(appointment);
+        Fragment fragment = AppointmentDetailsFragment.newInstance(appointmentWrapper);
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.addToBackStack(TAG_GET_APPOINTMENTS_DETAILS_FRAGMENT);
         fragmentTransaction.commit();

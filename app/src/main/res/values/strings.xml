@@ -23,4 +23,5 @@
     <string name="getting_appointments_message">Searching for appointments..</string>
     <string name="dialogTitle">please wait...</string>
     <string name="dialogMessage">...looking for appointments</string>
+    <string name="check_in">Check-in</string>
 </resources>

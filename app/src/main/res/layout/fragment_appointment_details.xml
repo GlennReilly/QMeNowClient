@@ -1,85 +1,100 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="demo.bluemongo.com.barcodescannertest1.view.AppointmentDetailsFragment">
-
 <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical" >
 
     <TextView
+        android:textSize="@dimen/general_text_size"
         android:id="@+id/messageToCustomer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
     <TextView
+        android:textSize="@dimen/general_text_size"
         android:id="@+id/strAppointmentDate"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
     <TextView
+        android:textSize="@dimen/general_text_size"
         android:id="@+id/strAppointmentTime"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/locationName"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
 
-    <ImageView
-        android:id="@+id/locationCircle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/circle" />
+        <ImageView
+            android:id="@+id/locationCircle"
+            android:layout_width="@dimen/circle_size"
+            android:layout_height="@dimen/circle_size"
+            android:src="@drawable/circle"
+            android:layout_alignParentRight="true" />
 
-    <TextView
-        android:id="@+id/statusName"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/locationName"
+            android:textSize="@dimen/general_text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <ImageView
-        android:id="@+id/statusCircle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/circle" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/isComplete"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/appointmentTypeName"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/statusCircle"
+            android:layout_width="@dimen/circle_size"
+            android:layout_height="@dimen/circle_size"
+            android:src="@drawable/circle"
+            android:layout_alignParentRight="true" />
 
-    <TextView
-        android:id="@+id/appointmentTypePrefix"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/statusName"
+            android:textSize="@dimen/general_text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <ImageView
-        android:id="@+id/appointmentTypeCircle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/circle" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/statusHexCode"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/appTypeHexCode"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/appointmentTypeCircle"
+            android:layout_width="@dimen/circle_size"
+            android:layout_height="@dimen/circle_size"
+            android:src="@drawable/circle"
+            android:layout_alignParentRight="true"/>
 
-    <TextView
-        android:id="@+id/locationHexCode"
+        <TextView
+            android:id="@+id/appointmentTypeName"
+            android:textSize="@dimen/general_text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/appointmentTypePrefix"
+            android:textSize="@dimen/general_text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <Button
+        android:textSize="@dimen/general_text_size"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:id="@+id/btnCheckin"
+        android:text="@string/check_in"/>
 </LinearLayout>
-</FrameLayout>
+
+<!--</FrameLayout>-->
