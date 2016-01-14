@@ -17,7 +17,7 @@ import java.util.List;
 
 import demo.bluemongo.com.barcodescannertest1.R;
 import demo.bluemongo.com.barcodescannertest1.adapter.AppointmentsAdapter;
-import demo.bluemongo.com.barcodescannertest1.api.WebHelper;
+import demo.bluemongo.com.barcodescannertest1.api.AppointmentWebHelper;
 import demo.bluemongo.com.barcodescannertest1.model.Appointment;
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentWrapper;
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentsResponse;
@@ -83,11 +83,11 @@ public class GetAppointmentsFragment extends Fragment implements RetrieveAppoint
 
     @Override
     public void retrieveAppointments(){
-        WebHelper webHelper = new WebHelper(mAppointmentsPresenter);
+        AppointmentWebHelper appointmentWebHelper = new AppointmentWebHelper(mAppointmentsPresenter);
         UserDetails userDetails = mAppointmentsPresenter.getSavedUserDetails();
         progressDialog = ProgressDialog.show(getActivity(), getString(R.string.dialogTitle),
                 getString(R.string.dialogMessage), true);
-        webHelper.GetUserAppointments(userDetails);
+        appointmentWebHelper.GetUserAppointments(userDetails);
     }
 
 
@@ -126,8 +126,6 @@ public class GetAppointmentsFragment extends Fragment implements RetrieveAppoint
     public SharedPreferences getSharedPreferences() {
         return getActivity().getSharedPreferences(mAppointmentsPresenter.getUserDetailsPrefsString(), Context.MODE_PRIVATE);
     }
-
-
 
 
 

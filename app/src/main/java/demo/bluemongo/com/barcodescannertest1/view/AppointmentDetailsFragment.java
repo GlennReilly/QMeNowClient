@@ -146,7 +146,7 @@ public class AppointmentDetailsFragment extends Fragment implements AppointmentD
         send appointment id, current appointmentStatus, customerId?, to webClient,
          refresh appointment results
          */
-        //mAppointmentsDetailsPresenter.progressAppointmentStatus(appointment, appointmentStatusList);
+        mAppointmentsDetailsPresenter.progressAppointmentStatus(appointment, appointmentStatusList);
     }
 
 

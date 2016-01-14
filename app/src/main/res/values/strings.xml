@@ -24,4 +24,7 @@
     <string name="dialogTitle">please wait...</string>
     <string name="dialogMessage">...looking for appointments</string>
     <string name="check_in">Check-in</string>
+    <string name="labelWebHelperBaseURL">webHelperBaseURL</string>
+    <string name="webserviceBaseURL">http://</string>
+    <string name="settings_saved_successfully">Settings Saved Successfully</string>
 </resources>

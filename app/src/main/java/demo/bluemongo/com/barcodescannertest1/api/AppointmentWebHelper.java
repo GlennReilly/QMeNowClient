@@ -16,18 +16,14 @@ import retrofit.Retrofit;
 /**
  * Created by glenn on 4/10/15.
  */
-public class WebHelper {
+public class AppointmentWebHelper {
 
-    //private final RetrieveAppointmentsView retrieveAppointmentsView;
-    private final AppointmentsPresenter appointmentsPresenter;
+    private AppointmentsPresenter appointmentsPresenter;
 
-    public WebHelper(AppointmentsPresenter mAppointmentsPresenter) {
-        appointmentsPresenter = mAppointmentsPresenter;
+    public AppointmentWebHelper(AppointmentsPresenter appointmentsPresenter) {
+        this.appointmentsPresenter = appointmentsPresenter;
     }
 
-/*    public WebHelper(RetrieveAppointmentsView retrieveAppointmentsView) {
-        this.retrieveAppointmentsView = retrieveAppointmentsView;
-    }*/
 
     public void GetUserAppointments(UserDetails userDetails){
         Retrofit retrofit = new Retrofit.Builder()

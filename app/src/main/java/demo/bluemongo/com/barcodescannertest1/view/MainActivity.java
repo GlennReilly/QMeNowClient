@@ -18,7 +18,8 @@ public class MainActivity extends AppCompatActivity implements
         CameraFragment.OnFragmentInteractionListener,
         MessageFragment.OnFragmentInteractionListener,
         GetAppointmentsFragment.OnFragmentInteractionListener,
-        AppointmentDetailsFragment.OnFragmentInteractionListener
+        AppointmentDetailsFragment.OnFragmentInteractionListener,
+        SettingsFragment.OnFragmentInteractionListener
 {
     private static final String TAG = "MainActivity";
     private static final String TAG_MAIN_FRAGMENT = "TAG_MAIN_FRAGMENT";
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String TAG_USER_DETAILS_FRAGMENT = "TAG_USER_DETAILS_FRAGMENT";
     private static final String TAG_GET_APPOINTMENTS_FRAGMENT = "TAG_GET_APPOINTMENTS_FRAGMENT";
     private static final String TAG_GET_APPOINTMENTS_DETAILS_FRAGMENT = "TAG_GET_APPOINTMENTS_DETAILS_FRAGMENT";
+    private static final String TAG_GET_SETTINGS_FRAGMENT = "TAG_GET_SETTINGS_FRAGMENT";
 
 
     @Override
@@ -103,6 +105,15 @@ public class MainActivity extends AppCompatActivity implements
         fragmentTransaction.commit();
     }
 
+    private void showModifySettingsScreen() {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment fragment = new SettingsFragment();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(TAG_GET_SETTINGS_FRAGMENT);
+        fragmentTransaction.commit();
+    }
+
     @Override
     public void onBackPressed() {
         int count = getFragmentManager().getBackStackEntryCount();
@@ -130,11 +141,13 @@ public class MainActivity extends AppCompatActivity implements
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            showModifySettingsScreen();
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {

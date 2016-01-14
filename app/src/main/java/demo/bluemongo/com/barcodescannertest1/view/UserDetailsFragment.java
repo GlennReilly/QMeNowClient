@@ -1,6 +1,5 @@
 package demo.bluemongo.com.barcodescannertest1.view;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 import demo.bluemongo.com.barcodescannertest1.R;
 import demo.bluemongo.com.barcodescannertest1.model.UserDetails;
 import demo.bluemongo.com.barcodescannertest1.presenter.UserDetailsPresenter;
-import demo.bluemongo.com.barcodescannertest1.view.UserDetailsView;
 
 /**
  * Created by glenn on 27/09/15.
@@ -67,12 +65,12 @@ public class UserDetailsFragment extends Fragment implements UserDetailsView {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            mListener = (OnFragmentInteractionListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }

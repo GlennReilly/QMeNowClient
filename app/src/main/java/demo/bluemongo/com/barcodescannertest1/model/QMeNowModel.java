@@ -17,11 +17,13 @@ import demo.bluemongo.com.barcodescannertest1.utils.InputHelper;
 
 public class QMeNowModel {
     public static final String USER_DETAILS_PREFERENCES = "USER_DETAILS_PREFERENCES";
+    public static final String SETTINGS__PREFERENCES = "SETTINGS__PREFERENCES";
 
     final String FIRSTNAME = "firstName";
     final String LASTNAME = "lastName";
     final String CUSTOMERID = "customerId";
     final String EMPTY = "";
+    final String WEBHELPER_BASEURL = "WebHelperBaseUrl";
 
     public boolean isBarcodeValid(String rawValue) {
         boolean result = false;
@@ -71,6 +73,18 @@ public class QMeNowModel {
 
         return userDetails;
     }
+
+    public String getWebHelperBaseURL(SharedPreferences settings){
+        return settings.getString(WEBHELPER_BASEURL, EMPTY);
+    }
+
+    public void saveWebHelperBaseURL(String webHelperBaseURL, SharedPreferences settings){
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(WEBHELPER_BASEURL, webHelperBaseURL);
+        editor.commit();
+    }
+
+
 
 
 }
