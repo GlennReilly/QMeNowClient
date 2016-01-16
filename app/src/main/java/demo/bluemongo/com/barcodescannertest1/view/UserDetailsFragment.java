@@ -1,6 +1,5 @@
 package demo.bluemongo.com.barcodescannertest1.view;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,7 +18,7 @@ import demo.bluemongo.com.barcodescannertest1.presenter.UserDetailsPresenter;
 /**
  * Created by glenn on 27/09/15.
  */
-public class UserDetailsFragment extends Fragment implements UserDetailsView {
+public class UserDetailsFragment extends GenericView implements UserDetailsView {
     private OnFragmentInteractionListener mListener;
     private UserDetailsPresenter mUserDetailspresenter;
 
@@ -27,6 +26,7 @@ public class UserDetailsFragment extends Fragment implements UserDetailsView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mUserDetailspresenter = new UserDetailsPresenter(this);
+        super.setPresenter(mUserDetailspresenter);
     }
 
     @Nullable

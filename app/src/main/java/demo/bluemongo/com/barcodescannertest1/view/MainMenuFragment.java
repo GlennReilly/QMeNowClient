@@ -1,6 +1,6 @@
 package demo.bluemongo.com.barcodescannertest1.view;
 
-import android.app.Fragment;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +15,7 @@ import demo.bluemongo.com.barcodescannertest1.presenter.MainPresenter;
 /**
  * Created by glenn on 26/09/15.
  */
-public class MainMenuFragment extends Fragment implements MainView {
+public class MainMenuFragment extends GenericView implements MainView {
     private OnFragmentInteractionListener mListener;
     private MainPresenter presenter;
 
@@ -57,6 +57,17 @@ public class MainMenuFragment extends Fragment implements MainView {
 
     @Override
     public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mListener = (OnFragmentInteractionListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onAttach(Activity context) {
         super.onAttach(context);
         try {
             mListener = (OnFragmentInteractionListener) context;

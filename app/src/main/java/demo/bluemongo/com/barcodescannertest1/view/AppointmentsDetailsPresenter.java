@@ -5,15 +5,19 @@ import java.util.List;
 import demo.bluemongo.com.barcodescannertest1.api.AppointmentDetailWebHelper;
 import demo.bluemongo.com.barcodescannertest1.model.Appointment;
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentStatus;
+import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
+import demo.bluemongo.com.barcodescannertest1.presenter.GenericPresenter;
 
 /**
  * Created by glenn on 30/12/15.
  */
-public class AppointmentsDetailsPresenter {
+public class AppointmentsDetailsPresenter extends GenericPresenter{
     private AppointmentDetailsView view;
+    private final QMeNowModel model = new QMeNowModel();
     private String message;
 
     public AppointmentsDetailsPresenter(AppointmentDetailsView appointmentDetailsView) {
+        super((GenericView) appointmentDetailsView);
         this.view = appointmentDetailsView;
     }
 
@@ -30,4 +34,6 @@ public class AppointmentsDetailsPresenter {
     public String getMessage() {
         return message;
     }
+
+
 }

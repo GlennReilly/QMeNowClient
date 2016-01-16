@@ -26,6 +26,7 @@ public class AppointmentWebHelper {
 
 
     public void GetUserAppointments(UserDetails userDetails){
+        String webHelperBaseURL = appointmentsPresenter.getWebHelperBaseURL();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.1.1.7:8080/") //http://10.1.1.7:8080/
                 .addConverterFactory(GsonConverterFactory.create())

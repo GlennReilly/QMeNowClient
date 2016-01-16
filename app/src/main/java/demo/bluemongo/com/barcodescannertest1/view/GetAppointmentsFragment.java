@@ -1,6 +1,5 @@
 package demo.bluemongo.com.barcodescannertest1.view;
 
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -27,7 +26,7 @@ import demo.bluemongo.com.barcodescannertest1.presenter.AppointmentsPresenter;
 /**
  * Created by glenn on 5/10/15.
  */
-public class GetAppointmentsFragment extends Fragment implements RetrieveAppointmentsView {
+public class GetAppointmentsFragment extends GenericView implements RetrieveAppointmentsView {
     private OnFragmentInteractionListener mListener;
     private AppointmentsPresenter mAppointmentsPresenter;
     private TextView tvMessage;

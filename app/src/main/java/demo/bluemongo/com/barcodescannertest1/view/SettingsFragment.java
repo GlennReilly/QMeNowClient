@@ -1,6 +1,5 @@
 package demo.bluemongo.com.barcodescannertest1.view;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,7 +20,7 @@ import demo.bluemongo.com.barcodescannertest1.presenter.SettingsPresenter;
 /**
  * Created by glenn on 13/01/16.
  */
-public class SettingsFragment extends Fragment implements SettingsView {
+public class SettingsFragment extends GenericView implements SettingsView {
     private SettingsDTO settingsValues = new SettingsDTO();
     SettingsPresenter settingsPresenter;
     TextView etWebHelperBaseURL;

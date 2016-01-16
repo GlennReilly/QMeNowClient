@@ -2,22 +2,22 @@ package demo.bluemongo.com.barcodescannertest1.presenter;
 
 import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
 import demo.bluemongo.com.barcodescannertest1.model.UserDetails;
+import demo.bluemongo.com.barcodescannertest1.view.GenericView;
 import demo.bluemongo.com.barcodescannertest1.view.UserDetailsView;
 
 /**
  * Created by glenn on 27/09/15.
  */
-public class UserDetailsPresenter {
+public class UserDetailsPresenter extends GenericPresenter{
     UserDetailsView userDetailsView;
     private final QMeNowModel model = new QMeNowModel();
     private UserDetails userDetails;
 
-    public String getUserDetailsPrefsString() {
-        return model.USER_DETAILS_PREFERENCES;
-    }
+
 
     public UserDetailsPresenter(UserDetailsView view) {
-    this.userDetailsView = view;
+        super((GenericView) view);
+        this.userDetailsView = view;
     }
 
     public void saveUserDetails(String firstName, String lastName, String customerId) {
@@ -28,7 +28,4 @@ public class UserDetailsPresenter {
         model.saveUserDetails(userDetails, userDetailsView.getSharedPreferences());
     }
 
-    public UserDetails getSavedUserDetails() {
-        return model.getUserDetails(userDetailsView.getSharedPreferences());
-    }
 }
