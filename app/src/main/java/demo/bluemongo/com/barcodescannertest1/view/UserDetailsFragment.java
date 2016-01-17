@@ -39,10 +39,9 @@ public class UserDetailsFragment extends GenericView implements UserDetailsView 
         Button btnSubmitUserDetails = (Button) view.findViewById(R.id.btnSubmitUserDetails);
 
         UserDetails userDetails = mUserDetailspresenter.getSavedUserDetails();
-        etFirstName.setText(userDetails.getFirstName());
-        etLastName.setText(userDetails.getLastName());
-        etCustomerId.setText(userDetails.getCustomerId());
-
+        etFirstName.setText(String.valueOf(userDetails.getFirstName()));
+        etLastName.setText(String.valueOf(userDetails.getLastName()));
+        etCustomerId.setText(String.valueOf(userDetails.getCustomerId()));
 
         btnSubmitUserDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +57,7 @@ public class UserDetailsFragment extends GenericView implements UserDetailsView 
     public void saveUserDetails(EditText etFirstName, EditText etLastName, EditText etCustomerId) {
         String firstName = etFirstName.getText().toString();
         String lastName = etLastName.getText().toString();
-        String customerId = etCustomerId.getText().toString();
+        Integer customerId = Integer.parseInt(etCustomerId.getText().toString());
         mUserDetailspresenter.saveUserDetails(firstName, lastName, customerId);
         Toast.makeText(getActivity().getApplicationContext(), getString(R.string.user_saved_successfully), Toast.LENGTH_SHORT).show();
         mListener.showMainMenu();

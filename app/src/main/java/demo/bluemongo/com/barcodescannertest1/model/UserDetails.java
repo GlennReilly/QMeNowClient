@@ -6,7 +6,7 @@ package demo.bluemongo.com.barcodescannertest1.model;
 public class UserDetails {
     String firstName;
     String lastName;
-    String customerId;
+    Integer customerId;
 
     public String getFirstName() {
         return firstName;
@@ -24,11 +24,11 @@ public class UserDetails {
         this.lastName = lastName;
     }
 
-    public String getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(String customerId) {
+    public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
 }

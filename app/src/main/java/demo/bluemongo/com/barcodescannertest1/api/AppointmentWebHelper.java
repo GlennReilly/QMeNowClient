@@ -28,7 +28,7 @@ public class AppointmentWebHelper {
     public void GetUserAppointments(UserDetails userDetails){
         String webHelperBaseURL = appointmentsPresenter.getWebHelperBaseURL();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.1.1.7:8080/") //http://10.1.1.7:8080/
+                .baseUrl(webHelperBaseURL) //http://10.1.1.7:8080/
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -36,7 +36,7 @@ public class AppointmentWebHelper {
         UserAppointmentService userAppointmentService = retrofit.create(UserAppointmentService.class);
         //Call<List<Appointment>> retrofitResponse = userAppointmentService.retrieveAppointments(7);
         //Call<List<String>> retrofitResponse = userAppointmentService.doTest(7);
-        Call<AppointmentsResponse> retrofitResponse = userAppointmentService.getAppointments(7);
+        Call<AppointmentsResponse> retrofitResponse = userAppointmentService.getAppointments(userDetails.getCustomerId());
         // Call<List<Appointment>> retrofitResponse = userAppointmentService.getAppointmentsTest(7);
         Log.i("test tag", "test msg");
 

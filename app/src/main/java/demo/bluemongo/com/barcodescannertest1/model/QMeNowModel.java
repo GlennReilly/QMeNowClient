@@ -24,6 +24,7 @@ public class QMeNowModel {
     final String CUSTOMERID = "customerId";
     final String EMPTY = "";
     final String WEBHELPER_BASEURL = "WebHelperBaseUrl";
+    final String DEFAULT_WEBHELPER_BASEURL = "http://10.1.1.7:8080/";
 
     public boolean isBarcodeValid(String rawValue) {
         boolean result = false;
@@ -61,7 +62,7 @@ public class QMeNowModel {
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(FIRSTNAME, userDetails.getFirstName());
         editor.putString(LASTNAME, userDetails.getLastName());
-        editor.putString(CUSTOMERID, userDetails.getCustomerId());
+        editor.putInt(CUSTOMERID, userDetails.getCustomerId());
         editor.commit();
     }
 
@@ -69,13 +70,13 @@ public class QMeNowModel {
         UserDetails userDetails = new UserDetails();
         userDetails.setFirstName(settings.getString(FIRSTNAME, EMPTY));
         userDetails.setLastName(settings.getString(LASTNAME, EMPTY));
-        userDetails.setCustomerId(settings.getString(CUSTOMERID, EMPTY));
+        userDetails.setCustomerId(settings.getInt(CUSTOMERID, 0));
 
         return userDetails;
     }
 
     public String getWebHelperBaseURL(SharedPreferences settings){
-        return settings.getString(WEBHELPER_BASEURL, EMPTY);
+        return settings.getString(WEBHELPER_BASEURL, DEFAULT_WEBHELPER_BASEURL);
     }
 
     public void saveWebHelperBaseURL(String webHelperBaseURL, SharedPreferences settings){

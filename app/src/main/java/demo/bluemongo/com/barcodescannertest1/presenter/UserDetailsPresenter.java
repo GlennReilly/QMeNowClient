@@ -20,7 +20,7 @@ public class UserDetailsPresenter extends GenericPresenter{
         this.userDetailsView = view;
     }
 
-    public void saveUserDetails(String firstName, String lastName, String customerId) {
+    public void saveUserDetails(String firstName, String lastName, Integer customerId) {
         userDetails = new UserDetails();
         userDetails.setFirstName(firstName);
         userDetails.setLastName(lastName);

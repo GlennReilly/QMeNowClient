@@ -38,6 +38,7 @@
         <TextView
             android:id="@+id/locationName"
             android:textSize="@dimen/general_text_size"
+            android:layout_marginLeft="@dimen/circle_margin_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -58,6 +59,7 @@
         <TextView
             android:id="@+id/statusName"
             android:textSize="@dimen/general_text_size"
+            android:layout_marginLeft="@dimen/circle_margin_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -78,6 +80,7 @@
         <TextView
             android:id="@+id/appointmentTypeName"
             android:textSize="@dimen/general_text_size"
+            android:layout_marginLeft="@dimen/circle_margin_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
