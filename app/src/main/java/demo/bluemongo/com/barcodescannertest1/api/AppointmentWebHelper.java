@@ -56,11 +56,10 @@ public class AppointmentWebHelper {
                         AppointmentsResponse appointmentsResponse = response.body();
 
                         if (appointmentsResponse.getAppointmentList().size() > 0) {
-/*                            Appointment firstAppointmentTest = appointmentsResponse.getAppointmentList().get(0);
-                            String result = firstAppointmentTest.getMessageToCustomer();*/
-                            //retrieveAppointmentsView.displayAppointments(result);
-                            //appointmentsPresenter.appointmentResultsCallback(result);
                             appointmentsPresenter.showAppointmentsList(appointmentsResponse);
+                        }
+                        else{
+                            appointmentsPresenter.setMessage(AppointmentsPresenter.MessageToUser.NOAPPOINTMENTSFOUND);
                         }
                     }
                 } else {

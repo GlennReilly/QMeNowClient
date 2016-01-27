@@ -9,6 +9,7 @@ import demo.bluemongo.com.barcodescannertest1.view.MainView;
 public class MainPresenter extends GenericPresenter {
     private final MainView view;
 
+
     public MainPresenter(MainView view){
         super((GenericView) view);
         this.view = view;

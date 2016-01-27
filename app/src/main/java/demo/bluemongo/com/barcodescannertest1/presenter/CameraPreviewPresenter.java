@@ -18,12 +18,29 @@ public class CameraPreviewPresenter {
 
     }
 
-    public void processBarcodeValue(String barcodeContent) {
-        if (model.isBarcodeValid(barcodeContent)) {
-         view.onValidBarcodeResult(barcodeContent);
-        }else{
-            view.showInvalidBarcodeMessage();
+    public void processBarcodeValue(CameraPreviewView.BarcodeType barcodeType, String barcodeContent) {
+        switch(barcodeType){
+            case BUSINESS: processBusinessBarcode(barcodeContent);
+                break;
+            case CUSTOMER: processCustomerBarcode(barcodeContent);
+                break;
         }
+    }
 
+
+    private void processBusinessBarcode(String barcodeContent) {
+        if (model.isBusinessBarcodeValid(barcodeContent)) {
+            view.onValidBusinessBarcodeResult(barcodeContent);
+        }else{
+            view.showInvalidBusinessBarcodeMessage();
+        }
+    }
+
+    private void processCustomerBarcode(String barcodeContent) {
+        if (model.isCustomerBarcodeValid(barcodeContent)) {
+            view.onValidCustomerBarcodeResult(model.getQRCodePayload());
+        }else{
+            view.showInvalidCustomerBarcodeMessage();
+        }
     }
 }

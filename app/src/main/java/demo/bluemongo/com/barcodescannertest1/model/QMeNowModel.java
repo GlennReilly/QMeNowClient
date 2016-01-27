@@ -6,6 +6,7 @@ package demo.bluemongo.com.barcodescannertest1.model;
 
 import android.content.SharedPreferences;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,27 +20,29 @@ public class QMeNowModel {
     public static final String USER_DETAILS_PREFERENCES = "USER_DETAILS_PREFERENCES";
     public static final String SETTINGS__PREFERENCES = "SETTINGS__PREFERENCES";
 
-    final String FIRSTNAME = "firstName";
-    final String LASTNAME = "lastName";
-    final String CUSTOMERID = "customerId";
+    public static final String FIRSTNAME = "firstName";
+    public static final String LASTNAME = "lastName";
+    public static final String CUSTOMERID = "customerId";
     final String EMPTY = "";
     final String WEBHELPER_BASEURL = "WebHelperBaseUrl";
     final String DEFAULT_WEBHELPER_BASEURL = "http://10.1.1.7:8080/";
+    private QRCodePayload QRCodePayload = null;
 
-    public boolean isBarcodeValid(String rawValue) {
+    public demo.bluemongo.com.barcodescannertest1.model.QRCodePayload getQRCodePayload() {
+        return QRCodePayload;
+    }
+
+    public boolean isBusinessBarcodeValid(String rawValue) {
         boolean result = false;
-        String dateTimeformat = "";
         String dateTimeString = "";
-        String customerName = "";
+        String businessName = "";
         String content = "";
 
         try {
             JSONObject jsonObject = new JSONObject(rawValue);
-             //dateTimeformat = jsonObject.getString("DateTimeFormat");
-             dateTimeString = jsonObject.getString("DateTimeString");
-             customerName = jsonObject.getString("CustomerName");
+             dateTimeString = jsonObject.getString("dateTimeString");
+             businessName = jsonObject.getString("businessName");
              content = jsonObject.getString("Content");
-            //SimpleDateFormat formatter = new SimpleDateFormat(dateTimeformat);
             Date barcodeDate = InputHelper.getDateFromISO8601String(dateTimeString); //formatter.parse(dateTimeString);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(barcodeDate);
@@ -50,6 +53,47 @@ public class QMeNowModel {
             if (barcodeDateExpiryDate.compareTo(now) > 0){   //.. does the barcode expire in the future?
                 //barcodeDateWithAddedTime is later than now, so still within grace period.
                 result = true;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public boolean isCustomerBarcodeValid(String barcodeContent) {
+        boolean result = false;
+/*        String dateTimeString = "";
+        String content = "";
+        String businessName = "";
+        String customerFirstName;
+        String customerLastName;
+        Integer customerId;*/
+
+
+        try {
+            JSONObject jsonObject = new JSONObject(barcodeContent);
+            QRCodePayload qrCodePayload = new QRCodePayload();
+            qrCodePayload.setDateTimeString(jsonObject.getString("dateTimeString"));
+            //qrCodePayload.setBusinessName(jsonObject.getString("businessName"));
+            qrCodePayload.setCustomerFirstName(jsonObject.getString("customerFirstName"));
+            qrCodePayload.setCustomerLastName(jsonObject.getString("customerLastName"));
+            qrCodePayload.setCustomerId(jsonObject.getInt("customerId"));
+            qrCodePayload.setContent(jsonObject.getString("Content"));
+
+            Date barcodeDate = InputHelper.getDateFromISO8601String(qrCodePayload.getDateTimeString()); //formatter.parse(dateTimeString);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(barcodeDate);
+            //calendar.add(Calendar.HOUR_OF_DAY, 1);
+            calendar.add(Calendar.HOUR_OF_DAY, 12);
+            Date barcodeDateExpiryDate = calendar.getTime();
+            Date now = new Date();
+            if ((barcodeDateExpiryDate.compareTo(now) > 0)
+                    && (StringUtils.isNotBlank(qrCodePayload.getCustomerFirstName()))
+                    && (StringUtils.isNotBlank(qrCodePayload.getCustomerLastName()))
+                    & (qrCodePayload.getCustomerId() > 0)){
+                result = true;
+                this.QRCodePayload = qrCodePayload;
             }
 
         } catch (JSONException e) {
@@ -84,8 +128,6 @@ public class QMeNowModel {
         editor.putString(WEBHELPER_BASEURL, webHelperBaseURL);
         editor.commit();
     }
-
-
 
 
 }

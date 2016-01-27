@@ -19,9 +19,11 @@ public class MainMenuFragment extends GenericView implements MainView {
     private OnFragmentInteractionListener mListener;
     private MainPresenter presenter;
 
+    public CameraPreviewView.BarcodeType barcodeType;
+
     public interface OnFragmentInteractionListener {
-        void enterUserDetails();
-        void openCameraPreview();
+        void showUserDetails(Bundle bundle);
+        void openCameraPreview(CameraPreviewView.BarcodeType barcodeType);
     }
 
     @Override
@@ -39,7 +41,7 @@ public class MainMenuFragment extends GenericView implements MainView {
         btnToEnterUserDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.enterUserDetails();
+                mListener.showUserDetails(null);
             }
         });
 
@@ -47,7 +49,7 @@ public class MainMenuFragment extends GenericView implements MainView {
         btnToScanBarcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.openCameraPreview();
+                mListener.openCameraPreview(CameraPreviewView.BarcodeType.BUSINESS);
             }
         });
 

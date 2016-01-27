@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import demo.bluemongo.com.barcodescannertest1.R;
+import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
 import demo.bluemongo.com.barcodescannertest1.model.UserDetails;
 import demo.bluemongo.com.barcodescannertest1.presenter.UserDetailsPresenter;
 
@@ -37,16 +38,37 @@ public class UserDetailsFragment extends GenericView implements UserDetailsView 
         final EditText etLastName = (EditText) view.findViewById(R.id.etSurname);
         final EditText etCustomerId = (EditText) view.findViewById(R.id.etCustomerId);
         Button btnSubmitUserDetails = (Button) view.findViewById(R.id.btnSubmitUserDetails);
+        Button btnScanUserDetails = (Button) view.findViewById(R.id.btnScanUserDetails);
 
-        UserDetails userDetails = mUserDetailspresenter.getSavedUserDetails();
-        etFirstName.setText(String.valueOf(userDetails.getFirstName()));
-        etLastName.setText(String.valueOf(userDetails.getLastName()));
-        etCustomerId.setText(String.valueOf(userDetails.getCustomerId()));
+        if(getArguments() != null){
+            Bundle bundle = getArguments();
+            String firstname = bundle.getString(QMeNowModel.FIRSTNAME);
+            String lastname = bundle.getString(QMeNowModel.LASTNAME);
+            int customerId = bundle.getInt(QMeNowModel.CUSTOMERID);
+            etFirstName.setText(String.valueOf(firstname));
+            etLastName.setText(String.valueOf(lastname));
+            etCustomerId.setText(String.valueOf(customerId));
+            saveUserDetails(etFirstName, etLastName, etCustomerId);
+        }else{
+            UserDetails userDetails = mUserDetailspresenter.getSavedUserDetails();
+            etFirstName.setText(String.valueOf(userDetails.getFirstName()));
+            etLastName.setText(String.valueOf(userDetails.getLastName()));
+            etCustomerId.setText(String.valueOf(userDetails.getCustomerId()));
+        }
+
 
         btnSubmitUserDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveUserDetails(etFirstName, etLastName, etCustomerId);
+                mListener.showMainMenu();
+            }
+        });
+
+        btnScanUserDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.openCameraPreview(CameraPreviewView.BarcodeType.CUSTOMER);
             }
         });
 
@@ -54,13 +76,12 @@ public class UserDetailsFragment extends GenericView implements UserDetailsView 
     }
 
     @Override
-    public void saveUserDetails(EditText etFirstName, EditText etLastName, EditText etCustomerId) {
+    public void  saveUserDetails(EditText etFirstName, EditText etLastName, EditText etCustomerId) {
         String firstName = etFirstName.getText().toString();
         String lastName = etLastName.getText().toString();
         Integer customerId = Integer.parseInt(etCustomerId.getText().toString());
         mUserDetailspresenter.saveUserDetails(firstName, lastName, customerId);
         Toast.makeText(getActivity().getApplicationContext(), getString(R.string.user_saved_successfully), Toast.LENGTH_SHORT).show();
-        mListener.showMainMenu();
     }
 
     @Override
@@ -81,6 +102,7 @@ public class UserDetailsFragment extends GenericView implements UserDetailsView 
 
     public interface OnFragmentInteractionListener {
         void showMainMenu();
+        void openCameraPreview(CameraPreviewView.BarcodeType customerBarcodeType);
     }
 
     @Override

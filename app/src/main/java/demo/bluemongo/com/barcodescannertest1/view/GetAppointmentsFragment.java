@@ -116,9 +116,15 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
     }
 
     @Override
-    public void showMessage(String message) {
+    public void showMessage(final String message) {
         progressDialog.dismiss();
         tvMessage2.setText(message);
+
+    }
+
+    @Override
+    public String getMessage(AppointmentsPresenter.MessageToUser messageToUser) {
+        return getString(R.string.noAppointmentsFound);
     }
 
     @Override

@@ -13,6 +13,7 @@ public class AppointmentsPresenter extends GenericPresenter {
     private final RetrieveAppointmentsView view;
     private final QMeNowModel model = new QMeNowModel();
     private String message;
+    public enum MessageToUser {NOAPPOINTMENTSFOUND}
 
     public AppointmentsPresenter(RetrieveAppointmentsView getAppointmentsView) {
         super((GenericView)getAppointmentsView);
@@ -31,6 +32,11 @@ public class AppointmentsPresenter extends GenericPresenter {
     public void setMessage(String message) {
         this.message = message;
         view.showMessage(message);
+    }
+
+    public void setMessage(MessageToUser messageToUser) {
+        this.message = view.getMessage(messageToUser);
+        view.showMessage(this.message);
     }
 
     public String getMessage() {

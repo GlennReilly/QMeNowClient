@@ -27,4 +27,5 @@
     <string name="labelWebHelperBaseURL">webHelperBaseURL</string>
     <string name="webserviceBaseURL">http://</string>
     <string name="settings_saved_successfully">Settings Saved Successfully</string>
+    <string name="noAppointmentsFound">Sorry, no appointments found for today.</string>
 </resources>

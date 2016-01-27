@@ -11,6 +11,8 @@ import android.view.MenuItem;
 
 import demo.bluemongo.com.barcodescannertest1.R;
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentWrapper;
+import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
+import demo.bluemongo.com.barcodescannertest1.model.QRCodePayload;
 
 public class MainActivity extends AppCompatActivity implements
         MainMenuFragment.OnFragmentInteractionListener,
@@ -34,10 +36,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         showMainMenu();
         setContentView(R.layout.activity_main);
-
     }
 
     @Override
@@ -51,20 +51,36 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void enterUserDetails() {
+    public void showUserDetails(Bundle bundle) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         UserDetailsFragment userDetailsFragment = new UserDetailsFragment();
+        if (bundle != null){
+            userDetailsFragment.setArguments(bundle);
+        }
         fragmentTransaction.replace(R.id.fragment_container, userDetailsFragment, TAG_USER_DETAILS_FRAGMENT);
         fragmentTransaction.addToBackStack(TAG_MAIN_FRAGMENT);
         fragmentTransaction.commit();
     }
 
     @Override
-    public void openCameraPreview() {
+    public void populateCustomerDetailsFromBarcode(QRCodePayload qrCodePayload) {
+        Bundle bundle = new Bundle();
+        bundle.putString(QMeNowModel.FIRSTNAME, qrCodePayload.getCustomerFirstName());
+        bundle.putString(QMeNowModel.LASTNAME, qrCodePayload.getCustomerLastName());
+        bundle.putInt(QMeNowModel.CUSTOMERID, qrCodePayload.getCustomerId());
+        showUserDetails(bundle);
+    }
+
+
+    @Override
+    public void openCameraPreview(CameraPreviewView.BarcodeType barcodeType) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         CameraFragment cameraFragment = new CameraFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(CameraPreviewView.ScanningForBarcodeType, barcodeType.toString());
+        cameraFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.fragment_container, cameraFragment, TAG_CAMERA_FRAGMENT);
         fragmentTransaction.addToBackStack(TAG_CAMERA_FRAGMENT);
         fragmentTransaction.commit();
@@ -94,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements
         fragmentTransaction.addToBackStack(TAG_GET_APPOINTMENTS_FRAGMENT);
         fragmentTransaction.commit();
     }
+
+
 
     @Override
     public void showAppointmentDetails(AppointmentWrapper appointmentWrapper) {

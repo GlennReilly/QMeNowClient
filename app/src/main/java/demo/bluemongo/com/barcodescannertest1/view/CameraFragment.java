@@ -31,6 +31,7 @@ import java.io.IOException;
 import demo.bluemongo.com.barcodescannertest1.R;
 import demo.bluemongo.com.barcodescannertest1.cameraui.CameraSourcePreview;
 import demo.bluemongo.com.barcodescannertest1.cameraui.GraphicOverlay;
+import demo.bluemongo.com.barcodescannertest1.model.QRCodePayload;
 import demo.bluemongo.com.barcodescannertest1.presenter.CameraPreviewPresenter;
 import demo.bluemongo.com.barcodescannertest1.service.BarcodeTrackerFactory;
 
@@ -54,6 +55,7 @@ public class CameraFragment extends GenericView implements CameraPreviewView {
 
     private OnFragmentInteractionListener mListener;
     private CameraPreviewPresenter mCameraPreviewPresenter;
+    private BarcodeType barcodeType;
 
     /**
      * Use this factory method to create a new instance of
@@ -86,8 +88,8 @@ public class CameraFragment extends GenericView implements CameraPreviewView {
     public interface OnFragmentInteractionListener { //These are the ways this fragment communicates with the rest of the app, via the Activity.
 
         void showInvalidBarcodeMessage();
-        //void showValidBarcodeMessage();
         void showUsersAppointments();
+        void populateCustomerDetailsFromBarcode(QRCodePayload qrCodePayload);
     }
 
     @Override
@@ -95,7 +97,12 @@ public class CameraFragment extends GenericView implements CameraPreviewView {
         super.onCreate(savedInstanceState);
         mCameraPreviewPresenter = new CameraPreviewPresenter(this);
 
+        Bundle bundle = this.getArguments();
+        final String barcodeTypeScanningFor =  bundle.getString(CameraPreviewView.ScanningForBarcodeType);
+        barcodeType = BarcodeType.valueOf(barcodeTypeScanningFor);
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -120,7 +127,7 @@ public class CameraFragment extends GenericView implements CameraPreviewView {
 
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         try {
             mListener = (OnFragmentInteractionListener) activity;
@@ -142,19 +149,28 @@ public class CameraFragment extends GenericView implements CameraPreviewView {
 
         if(!recentBarCodeResult.equals(rawValue)) {
             recentBarCodeResult = rawValue;
-
-            mCameraPreviewPresenter.processBarcodeValue(rawValue);
+            mCameraPreviewPresenter.processBarcodeValue(barcodeType, rawValue);
         }
     }
 
     @Override
-    public void onValidBarcodeResult(String rawValue) {
+    public void onValidBusinessBarcodeResult(String rawValue) {
         mListener.showUsersAppointments();
         //mListener.showValidBarcodeMessage();
     }
 
     @Override
-    public void showInvalidBarcodeMessage() {
+    public void showInvalidBusinessBarcodeMessage() {
+        mListener.showInvalidBarcodeMessage();
+    }
+
+    @Override
+    public void onValidCustomerBarcodeResult(QRCodePayload qrCodePayload) {
+        mListener.populateCustomerDetailsFromBarcode(qrCodePayload);
+    }
+
+    @Override
+    public void showInvalidCustomerBarcodeMessage() {
         mListener.showInvalidBarcodeMessage();
     }
 
