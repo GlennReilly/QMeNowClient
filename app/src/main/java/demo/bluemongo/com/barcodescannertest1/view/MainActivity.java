@@ -11,8 +11,8 @@ import android.view.MenuItem;
 
 import demo.bluemongo.com.barcodescannertest1.R;
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentWrapper;
+import demo.bluemongo.com.barcodescannertest1.model.CustomerQRCodePayload;
 import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
-import demo.bluemongo.com.barcodescannertest1.model.QRCodePayload;
 
 public class MainActivity extends AppCompatActivity implements
         MainMenuFragment.OnFragmentInteractionListener,
@@ -64,11 +64,11 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void populateCustomerDetailsFromBarcode(QRCodePayload qrCodePayload) {
+    public void populateCustomerDetailsFromBarcode(CustomerQRCodePayload customerQRCodePayload) {
         Bundle bundle = new Bundle();
-        bundle.putString(QMeNowModel.FIRSTNAME, qrCodePayload.getCustomerFirstName());
-        bundle.putString(QMeNowModel.LASTNAME, qrCodePayload.getCustomerLastName());
-        bundle.putInt(QMeNowModel.CUSTOMERID, qrCodePayload.getCustomerId());
+        bundle.putString(QMeNowModel.FIRSTNAME, customerQRCodePayload.getCustomerFirstName());
+        bundle.putString(QMeNowModel.LASTNAME, customerQRCodePayload.getCustomerLastName());
+        bundle.putInt(QMeNowModel.CUSTOMERID, customerQRCodePayload.getCustomerId());
         showUserDetails(bundle);
     }
 

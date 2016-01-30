@@ -38,7 +38,7 @@ public class CameraPreviewPresenter {
 
     private void processCustomerBarcode(String barcodeContent) {
         if (model.isCustomerBarcodeValid(barcodeContent)) {
-            view.onValidCustomerBarcodeResult(model.getQRCodePayload());
+            view.onValidCustomerBarcodeResult(model.getCustomerQRCodePayload());
         }else{
             view.showInvalidCustomerBarcodeMessage();
         }

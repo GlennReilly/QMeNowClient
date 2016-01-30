@@ -1,6 +1,6 @@
 package demo.bluemongo.com.barcodescannertest1.view;
 
-import demo.bluemongo.com.barcodescannertest1.model.QRCodePayload;
+import demo.bluemongo.com.barcodescannertest1.model.CustomerQRCodePayload;
 
 /**
  * Created by glenn on 23/09/15.
@@ -11,6 +11,6 @@ public interface CameraPreviewView {
     void onBarcodeResult(String rawValue);
     void onValidBusinessBarcodeResult(String rawValue);
     void showInvalidBusinessBarcodeMessage();
-    void onValidCustomerBarcodeResult(QRCodePayload rawValue);
+    void onValidCustomerBarcodeResult(CustomerQRCodePayload rawValue);
     void showInvalidCustomerBarcodeMessage();
 }
