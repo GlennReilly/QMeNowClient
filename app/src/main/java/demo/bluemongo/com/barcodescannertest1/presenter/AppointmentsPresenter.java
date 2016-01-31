@@ -45,5 +45,6 @@ public class AppointmentsPresenter extends GenericPresenter {
 
     public String getWebHelperBaseURL() {
         return model.getWebHelperBaseURL(view.getUserDetailsSharedPreferences());
+        //TODO the above should probably be the getAppSettingsSharedPreferences();
     }
 }

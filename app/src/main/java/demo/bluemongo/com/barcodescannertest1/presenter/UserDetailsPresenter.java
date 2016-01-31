@@ -15,6 +15,7 @@ public class UserDetailsPresenter extends GenericPresenter{
 
 
 
+
     public UserDetailsPresenter(UserDetailsView view) {
         super((GenericView) view);
         this.userDetailsView = view;
