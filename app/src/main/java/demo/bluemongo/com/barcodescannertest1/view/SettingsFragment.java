@@ -84,7 +84,7 @@ public class SettingsFragment extends GenericView implements SettingsView {
     }
 
     @Override
-    public SharedPreferences getSharedPreferences() {
+    public SharedPreferences getUserDetailsSharedPreferences() {
         return getActivity().getSharedPreferences(settingsPresenter.getUserDetailsPrefsString(), Context.MODE_PRIVATE);
     }
 }

@@ -30,7 +30,8 @@ public class CameraPreviewPresenter {
 
     private void processBusinessBarcode(String barcodeContent) {
         if (model.isBusinessBarcodeValid(barcodeContent)) {
-            view.onValidBusinessBarcodeResult(barcodeContent);
+            model.saveBusinessDetails(model.getBusinessQRCodePayload(), view.getBusinessDetailsSharedPreferences());
+            view.showUsersAppointments(model.getBusinessQRCodePayload());
         }else{
             view.showInvalidBusinessBarcodeMessage();
         }

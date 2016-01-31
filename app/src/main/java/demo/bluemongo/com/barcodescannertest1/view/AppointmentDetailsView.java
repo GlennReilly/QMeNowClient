@@ -12,6 +12,7 @@ import demo.bluemongo.com.barcodescannertest1.model.AppointmentStatus;
  */
 public interface AppointmentDetailsView {
     void progressAppointmentStatus(Appointment appointment, List<AppointmentStatus> appointmentStatusList);
-
-    SharedPreferences getSharedPreferences();
+    SharedPreferences getUserDetailsSharedPreferences();
+    SharedPreferences getBusinessDetailsSharedPreferences();
+    SharedPreferences getAppSettingsSharedPreferences();
 }

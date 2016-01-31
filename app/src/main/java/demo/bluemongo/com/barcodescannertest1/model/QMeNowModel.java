@@ -18,6 +18,7 @@ import demo.bluemongo.com.barcodescannertest1.utils.InputHelper;
 
 public class QMeNowModel {
     public static final String USER_DETAILS_PREFERENCES = "USER_DETAILS_PREFERENCES";
+    public static final String BUSINESS_DETAILS_PREFERENCES = "BUSINESS_DETAILS_PREFERENCES";
     public static final String SETTINGS__PREFERENCES = "SETTINGS__PREFERENCES";
 
     public static final String FIRSTNAME = "firstName";
@@ -26,11 +27,17 @@ public class QMeNowModel {
     final String EMPTY = "";
     final String WEBHELPER_BASEURL = "WebHelperBaseUrl";
     final String DEFAULT_WEBHELPER_BASEURL = "http://10.1.1.7:8080/";
-    private CustomerQRCodePayload customerQRCodePayload = null;
 
-    public demo.bluemongo.com.barcodescannertest1.model.CustomerQRCodePayload getCustomerQRCodePayload() {
-        return customerQRCodePayload;
-    }
+    final String BUSINESS_NAME = "BUSINESS_NAME";
+    final String BUTTON_COLOUR_HEX_CODE = "BUTTON_COLOUR_HEX_CODE";
+    final String HEADER_COLOUR_HEX_CODE = "HEADER_COLOUR_HEX_CODE";
+    final String BACKGROUND_COLOUR_HEX_CODE = "BACKGROUND_COLOUR_HEX_CODE";
+    final String FOOTER_COLOUR_HEX_CODE = "FOOTER_COLOUR_HEX_CODE";
+
+
+    private CustomerQRCodePayload  customerQRCodePayload = new CustomerQRCodePayload();
+    private BusinessQRCodePayload businessQRCodePayload = new BusinessQRCodePayload();
+
 
     public boolean isBusinessBarcodeValid(String rawValue) {
         boolean result = false;
@@ -43,17 +50,9 @@ public class QMeNowModel {
             //dateTimeString = jsonObject.getString("dateTimeString");
             //businessName = jsonObject.getString("businessName");
             content = jsonObject.getString("Content");
-            BusinessQRCodePayload businessQRCodePayload = new BusinessQRCodePayload();
+
             businessQRCodePayload.setDateTimeString(jsonObject.getString("dateTimeString"));
-            businessQRCodePayload.setBusinessName(jsonObject.getString("businessName"));
-            businessQRCodePayload.setContent(jsonObject.getString("Content"));
-
-            businessQRCodePayload.setButtonColourHexCode(jsonObject.getString("buttonColourHexCode"));
-            businessQRCodePayload.setHeaderColourHexCode(jsonObject.getString("headerColourHexCode"));
-            businessQRCodePayload.setBackgroundColourHexCode(jsonObject.getString("backgroundColourHexCode"));
-            businessQRCodePayload.setFooterColourHexCode(jsonObject.getString("footerColourHexCode"));
-
-            Date barcodeDate = InputHelper.getDateFromISO8601String(businessQRCodePayload.getDateTimeString()); //formatter.parse(dateTimeString);
+            Date barcodeDate = InputHelper.getDateFromISO8601String(businessQRCodePayload.getDateTimeString());
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(barcodeDate);
             //calendar.add(Calendar.HOUR_OF_DAY, 1);
@@ -62,6 +61,14 @@ public class QMeNowModel {
             Date now = new Date();
             if (barcodeDateExpiryDate.compareTo(now) > 0){   //.. does the barcode expire in the future?
                 //barcodeDateWithAddedTime is later than now, so still within grace period.
+                businessQRCodePayload.setDateTimeString(jsonObject.getString("dateTimeString"));
+                businessQRCodePayload.setBusinessName(jsonObject.getString("businessName"));
+                businessQRCodePayload.setContent(jsonObject.getString("Content"));
+
+                businessQRCodePayload.setButtonColourHexCode(jsonObject.getString("buttonColourHexCode"));
+                businessQRCodePayload.setHeaderColourHexCode(jsonObject.getString("headerColourHexCode"));
+                businessQRCodePayload.setBackgroundColourHexCode(jsonObject.getString("backgroundColourHexCode"));
+                businessQRCodePayload.setFooterColourHexCode(jsonObject.getString("footerColourHexCode"));
                 result = true;
             }
 
@@ -76,13 +83,7 @@ public class QMeNowModel {
 
         try {
             JSONObject jsonObject = new JSONObject(barcodeContent);
-            CustomerQRCodePayload customerQRCodePayload = new CustomerQRCodePayload();
             customerQRCodePayload.setDateTimeString(jsonObject.getString("dateTimeString"));
-            customerQRCodePayload.setCustomerFirstName(jsonObject.getString("customerFirstName"));
-            customerQRCodePayload.setCustomerLastName(jsonObject.getString("customerLastName"));
-            customerQRCodePayload.setCustomerId(jsonObject.getInt("customerId"));
-            customerQRCodePayload.setContent(jsonObject.getString("Content"));
-
             Date barcodeDate = InputHelper.getDateFromISO8601String(customerQRCodePayload.getDateTimeString()); //formatter.parse(dateTimeString);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(barcodeDate);
@@ -91,13 +92,16 @@ public class QMeNowModel {
             Date barcodeDateExpiryDate = calendar.getTime();
             Date now = new Date();
             if ((barcodeDateExpiryDate.compareTo(now) > 0)
-                    && (StringUtils.isNotBlank(customerQRCodePayload.getCustomerFirstName()))
-                    && (StringUtils.isNotBlank(customerQRCodePayload.getCustomerLastName()))
-                    & (customerQRCodePayload.getCustomerId() > 0)){
-                result = true;
-                this.customerQRCodePayload = customerQRCodePayload;
+                && (StringUtils.isNotBlank(customerQRCodePayload.getCustomerFirstName()))
+                && (StringUtils.isNotBlank(customerQRCodePayload.getCustomerLastName()))
+                & (customerQRCodePayload.getCustomerId() > 0)){
+                    customerQRCodePayload.setDateTimeString(jsonObject.getString("dateTimeString"));
+                    customerQRCodePayload.setCustomerFirstName(jsonObject.getString("customerFirstName"));
+                    customerQRCodePayload.setCustomerLastName(jsonObject.getString("customerLastName"));
+                    customerQRCodePayload.setCustomerId(jsonObject.getInt("customerId"));
+                    customerQRCodePayload.setContent(jsonObject.getString("Content"));
+                    result = true;
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -131,5 +135,21 @@ public class QMeNowModel {
         editor.commit();
     }
 
+    public BusinessQRCodePayload getBusinessQRCodePayload() {
+        return businessQRCodePayload;
+    }
 
+    public CustomerQRCodePayload getCustomerQRCodePayload() {
+        return customerQRCodePayload;
+    }
+
+    public void saveBusinessDetails(BusinessQRCodePayload businessQRCodePayload, SharedPreferences businessDetailsSharedPreferences) {
+        SharedPreferences.Editor editor = businessDetailsSharedPreferences.edit();
+        editor.putString(BUSINESS_NAME, businessQRCodePayload.getBusinessName());
+        editor.putString(BUTTON_COLOUR_HEX_CODE, businessQRCodePayload.getButtonColourHexCode());
+        editor.putString(HEADER_COLOUR_HEX_CODE, businessQRCodePayload.getHeaderColourHexCode());
+        editor.putString(BACKGROUND_COLOUR_HEX_CODE, businessQRCodePayload.getBackgroundColourHexCode());
+        editor.putString(FOOTER_COLOUR_HEX_CODE, businessQRCodePayload.getFooterColourHexCode());
+        editor.commit();
+    }
 }

@@ -25,7 +25,7 @@ public class UserDetailsPresenter extends GenericPresenter{
         userDetails.setFirstName(firstName);
         userDetails.setLastName(lastName);
         userDetails.setCustomerId(customerId);
-        model.saveUserDetails(userDetails, userDetailsView.getSharedPreferences());
+        model.saveUserDetails(userDetails, userDetailsView.getUserDetailsSharedPreferences());
     }
 
 }

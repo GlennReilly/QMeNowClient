@@ -14,9 +14,19 @@ public class GenericView extends Fragment {
     private GenericPresenter presenter;
 
 
-    public SharedPreferences getSharedPreferences() {
+    public SharedPreferences getUserDetailsSharedPreferences() {
         Context cxt = getActivity();
         return cxt.getSharedPreferences(presenter.getUserDetailsPrefsString(), Context.MODE_PRIVATE);
+    }
+
+    public SharedPreferences getBusinessDetailsSharedPreferences() {
+        Context cxt = getActivity();
+        return cxt.getSharedPreferences(presenter.getBusinessDetailsPrefsString(), Context.MODE_PRIVATE);
+    }
+
+    public SharedPreferences getAppSettingsSharedPreferences() {
+        Context cxt = getActivity();
+        return cxt.getSharedPreferences(presenter.getAppSettingsPrefsString(), Context.MODE_PRIVATE);
     }
 
     public void setView(GenericView view) {

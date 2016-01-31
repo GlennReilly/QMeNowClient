@@ -31,6 +31,7 @@ import java.io.IOException;
 import demo.bluemongo.com.barcodescannertest1.R;
 import demo.bluemongo.com.barcodescannertest1.cameraui.CameraSourcePreview;
 import demo.bluemongo.com.barcodescannertest1.cameraui.GraphicOverlay;
+import demo.bluemongo.com.barcodescannertest1.model.BusinessQRCodePayload;
 import demo.bluemongo.com.barcodescannertest1.model.CustomerQRCodePayload;
 import demo.bluemongo.com.barcodescannertest1.presenter.CameraPreviewPresenter;
 import demo.bluemongo.com.barcodescannertest1.service.BarcodeTrackerFactory;
@@ -154,9 +155,8 @@ public class CameraFragment extends GenericView implements CameraPreviewView {
     }
 
     @Override
-    public void onValidBusinessBarcodeResult(String rawValue) {
+    public void showUsersAppointments(BusinessQRCodePayload businessQRCodePayload) {
         mListener.showUsersAppointments();
-        //mListener.showValidBarcodeMessage();
     }
 
     @Override

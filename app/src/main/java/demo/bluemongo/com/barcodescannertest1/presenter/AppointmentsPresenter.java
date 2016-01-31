@@ -21,7 +21,7 @@ public class AppointmentsPresenter extends GenericPresenter {
     }
 
     public UserDetails getSavedUserDetails() {
-        return model.getUserDetails(view.getSharedPreferences());
+        return model.getUserDetails(view.getUserDetailsSharedPreferences());
     }
 
 
@@ -44,6 +44,6 @@ public class AppointmentsPresenter extends GenericPresenter {
     }
 
     public String getWebHelperBaseURL() {
-        return model.getWebHelperBaseURL(view.getSharedPreferences());
+        return model.getWebHelperBaseURL(view.getUserDetailsSharedPreferences());
     }
 }

@@ -128,7 +128,7 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
     }
 
     @Override
-    public SharedPreferences getSharedPreferences() {
+    public SharedPreferences getUserDetailsSharedPreferences() {
         return getActivity().getSharedPreferences(mAppointmentsPresenter.getUserDetailsPrefsString(), Context.MODE_PRIVATE);
     }
 

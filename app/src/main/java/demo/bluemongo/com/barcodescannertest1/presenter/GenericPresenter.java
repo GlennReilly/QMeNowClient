@@ -16,14 +16,22 @@ public class GenericPresenter {
     }
 
     public String getWebHelperBaseURL() {
-        return model.getWebHelperBaseURL(view.getSharedPreferences());
+        return model.getWebHelperBaseURL(view.getUserDetailsSharedPreferences());
     }
 
     public UserDetails getSavedUserDetails() {
-        return model.getUserDetails(view.getSharedPreferences());
+        return model.getUserDetails(view.getUserDetailsSharedPreferences());
     }
 
     public static String getUserDetailsPrefsString() {
         return model.USER_DETAILS_PREFERENCES;
+    }
+
+    public static String getBusinessDetailsPrefsString() {
+        return model.BUSINESS_DETAILS_PREFERENCES;
+    }
+
+    public static String getAppSettingsPrefsString() {
+        return model.SETTINGS__PREFERENCES;
     }
 }

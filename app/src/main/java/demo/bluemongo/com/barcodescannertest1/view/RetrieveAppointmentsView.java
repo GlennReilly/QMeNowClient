@@ -9,10 +9,11 @@ import demo.bluemongo.com.barcodescannertest1.presenter.AppointmentsPresenter;
  * Created by glenn on 5/10/15.
  */
 public interface RetrieveAppointmentsView {
-    SharedPreferences getSharedPreferences();
     void retrieveAppointments();
     void displayAppointments(AppointmentsResponse appointmentsResponse);
     void showMessage(String message);
-
     String getMessage(AppointmentsPresenter.MessageToUser messageToUser);
+    SharedPreferences getUserDetailsSharedPreferences();
+    SharedPreferences getBusinessDetailsSharedPreferences();
+    SharedPreferences getAppSettingsSharedPreferences();
 }

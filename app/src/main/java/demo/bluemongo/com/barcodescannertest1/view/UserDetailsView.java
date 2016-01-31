@@ -9,5 +9,7 @@ import android.widget.EditText;
 public interface UserDetailsView {
     void saveUserDetails(EditText etFirstName, EditText etLastName, EditText etCustomerId);
 
-    SharedPreferences getSharedPreferences();
+    SharedPreferences getUserDetailsSharedPreferences();
+    SharedPreferences getBusinessDetailsSharedPreferences();
+    SharedPreferences getAppSettingsSharedPreferences();
 }

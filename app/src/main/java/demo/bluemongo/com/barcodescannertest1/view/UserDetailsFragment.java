@@ -96,7 +96,7 @@ public class UserDetailsFragment extends GenericView implements UserDetailsView 
     }
 
     @Override
-    public SharedPreferences getSharedPreferences() {
+    public SharedPreferences getUserDetailsSharedPreferences() {
         return getActivity().getSharedPreferences(mUserDetailspresenter.getUserDetailsPrefsString(), Context.MODE_PRIVATE);
     }
 
