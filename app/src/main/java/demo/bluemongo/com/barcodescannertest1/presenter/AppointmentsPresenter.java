@@ -1,7 +1,6 @@
 package demo.bluemongo.com.barcodescannertest1.presenter;
 
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentsResponse;
-import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
 import demo.bluemongo.com.barcodescannertest1.model.UserDetails;
 import demo.bluemongo.com.barcodescannertest1.view.GenericView;
 import demo.bluemongo.com.barcodescannertest1.view.RetrieveAppointmentsView;
@@ -11,7 +10,7 @@ import demo.bluemongo.com.barcodescannertest1.view.RetrieveAppointmentsView;
  */
 public class AppointmentsPresenter extends GenericPresenter {
     private final RetrieveAppointmentsView view;
-    private final QMeNowModel model = new QMeNowModel();
+    //private final QMeNowModel model = new QMeNowModel();
     private String message;
     public enum MessageToUser {NOAPPOINTMENTSFOUND}
 
@@ -44,7 +43,6 @@ public class AppointmentsPresenter extends GenericPresenter {
     }
 
     public String getWebHelperBaseURL() {
-        return model.getWebHelperBaseURL(view.getUserDetailsSharedPreferences());
-        //TODO the above should probably be the getAppSettingsSharedPreferences();
+        return model.getWebHelperBaseURL(view.getAppSettingsSharedPreferences());
     }
 }

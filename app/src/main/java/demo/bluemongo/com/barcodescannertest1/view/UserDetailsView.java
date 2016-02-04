@@ -8,8 +8,11 @@ import android.widget.EditText;
  */
 public interface UserDetailsView {
     void saveUserDetails(EditText etFirstName, EditText etLastName, EditText etCustomerId);
+    void removeUserDetails();
+    void setUIElementsFromSavedDetails();
 
     SharedPreferences getUserDetailsSharedPreferences();
     SharedPreferences getBusinessDetailsSharedPreferences();
     SharedPreferences getAppSettingsSharedPreferences();
+
 }

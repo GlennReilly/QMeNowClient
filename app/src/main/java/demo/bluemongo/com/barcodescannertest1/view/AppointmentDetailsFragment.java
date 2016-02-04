@@ -27,7 +27,7 @@ public class AppointmentDetailsFragment extends GenericView implements Appointme
     public static final String APPOINTMENT_WRAPPER_KEY = "APPOINTMENT_WRAPPER_KEY";
 
     private OnFragmentInteractionListener mListener;
-    private AppointmentsDetailsPresenter mAppointmentsDetailsPresenter;
+    private AppointmentsDetailsPresenter appointmentsDetailsPresenter;
 
 
     public AppointmentDetailsFragment() {
@@ -63,8 +63,8 @@ public class AppointmentDetailsFragment extends GenericView implements Appointme
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setView(this);
-        mAppointmentsDetailsPresenter = new AppointmentsDetailsPresenter(this);
-        setPresenter(mAppointmentsDetailsPresenter);
+        appointmentsDetailsPresenter = new AppointmentsDetailsPresenter(this);
+        setPresenter(appointmentsDetailsPresenter);
     }
 
 
@@ -148,7 +148,7 @@ public class AppointmentDetailsFragment extends GenericView implements Appointme
         send appointment id, current appointmentStatus, customerId?, to webClient,
          refresh appointment results
          */
-        mAppointmentsDetailsPresenter.progressAppointmentStatus(appointment, appointmentStatusList);
+        appointmentsDetailsPresenter.progressAppointmentStatus(appointment, appointmentStatusList);
     }
 
 

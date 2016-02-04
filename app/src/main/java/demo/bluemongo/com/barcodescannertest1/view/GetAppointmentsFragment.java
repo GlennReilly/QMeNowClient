@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ import demo.bluemongo.com.barcodescannertest1.presenter.AppointmentsPresenter;
  */
 public class GetAppointmentsFragment extends GenericView implements RetrieveAppointmentsView {
     private OnFragmentInteractionListener mListener;
-    private AppointmentsPresenter mAppointmentsPresenter;
+    private AppointmentsPresenter appointmentsPresenter;
     private TextView tvMessage;
     private TextView tvMessage2;
     private ProgressDialog progressDialog;
@@ -48,6 +49,7 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
      */
     public interface OnFragmentInteractionListener { //These are the ways this fragment communicates with the rest of the app, via the Activity.
         void showAppointmentDetails(AppointmentWrapper appointment);
+        void showMainMenu();
     }
 
     @Override
@@ -64,7 +66,8 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAppointmentsPresenter = new AppointmentsPresenter(this);
+        appointmentsPresenter = new AppointmentsPresenter(this);
+        setPresenter(appointmentsPresenter);
     }
 
     @Nullable
@@ -82,8 +85,8 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
 
     @Override
     public void retrieveAppointments(){
-        AppointmentWebHelper appointmentWebHelper = new AppointmentWebHelper(mAppointmentsPresenter);
-        UserDetails userDetails = mAppointmentsPresenter.getSavedUserDetails();
+        AppointmentWebHelper appointmentWebHelper = new AppointmentWebHelper(appointmentsPresenter);
+        UserDetails userDetails = appointmentsPresenter.getSavedUserDetails();
         progressDialog = ProgressDialog.show(getActivity(), getString(R.string.dialogTitle),
                 getString(R.string.dialogMessage), true);
         appointmentWebHelper.GetUserAppointments(userDetails);
@@ -119,6 +122,8 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
     public void showMessage(final String message) {
         progressDialog.dismiss();
         tvMessage2.setText(message);
+        Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG).show();
+        mListener.showMainMenu();
 
     }
 
@@ -129,7 +134,7 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
 
     @Override
     public SharedPreferences getUserDetailsSharedPreferences() {
-        return getActivity().getSharedPreferences(mAppointmentsPresenter.getUserDetailsPrefsString(), Context.MODE_PRIVATE);
+        return getActivity().getSharedPreferences(appointmentsPresenter.getUserDetailsPrefsString(), Context.MODE_PRIVATE);
     }
 
 

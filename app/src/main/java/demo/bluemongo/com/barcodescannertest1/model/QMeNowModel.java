@@ -24,16 +24,14 @@ public class QMeNowModel {
     public static final String FIRSTNAME = "firstName";
     public static final String LASTNAME = "lastName";
     public static final String CUSTOMERID = "customerId";
-    final String EMPTY = "";
-    final String WEBHELPER_BASEURL = "WebHelperBaseUrl";
-    final String DEFAULT_WEBHELPER_BASEURL = "http://10.1.1.7:8080/";
+    public final String EMPTY = "";
+    public final String WEBHELPER_BASEURL = "WebHelperBaseUrl";
+    public final String DEFAULT_WEBHELPER_BASEURL = "http://10.1.1.7:8080/";
 
-    final String BUSINESS_NAME = "BUSINESS_NAME";
-    final String BUTTON_COLOUR_HEX_CODE = "BUTTON_COLOUR_HEX_CODE";
-    final String HEADER_COLOUR_HEX_CODE = "HEADER_COLOUR_HEX_CODE";
-    final String BACKGROUND_COLOUR_HEX_CODE = "BACKGROUND_COLOUR_HEX_CODE";
-    final String FOOTER_COLOUR_HEX_CODE = "FOOTER_COLOUR_HEX_CODE";
-
+    public final String BUSINESS_NAME = "BUSINESS_NAME";
+    public final String BUTTON_COLOUR_HEX_CODE = "BUTTON_COLOUR_HEX_CODE";
+    public final String HEADER_COLOUR_HEX_CODE = "HEADER_COLOUR_HEX_CODE";
+    public final String BACKGROUND_COLOUR_HEX_CODE = "BACKGROUND_COLOUR_HEX_CODE";
 
     private CustomerQRCodePayload  customerQRCodePayload = new CustomerQRCodePayload();
     private BusinessQRCodePayload businessQRCodePayload = new BusinessQRCodePayload();
@@ -68,7 +66,6 @@ public class QMeNowModel {
                 businessQRCodePayload.setButtonColourHexCode(jsonObject.getString("buttonColourHexCode"));
                 businessQRCodePayload.setHeaderColourHexCode(jsonObject.getString("headerColourHexCode"));
                 businessQRCodePayload.setBackgroundColourHexCode(jsonObject.getString("backgroundColourHexCode"));
-                businessQRCodePayload.setFooterColourHexCode(jsonObject.getString("footerColourHexCode"));
                 result = true;
             }
 
@@ -84,6 +81,9 @@ public class QMeNowModel {
         try {
             JSONObject jsonObject = new JSONObject(barcodeContent);
             customerQRCodePayload.setDateTimeString(jsonObject.getString("dateTimeString"));
+            customerQRCodePayload.setCustomerFirstName(jsonObject.getString("customerFirstName"));
+            customerQRCodePayload.setCustomerLastName(jsonObject.getString("customerLastName"));
+            customerQRCodePayload.setCustomerId(jsonObject.getInt("customerId"));
             Date barcodeDate = InputHelper.getDateFromISO8601String(customerQRCodePayload.getDateTimeString()); //formatter.parse(dateTimeString);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(barcodeDate);
@@ -102,6 +102,10 @@ public class QMeNowModel {
                     customerQRCodePayload.setContent(jsonObject.getString("Content"));
                     result = true;
             }
+            else{
+                customerQRCodePayload = new CustomerQRCodePayload();
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -149,7 +153,14 @@ public class QMeNowModel {
         editor.putString(BUTTON_COLOUR_HEX_CODE, businessQRCodePayload.getButtonColourHexCode());
         editor.putString(HEADER_COLOUR_HEX_CODE, businessQRCodePayload.getHeaderColourHexCode());
         editor.putString(BACKGROUND_COLOUR_HEX_CODE, businessQRCodePayload.getBackgroundColourHexCode());
-        editor.putString(FOOTER_COLOUR_HEX_CODE, businessQRCodePayload.getFooterColourHexCode());
+        editor.commit();
+    }
+
+    public void removeUserDetails(SharedPreferences settings) {
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(FIRSTNAME, "");
+        editor.putString(LASTNAME, "");
+        editor.putInt(CUSTOMERID, 0);
         editor.commit();
     }
 }

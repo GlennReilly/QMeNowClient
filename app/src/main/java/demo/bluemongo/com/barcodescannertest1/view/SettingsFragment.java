@@ -36,6 +36,7 @@ public class SettingsFragment extends GenericView implements SettingsView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         settingsPresenter = new SettingsPresenter(this);
+        setPresenter(settingsPresenter);
     }
 
     @Nullable

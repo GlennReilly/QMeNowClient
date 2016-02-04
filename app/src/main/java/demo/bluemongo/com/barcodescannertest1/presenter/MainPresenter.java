@@ -14,4 +14,11 @@ public class MainPresenter extends GenericPresenter {
         super((GenericView) view);
         this.view = view;
     }
+
+
+
+/*    public String getFooterBackgroundColour() {
+        SharedPreferences businessDetailsSharedPreferences = ((GenericView)view).getBusinessDetailsSharedPreferences();
+        return businessDetailsSharedPreferences.getString(model.FOOTER_COLOUR_HEX_CODE, "");
+    }*/
 }

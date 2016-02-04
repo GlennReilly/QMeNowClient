@@ -1,20 +1,22 @@
 package demo.bluemongo.com.barcodescannertest1.view;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import demo.bluemongo.com.barcodescannertest1.R;
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentWrapper;
 import demo.bluemongo.com.barcodescannertest1.model.CustomerQRCodePayload;
 import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
 
-public class MainActivity extends AppCompatActivity implements
+//public class MainActivity extends AppCompatActivity implements
+public class MainActivity extends Activity implements
         MainMenuFragment.OnFragmentInteractionListener,
         UserDetailsFragment.OnFragmentInteractionListener,
         CameraFragment.OnFragmentInteractionListener,
@@ -88,15 +90,16 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void showInvalidBarcodeMessage() {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MessageFragment messageFragment = new MessageFragment();
-        Bundle args = new Bundle();
-        args.putString(messageFragment.PARAM_MESSAGE, getString(R.string.invalid_barcode_message));
-        messageFragment.setArguments(args);
-        fragmentTransaction.replace(R.id.fragment_container, messageFragment);
-        fragmentTransaction.addToBackStack(TAG_MESSAGE_FRAGMENT);
-        fragmentTransaction.commit();
+//        FragmentManager fragmentManager = getFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        MessageFragment messageFragment = new MessageFragment();
+//        Bundle args = new Bundle();
+//        args.putString(messageFragment.PARAM_MESSAGE, getString(R.string.invalid_barcode_message));
+//        messageFragment.setArguments(args);
+//        fragmentTransaction.replace(R.id.fragment_container, messageFragment);
+//        fragmentTransaction.addToBackStack(TAG_MESSAGE_FRAGMENT);
+//        fragmentTransaction.commit();
+        Toast.makeText(this, getString(R.string.invalid_barcode_message), Toast.LENGTH_LONG).show();
     }
 
 

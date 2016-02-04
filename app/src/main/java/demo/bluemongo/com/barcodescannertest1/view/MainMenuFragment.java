@@ -1,13 +1,17 @@
 package demo.bluemongo.com.barcodescannertest1.view;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import demo.bluemongo.com.barcodescannertest1.R;
 import demo.bluemongo.com.barcodescannertest1.presenter.MainPresenter;
@@ -18,6 +22,9 @@ import demo.bluemongo.com.barcodescannertest1.presenter.MainPresenter;
 public class MainMenuFragment extends GenericView implements MainView {
     private OnFragmentInteractionListener mListener;
     private MainPresenter presenter;
+    private Button btnToEnterUserDetails;
+    private Button btnToScanBarcode;
+    private LinearLayout parentLayout;
 
     public CameraPreviewView.BarcodeType barcodeType;
 
@@ -30,6 +37,7 @@ public class MainMenuFragment extends GenericView implements MainView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new MainPresenter(this);
+        setPresenter(presenter);
     }
 
     @Nullable
@@ -37,7 +45,7 @@ public class MainMenuFragment extends GenericView implements MainView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        Button btnToEnterUserDetails = (Button) view.findViewById(R.id.btn_enter_user);
+        btnToEnterUserDetails = (Button) view.findViewById(R.id.btn_enter_user);
         btnToEnterUserDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +53,7 @@ public class MainMenuFragment extends GenericView implements MainView {
             }
         });
 
-        Button btnToScanBarcode = (Button) view.findViewById(R.id.btn_scan_barcode);
+        btnToScanBarcode = (Button) view.findViewById(R.id.btn_scan_barcode);
         btnToScanBarcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +61,33 @@ public class MainMenuFragment extends GenericView implements MainView {
             }
         });
 
+        parentLayout = (LinearLayout) view.findViewById(R.id.ll_main);
+
+        setUIElementsFromSavedDetails();
+
         return view;
+    }
+
+    @Override
+    public void setUIElementsFromSavedDetails(){
+        if(presenter.getButtonBackgroundColour() !=  "") {
+            int colour = Color.parseColor(presenter.getButtonBackgroundColour());
+            btnToEnterUserDetails.setBackgroundColor(colour);
+            btnToScanBarcode.setBackgroundColor(colour);
+        }
+
+       if(presenter.getBackgroundBackgroundColour() !=  "") {
+            int colour = Color.parseColor(presenter.getBackgroundBackgroundColour());
+            parentLayout.setBackgroundColor(colour);
+        }
+
+        if(presenter.getHeaderBackgroundColour() !=  "") {
+            int color = Color.parseColor(presenter.getHeaderBackgroundColour());
+
+            ActionBar actionBar = getActivity().getActionBar();
+            actionBar.setTitle(presenter.getBusinessName());
+            actionBar.setBackgroundDrawable(new ColorDrawable(color));
+        }
     }
 
 

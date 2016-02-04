@@ -55,7 +55,7 @@ public class CameraFragment extends GenericView implements CameraPreviewView {
     private static final int RC_HANDLE_CAMERA_PERM = 2;
 
     private OnFragmentInteractionListener mListener;
-    private CameraPreviewPresenter mCameraPreviewPresenter;
+    private CameraPreviewPresenter cameraPreviewPresenter;
     private BarcodeType barcodeType;
 
     /**
@@ -96,7 +96,8 @@ public class CameraFragment extends GenericView implements CameraPreviewView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCameraPreviewPresenter = new CameraPreviewPresenter(this);
+        cameraPreviewPresenter = new CameraPreviewPresenter(this);
+        setPresenter(cameraPreviewPresenter);
 
         Bundle bundle = this.getArguments();
         final String barcodeTypeScanningFor =  bundle.getString(CameraPreviewView.ScanningForBarcodeType);
@@ -150,7 +151,7 @@ public class CameraFragment extends GenericView implements CameraPreviewView {
 
         if(!recentBarCodeResult.equals(rawValue)) {
             recentBarCodeResult = rawValue;
-            mCameraPreviewPresenter.processBarcodeValue(barcodeType, rawValue);
+            cameraPreviewPresenter.processBarcodeValue(barcodeType, rawValue);
         }
     }
 

@@ -5,10 +5,11 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/ll_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_gravity="center_vertical">
+        android:gravity="center_horizontal">
 
         <TextView
             android:text=""
@@ -20,15 +21,19 @@
             android:id="@+id/btn_enter_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="@dimen/button_width"
             android:padding="30dip"
             android:textSize="@dimen/general_text_size"
+            android:layout_marginBottom="20dp"
             android:text="@string/btn_enter_user_text"/>
         <Button
             android:id="@+id/btn_scan_barcode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="@dimen/button_width"
             android:padding="30dip"
             android:textSize="@dimen/general_text_size"
+            android:layout_marginBottom="20dp"
             android:text="@string/btn_scan_barcode_text"/>
         <ImageView
             android:layout_width="wrap_content"
