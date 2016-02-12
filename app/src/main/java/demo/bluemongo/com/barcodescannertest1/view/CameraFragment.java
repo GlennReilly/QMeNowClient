@@ -88,7 +88,7 @@ public class CameraFragment extends GenericView implements CameraPreviewView {
      */
     public interface OnFragmentInteractionListener { //These are the ways this fragment communicates with the rest of the app, via the Activity.
 
-        void showInvalidBarcodeMessage();
+        void showInvalidBarcodeMessage(BarcodeType barcodeType);
         void showUsersAppointments();
         void populateCustomerDetailsFromBarcode(CustomerQRCodePayload customerQRCodePayload);
     }
@@ -162,7 +162,7 @@ public class CameraFragment extends GenericView implements CameraPreviewView {
 
     @Override
     public void showInvalidBusinessBarcodeMessage() {
-        mListener.showInvalidBarcodeMessage();
+        mListener.showInvalidBarcodeMessage(BarcodeType.BUSINESS);
     }
 
     @Override
@@ -172,7 +172,7 @@ public class CameraFragment extends GenericView implements CameraPreviewView {
 
     @Override
     public void showInvalidCustomerBarcodeMessage() {
-        mListener.showInvalidBarcodeMessage();
+        mListener.showInvalidBarcodeMessage(BarcodeType.CUSTOMER);
     }
 
 

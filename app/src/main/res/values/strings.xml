@@ -12,6 +12,8 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="invalid_barcode_message">Sorry, that barcode is invalid.</string>
+    <string name="invalid_business_barcode_message">Sorry, that Business barcode is invalid.</string>
+    <string name="invalid_customer_barcode_message">Sorry, that Customer barcode is invalid.</string>
     <string name="valid_barcode_message">Great, that\'s a valid barcode.</string>
     <string name="btn_enter_user_text">Enter user details</string>
     <string name="hint_first_name">first name</string>

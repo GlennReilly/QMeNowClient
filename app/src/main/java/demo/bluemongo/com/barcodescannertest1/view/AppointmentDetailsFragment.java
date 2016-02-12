@@ -1,11 +1,13 @@
 package demo.bluemongo.com.barcodescannertest1.view;
 
 
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Iterator;
@@ -27,7 +30,9 @@ public class AppointmentDetailsFragment extends GenericView implements Appointme
     public static final String APPOINTMENT_WRAPPER_KEY = "APPOINTMENT_WRAPPER_KEY";
 
     private OnFragmentInteractionListener mListener;
-    private AppointmentsDetailsPresenter appointmentsDetailsPresenter;
+    private AppointmentsDetailsPresenter presenter;
+    private Button btnCheckin;
+    private LinearLayout parentLayout;
 
 
     public AppointmentDetailsFragment() {
@@ -63,8 +68,8 @@ public class AppointmentDetailsFragment extends GenericView implements Appointme
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setView(this);
-        appointmentsDetailsPresenter = new AppointmentsDetailsPresenter(this);
-        setPresenter(appointmentsDetailsPresenter);
+        presenter = new AppointmentsDetailsPresenter(this);
+        setPresenter(presenter);
     }
 
 
@@ -76,7 +81,8 @@ public class AppointmentDetailsFragment extends GenericView implements Appointme
         final List<AppointmentStatus> appointmentStatusList = appointmentWrapper.getStatusList();
 
         View view = inflater.inflate(R.layout.fragment_appointment_details, container, false);
-        Button btnCheckin = (Button) view.findViewById(R.id.btnCheckin);
+        btnCheckin = (Button) view.findViewById(R.id.btnCheckin);
+        parentLayout = (LinearLayout) view.findViewById(R.id.ll_main);
         Iterator<AppointmentStatus> statusIterator = appointmentStatusList.iterator();
         boolean buttonSetToVisible =false;
         while(statusIterator.hasNext() && !buttonSetToVisible){
@@ -137,6 +143,29 @@ public class AppointmentDetailsFragment extends GenericView implements Appointme
         return view;
     }
 
+    @Override
+    public void setUIElementsFromSavedDetails(){
+
+
+        if(presenter.getButtonBackgroundColour() !=  "") {
+            int colour = Color.parseColor(presenter.getButtonBackgroundColour());
+            btnCheckin.setBackgroundColor(colour);
+        }
+
+        if(presenter.getBackgroundBackgroundColour() !=  "") {
+            int colour = Color.parseColor(presenter.getBackgroundBackgroundColour());
+            parentLayout.setBackgroundColor(colour);
+        }
+
+        if(presenter.getHeaderBackgroundColour() !=  "") {
+            int color = Color.parseColor(presenter.getHeaderBackgroundColour());
+
+            ActionBar actionBar = getActivity().getActionBar();
+            actionBar.setTitle(presenter.getBusinessName());
+            actionBar.setBackgroundDrawable(new ColorDrawable(color));
+        }
+    }
+
     private void checkInButtonClicked(Appointment appointment, List<AppointmentStatus> appointmentStatusList) {
         progressAppointmentStatus(appointment, appointmentStatusList);
 
@@ -148,7 +177,7 @@ public class AppointmentDetailsFragment extends GenericView implements Appointme
         send appointment id, current appointmentStatus, customerId?, to webClient,
          refresh appointment results
          */
-        appointmentsDetailsPresenter.progressAppointmentStatus(appointment, appointmentStatusList);
+        presenter.progressAppointmentStatus(appointment, appointmentStatusList);
     }
 
 

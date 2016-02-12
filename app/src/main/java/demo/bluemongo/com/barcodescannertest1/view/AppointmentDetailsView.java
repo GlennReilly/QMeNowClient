@@ -15,4 +15,5 @@ public interface AppointmentDetailsView {
     SharedPreferences getUserDetailsSharedPreferences();
     SharedPreferences getBusinessDetailsSharedPreferences();
     SharedPreferences getAppSettingsSharedPreferences();
+    void setUIElementsFromSavedDetails();
 }

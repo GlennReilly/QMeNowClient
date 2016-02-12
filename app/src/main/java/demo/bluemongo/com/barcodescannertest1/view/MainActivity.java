@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -38,8 +39,37 @@ public class MainActivity extends Activity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                if (fragmentManager.getBackStackEntryCount() > 0) {
+                    Log.i(TAG, "backstack changed, now on top: " +
+                            fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1).getName());
+                }
+            }
+        });
         showMainMenu();
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getFragmentManager();
+        int count = fragmentManager.getBackStackEntryCount();
+
+        if (count <= 1) {
+            super.onBackPressed();
+        } else {
+            if (fragmentManager.getBackStackEntryCount()>1 && fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 2).getName().equals(TAG_CAMERA_FRAGMENT)) {
+                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                Log.i(TAG, "next fragment is Camera fragment, going back to main");
+                showMainMenu();
+            } else {
+                Log.i(TAG, "not camera, so going back to " + fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 2).getName());
+                fragmentManager.popBackStack();
+            }
+        }
     }
 
     @Override
@@ -48,7 +78,8 @@ public class MainActivity extends Activity implements
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         MainMenuFragment mainMenuFragment = new MainMenuFragment();
         fragmentTransaction.replace(R.id.fragment_container, mainMenuFragment, TAG_MAIN_FRAGMENT);
-        fragmentTransaction.addToBackStack(TAG_MAIN_FRAGMENT);
+        //fragmentTransaction.add(R.id.fragment_container, mainMenuFragment, TAG_MAIN_FRAGMENT);
+        //fragmentTransaction.addToBackStack(TAG_MAIN_FRAGMENT);
         fragmentTransaction.commit();
     }
 
@@ -61,17 +92,9 @@ public class MainActivity extends Activity implements
             userDetailsFragment.setArguments(bundle);
         }
         fragmentTransaction.replace(R.id.fragment_container, userDetailsFragment, TAG_USER_DETAILS_FRAGMENT);
-        fragmentTransaction.addToBackStack(TAG_MAIN_FRAGMENT);
+        //fragmentTransaction.add(R.id.fragment_container, userDetailsFragment, TAG_USER_DETAILS_FRAGMENT);
+        fragmentTransaction.addToBackStack(TAG_USER_DETAILS_FRAGMENT);
         fragmentTransaction.commit();
-    }
-
-    @Override
-    public void populateCustomerDetailsFromBarcode(CustomerQRCodePayload customerQRCodePayload) {
-        Bundle bundle = new Bundle();
-        bundle.putString(QMeNowModel.FIRSTNAME, customerQRCodePayload.getCustomerFirstName());
-        bundle.putString(QMeNowModel.LASTNAME, customerQRCodePayload.getCustomerLastName());
-        bundle.putInt(QMeNowModel.CUSTOMERID, customerQRCodePayload.getCustomerId());
-        showUserDetails(bundle);
     }
 
 
@@ -83,25 +106,21 @@ public class MainActivity extends Activity implements
         Bundle bundle = new Bundle();
         bundle.putString(CameraPreviewView.ScanningForBarcodeType, barcodeType.toString());
         cameraFragment.setArguments(bundle);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.replace(R.id.fragment_container, cameraFragment, TAG_CAMERA_FRAGMENT);
+        //fragmentTransaction.add(R.id.fragment_container, cameraFragment, TAG_CAMERA_FRAGMENT);
         fragmentTransaction.addToBackStack(TAG_CAMERA_FRAGMENT);
         fragmentTransaction.commit();
     }
 
     @Override
-    public void showInvalidBarcodeMessage() {
-//        FragmentManager fragmentManager = getFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        MessageFragment messageFragment = new MessageFragment();
-//        Bundle args = new Bundle();
-//        args.putString(messageFragment.PARAM_MESSAGE, getString(R.string.invalid_barcode_message));
-//        messageFragment.setArguments(args);
-//        fragmentTransaction.replace(R.id.fragment_container, messageFragment);
-//        fragmentTransaction.addToBackStack(TAG_MESSAGE_FRAGMENT);
-//        fragmentTransaction.commit();
-        Toast.makeText(this, getString(R.string.invalid_barcode_message), Toast.LENGTH_LONG).show();
+    public void populateCustomerDetailsFromBarcode(CustomerQRCodePayload customerQRCodePayload) {
+        Bundle bundle = new Bundle();
+        bundle.putString(QMeNowModel.FIRSTNAME, customerQRCodePayload.getCustomerFirstName());
+        bundle.putString(QMeNowModel.LASTNAME, customerQRCodePayload.getCustomerLastName());
+        bundle.putInt(QMeNowModel.CUSTOMERID, customerQRCodePayload.getCustomerId());
+        showUserDetails(bundle);
     }
-
 
     @Override
     public void showUsersAppointments() {
@@ -135,16 +154,30 @@ public class MainActivity extends Activity implements
         fragmentTransaction.commit();
     }
 
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
 
-        if (count == 0) {
-            super.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
+    @Override
+    public void showInvalidBarcodeMessage(CameraPreviewView.BarcodeType barcodeType) {
+
+        final String errorMessage;
+        switch (barcodeType){
+            case BUSINESS: errorMessage = getString(R.string.invalid_business_barcode_message);
+                break;
+            case CUSTOMER: errorMessage = getString(R.string.invalid_customer_barcode_message);
+                break;
+            default:
+                errorMessage = getString(R.string.invalid_barcode_message);
+                break;
         }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -174,4 +207,5 @@ public class MainActivity extends Activity implements
     public void onFragmentInteraction(Uri uri) {
 
     }
+
 }
