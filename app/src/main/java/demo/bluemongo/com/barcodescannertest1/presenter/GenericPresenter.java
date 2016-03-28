@@ -1,7 +1,17 @@
 package demo.bluemongo.com.barcodescannertest1.presenter;
 
+import android.app.ActionBar;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
+import demo.bluemongo.com.barcodescannertest1.R;
 import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
 import demo.bluemongo.com.barcodescannertest1.model.UserDetails;
 import demo.bluemongo.com.barcodescannertest1.view.GenericView;
@@ -18,7 +28,7 @@ public class GenericPresenter {
     }
 
     public String getWebHelperBaseURL() {
-        return model.getWebHelperBaseURL(view.getUserDetailsSharedPreferences());
+        return model.getWebHelperBaseURL(view.getAppSettingsSharedPreferences());
     }
 
     public UserDetails getSavedUserDetails() {
@@ -59,5 +69,57 @@ public class GenericPresenter {
     public String getBusinessName() {
         SharedPreferences businessDetailsSharedPreferences = view.getBusinessDetailsSharedPreferences();
         return businessDetailsSharedPreferences.getString(model.BUSINESS_NAME, "");
+    }
+
+    public int getBusinessId() {
+        SharedPreferences businessDetailsSharedPreferences = view.getBusinessDetailsSharedPreferences();
+        return businessDetailsSharedPreferences.getInt(model.BUSINESS_ID, 0);
+    }
+
+    public String getLogoFileName() {
+        SharedPreferences businessDetailsSharedPreferences = view.getBusinessDetailsSharedPreferences();
+        return businessDetailsSharedPreferences.getString(model.LOGO_FILE_NAME, "noLogo.png");
+    }
+
+    public void setGenericActionBarStuff() {
+        int color = Color.parseColor(getHeaderBackgroundColour());
+        String logoFileName = getLogoFileName();
+
+        ActionBar actionBar = view.getActivity().getActionBar();
+        actionBar.setTitle(getBusinessName());
+        actionBar.setBackgroundDrawable(new ColorDrawable(color));
+        actionBar.setIcon(R.drawable.ic_launcher);
+        PicassoActionBarIcon picasssoActionBar = new PicassoActionBarIcon(actionBar);
+        //http://10.1.1.7:8080/resources/images/noLogo.png
+        String URI = model.getWebHelperBaseURL(view.getBusinessDetailsSharedPreferences()) + "resources/images/" + logoFileName;
+
+        Picasso.with(view.getActivity()).load( URI).into(picasssoActionBar);
+    }
+
+
+
+    private class PicassoActionBarIcon implements Target {
+
+        private final ActionBar actionBar;
+
+        public PicassoActionBarIcon(ActionBar actionBar) {
+            this.actionBar = actionBar;
+        }
+
+        @Override
+        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+            Drawable drawable = new BitmapDrawable(view.getResources(), bitmap);
+            actionBar.setIcon(drawable);
+        }
+
+        @Override
+        public void onBitmapFailed(Drawable errorDrawable) {
+
+        }
+
+        @Override
+        public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+        }
     }
 }

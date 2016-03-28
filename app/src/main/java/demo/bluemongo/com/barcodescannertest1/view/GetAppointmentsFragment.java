@@ -85,11 +85,12 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
 
     @Override
     public void retrieveAppointments(){
-        AppointmentWebHelper appointmentWebHelper = new AppointmentWebHelper(appointmentsPresenter);
-        UserDetails userDetails = appointmentsPresenter.getSavedUserDetails();
         progressDialog = ProgressDialog.show(getActivity(), getString(R.string.dialogTitle),
                 getString(R.string.dialogMessage), true);
-        appointmentWebHelper.GetUserAppointments(userDetails);
+        AppointmentWebHelper appointmentWebHelper = new AppointmentWebHelper(appointmentsPresenter);
+        int currentBusinessId = appointmentsPresenter.getBusinessId();
+        UserDetails userDetails = appointmentsPresenter.getSavedUserDetails();
+        appointmentWebHelper.GetUserAppointments(currentBusinessId, userDetails);
     }
 
 
@@ -129,7 +130,15 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
 
     @Override
     public String getMessage(AppointmentsPresenter.MessageToUser messageToUser) {
-        return getString(R.string.noAppointmentsFound);
+        String returnMessage = "";
+        if(messageToUser.equals(AppointmentsPresenter.MessageToUser.NOAPPOINTMENTSFOUND)) {
+            returnMessage = getString(R.string.noAppointmentsFound);
+        }
+
+        if(messageToUser.equals(AppointmentsPresenter.MessageToUser.CUSTOMER_NOT_IN_THIS_BUSINESS)) {
+            returnMessage = getString(R.string.customerDoesntExistAtThisBusiness);
+        }
+        return returnMessage;
     }
 
     @Override

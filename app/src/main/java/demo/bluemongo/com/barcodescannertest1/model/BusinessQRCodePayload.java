@@ -4,21 +4,11 @@ package demo.bluemongo.com.barcodescannertest1.model;
  * Created by glenn on 31/01/16.
  */
 public class BusinessQRCodePayload {
+    private BusinessDTO businessDTO = new BusinessDTO();
     private String dateTimeString;
-    private String businessName;
-    private String buttonColourHexCode;
-    private String headerColourHexCode;
-    private String backgroundColourHexCode;
-    private String footerColourHexCode;
+
     private String Content;
 
-    public String getBusinessName() {
-        return businessName;
-    }
-
-    public void setBusinessName(String businessName) {
-        this.businessName = businessName;
-    }
 
     public String getDateTimeString() {
         return dateTimeString;
@@ -36,35 +26,47 @@ public class BusinessQRCodePayload {
         Content = content;
     }
 
+    public BusinessDTO getBusinessDTO() {
+        return businessDTO;
+    }
+
+    public String getBusinessName() {
+        return businessDTO.getBusinessName();
+    }
+
+    public void setBusinessName(String businessName) {
+        businessDTO.setBusinessName(businessName);
+    }
+
     public String getButtonColourHexCode() {
-        return buttonColourHexCode;
+        return businessDTO.getButtonColourHexCode();
     }
 
     public void setButtonColourHexCode(String buttonColourHexCode) {
-        this.buttonColourHexCode = buttonColourHexCode;
+        this.businessDTO.setButtonColourHexCode(buttonColourHexCode);
     }
 
     public String getHeaderColourHexCode() {
-        return headerColourHexCode;
+        return businessDTO.getHeaderColourHexCode();
     }
 
     public void setHeaderColourHexCode(String headerColourHexCode) {
-        this.headerColourHexCode = headerColourHexCode;
+        this.businessDTO.setHeaderColourHexCode(headerColourHexCode);
     }
 
     public String getBackgroundColourHexCode() {
-        return backgroundColourHexCode;
+        return businessDTO.getBackgroundColourHexCode();
     }
 
     public void setBackgroundColourHexCode(String backgroundColourHexCode) {
-        this.backgroundColourHexCode = backgroundColourHexCode;
+        this.businessDTO.setBackgroundColourHexCode(backgroundColourHexCode);
     }
 
-    public String getFooterColourHexCode() {
-        return footerColourHexCode;
+    public String getLogoFileName() {
+        return businessDTO.getLogoFileName();
     }
 
-    public void setFooterColourHexCode(String footerColourHexCode) {
-        this.footerColourHexCode = footerColourHexCode;
+    public void setLogoFileName(String logoFileName) {
+        this.businessDTO.setLogoFileName(logoFileName);
     }
 }

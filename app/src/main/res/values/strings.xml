@@ -33,4 +33,6 @@
     <string name="remove_user_details">Remove saved user details</string>
     <string name="save">Save</string>
     <string name="user_removed_successfully">User details removed successfully</string>
+    <string name="customerDoesntExistAtThisBusiness">Sorry, that customer doesn\'t exist at this business</string>
+    <string name="appointment_already_checked_in">Appointment already checked in at</string>
 </resources>

@@ -27,6 +27,8 @@ public class Appointment implements Parcelable {
     private String statusHexCode;
     private String appTypeHexCode;
     private String locationHexCode;
+    private transient Date checkInDate;
+    private String strCheckInDateTime;
 
     protected Appointment(Parcel in) {
         id = in.readInt();
@@ -45,6 +47,7 @@ public class Appointment implements Parcelable {
         statusHexCode = in.readString();
         appTypeHexCode = in.readString();
         locationHexCode = in.readString();
+        strCheckInDateTime = in.readString();
     }
 
     public static final Creator<Appointment> CREATOR = new Creator<Appointment>() {
@@ -195,6 +198,22 @@ public class Appointment implements Parcelable {
         this.strAppointmentTime = strAppointmentTime;
     }
 
+    public void setCheckInDate(Date checkInDate) {
+        this.checkInDate = checkInDate;
+    }
+
+    public Date getCheckInDate() {
+        return checkInDate;
+    }
+
+    public String getStrCheckInDateTime() {
+        return strCheckInDateTime;
+    }
+
+    public void setStrCheckInDateTime(String strCheckInDateTime) {
+        this.strCheckInDateTime = strCheckInDateTime;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -218,6 +237,7 @@ public class Appointment implements Parcelable {
         dest.writeString(statusHexCode);
         dest.writeString(appTypeHexCode);
         dest.writeString(locationHexCode);
+        dest.writeString(strCheckInDateTime);
     }
 
 

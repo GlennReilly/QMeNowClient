@@ -32,7 +32,7 @@ public class CameraPreviewPresenter extends GenericPresenter {
 
     private void processBusinessBarcode(String barcodeContent) {
         if (model.isBusinessBarcodeValid(barcodeContent)) {
-            model.saveBusinessDetails(model.getBusinessQRCodePayload(), view.getBusinessDetailsSharedPreferences());
+            model.saveBusinessDetails(model.getBusinessQRCodePayload().getBusinessDTO(), view.getBusinessDetailsSharedPreferences());
             view.showUsersAppointments(model.getBusinessQRCodePayload());
         }else{
             view.showInvalidBusinessBarcodeMessage();
@@ -41,6 +41,7 @@ public class CameraPreviewPresenter extends GenericPresenter {
 
     private void processCustomerBarcode(String barcodeContent) {
         if (model.isCustomerBarcodeValid(barcodeContent)) {
+            model.saveBusinessDetails(model.getBusinessQRCodePayload().getBusinessDTO(), view.getBusinessDetailsSharedPreferences());
             view.onValidCustomerBarcodeResult(model.getCustomerQRCodePayload());
         }else{
             view.showInvalidCustomerBarcodeMessage();

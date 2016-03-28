@@ -1,10 +1,8 @@
 package demo.bluemongo.com.barcodescannertest1.view;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -83,10 +81,7 @@ public class MainMenuFragment extends GenericView implements MainView {
 
         if(presenter.getHeaderBackgroundColour() !=  "") {
             int color = Color.parseColor(presenter.getHeaderBackgroundColour());
-
-            ActionBar actionBar = getActivity().getActionBar();
-            actionBar.setTitle(presenter.getBusinessName());
-            actionBar.setBackgroundDrawable(new ColorDrawable(color));
+            presenter.setGenericActionBarStuff();
         }
     }
 

@@ -1,13 +1,11 @@
 package demo.bluemongo.com.barcodescannertest1.view;
 
 
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +15,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Iterator;
 import java.util.List;
@@ -88,19 +88,28 @@ public class AppointmentDetailsFragment extends GenericView implements Appointme
         while(statusIterator.hasNext() && !buttonSetToVisible){
             AppointmentStatus appointmentStatus = statusIterator.next();
 
-            if (appointmentStatus.isCustomerInitiated() && (appointmentStatus.getName().equals(appointment.getStatusName()))){
+            if ( StringUtils.isEmpty(appointment.getStrCheckInDateTime()) ) {
+                if (appointmentStatus.isCustomerInitiated() && (appointmentStatus.getName().equals(appointment.getStatusName()))){
+                    btnCheckin.setVisibility(View.VISIBLE);
+                    buttonSetToVisible = true;
+                    btnCheckin.setText(getString(R.string.check_in));
+
+                    btnCheckin.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            checkInButtonClicked(appointment, appointmentStatusList);
+                        }
+                    });
+                }
+                else {
+                    btnCheckin.setVisibility(View.INVISIBLE);
+                }
+            }
+            else{
                 btnCheckin.setVisibility(View.VISIBLE);
                 buttonSetToVisible = true;
-
-                btnCheckin.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        checkInButtonClicked(appointment, appointmentStatusList);
-                    }
-                });
-            }
-            else {
-                btnCheckin.setVisibility(View.INVISIBLE);
+                btnCheckin.setEnabled(false);
+                btnCheckin.setText(getString(R.string.appointment_already_checked_in) + " " + appointment.getStrCheckInDateTime());
             }
         }
 
@@ -158,26 +167,25 @@ public class AppointmentDetailsFragment extends GenericView implements Appointme
         }
 
         if(presenter.getHeaderBackgroundColour() !=  "") {
-            int color = Color.parseColor(presenter.getHeaderBackgroundColour());
-
-            ActionBar actionBar = getActivity().getActionBar();
-            actionBar.setTitle(presenter.getBusinessName());
-            actionBar.setBackgroundDrawable(new ColorDrawable(color));
+/*            int color = Color.parseColor(presenter.getHeaderBackgroundColour());
+            String logoFileName = presenter.getLogoFileName();*/
+            presenter.setGenericActionBarStuff();
         }
     }
 
     private void checkInButtonClicked(Appointment appointment, List<AppointmentStatus> appointmentStatusList) {
-        progressAppointmentStatus(appointment, appointmentStatusList);
+        checkInAppointment(appointment, appointmentStatusList);
 
     }
 
     @Override
-    public void progressAppointmentStatus(Appointment appointment, List<AppointmentStatus> appointmentStatusList) {
+    public void checkInAppointment(Appointment appointment, List<AppointmentStatus> appointmentStatusList) {
         /*
         send appointment id, current appointmentStatus, customerId?, to webClient,
-         refresh appointment results
+         refresh appointment results?
+         get confirmation boolean?
          */
-        presenter.progressAppointmentStatus(appointment, appointmentStatusList);
+        presenter.checkInAppointment(appointment, appointmentStatusList);
     }
 
 

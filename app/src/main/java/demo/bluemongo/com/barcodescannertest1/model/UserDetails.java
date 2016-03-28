@@ -7,6 +7,7 @@ public class UserDetails {
     private String firstName;
     private String lastName;
     private Integer customerId;
+    //private Integer businessId;
 
     public String getFirstName() {
         return firstName;
@@ -31,4 +32,12 @@ public class UserDetails {
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
+
+/*    public Integer getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(Integer businessId) {
+        this.businessId = businessId;
+    }*/
 }

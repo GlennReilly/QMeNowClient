@@ -5,6 +5,7 @@ import android.util.Log;
 import java.io.IOException;
 
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentsResponse;
+import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
 import demo.bluemongo.com.barcodescannertest1.model.UserDetails;
 import demo.bluemongo.com.barcodescannertest1.presenter.AppointmentsPresenter;
 import retrofit.Call;
@@ -17,28 +18,26 @@ import retrofit.Retrofit;
  * Created by glenn on 4/10/15.
  */
 public class AppointmentWebHelper {
+    enum Errors{CUSTOMER_NOT_IN_THIS_BUSINESS}
 
     private AppointmentsPresenter appointmentsPresenter;
+
 
     public AppointmentWebHelper(AppointmentsPresenter appointmentsPresenter) {
         this.appointmentsPresenter = appointmentsPresenter;
     }
 
 
-    public void GetUserAppointments(UserDetails userDetails){
-        String webHelperBaseURL = appointmentsPresenter.getWebHelperBaseURL();
+    public void GetUserAppointments(int currentBusinessId, UserDetails userDetails){
+        String webHelperBaseURL = appointmentsPresenter.getWebHelperBaseURL(); //http://10.1.1.7:8080/
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(webHelperBaseURL) //http://10.1.1.7:8080/
+                .baseUrl(webHelperBaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
 
         UserAppointmentService userAppointmentService = retrofit.create(UserAppointmentService.class);
-        //Call<List<Appointment>> retrofitResponse = userAppointmentService.retrieveAppointments(7);
-        //Call<List<String>> retrofitResponse = userAppointmentService.doTest(7);
-        Call<AppointmentsResponse> retrofitResponse = userAppointmentService.getAppointments(userDetails.getCustomerId());
-        // Call<List<Appointment>> retrofitResponse = userAppointmentService.getAppointmentsTest(7);
-        Log.i("test tag", "test msg");
+        Call<AppointmentsResponse> retrofitResponse = userAppointmentService.getAppointments(currentBusinessId, userDetails.getCustomerId());
 
         retrofitResponse.enqueue(new Callback<AppointmentsResponse>() {
             @Override
@@ -55,11 +54,21 @@ public class AppointmentWebHelper {
                     if (response.body() != null) {
                         AppointmentsResponse appointmentsResponse = response.body();
 
-                        if (appointmentsResponse.getAppointmentList().size() > 0) {
-                            appointmentsPresenter.showAppointmentsList(appointmentsResponse);
+                        if (appointmentsResponse.getErrorsList().size() > 0){
+                            for(String errorMessage: appointmentsResponse.getErrorsList() ){
+                                switch (errorMessage){
+                                    case QMeNowModel.ERROR_CUSTOMER_NOT_IN_THIS_BUSINESS:
+                                        appointmentsPresenter.setMessage(AppointmentsPresenter.MessageToUser.CUSTOMER_NOT_IN_THIS_BUSINESS);
+                                        break;
+                                }
+                            }
                         }
-                        else{
-                            appointmentsPresenter.setMessage(AppointmentsPresenter.MessageToUser.NOAPPOINTMENTSFOUND);
+                        else {
+                            if (appointmentsResponse.getAppointmentList().size() > 0) {
+                                appointmentsPresenter.showAppointmentsList(appointmentsResponse);
+                            } else {
+                                appointmentsPresenter.setMessage(AppointmentsPresenter.MessageToUser.NOAPPOINTMENTSFOUND);
+                            }
                         }
                     }
                 } else {
@@ -67,43 +76,6 @@ public class AppointmentWebHelper {
                     Log.e("error statusCode", String.valueOf(statusCode));
                 }
             }
-
-/*            retrofitResponse.enqueue(new Callback<List<String>>() {
-                @Override
-                public void onResponse(Response<List<String>> response, Retrofit retrofit) {
-                    try {
-                        if(response != null && response.errorBody() != null) {
-                            Log.i("onResponse error?", response.errorBody().string());
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    List<String> retrievedAppointmentList = response.body();
-                    if (retrievedAppointmentList.size()>0) {
-                        String firstAppointmentTest = retrievedAppointmentList.get(0);
-                        String result = firstAppointmentTest;
-                        retrieveAppointmentsView.displayAppointments(result);
-                    }
-                }*/
-
-
-/*                retrofitResponse.enqueue(new Callback<List<Appointment>>() {
-                    @Override
-                    public void onResponse(Response<List<Appointment>> response, Retrofit retrofit) {
-                        try {
-                            if(response != null && response.errorBody() != null) {
-                                Log.i("onResponse error?", response.errorBody().string());
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        List<Appointment> retrievedAppointmentList = response.body();
-                        if (retrievedAppointmentList.size()>0) {
-                            Appointment firstAppointmentTest = retrievedAppointmentList.get(0);
-                            String result = firstAppointmentTest.getMessageToCustomer();
-                            retrieveAppointmentsView.displayAppointments(result);
-                        }
-                    }*/
 
 
             @Override

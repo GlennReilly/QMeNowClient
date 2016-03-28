@@ -70,8 +70,13 @@ public class Business {
     }
 
 
+    public void setLogoName(String logoName) {
+        this.logoName = logoName;
+    }
+
     public String getLogoName() {
         return logoName;
+
     }
 
     public int getDefaultLocationId() {

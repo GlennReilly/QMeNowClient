@@ -10,9 +10,9 @@ import demo.bluemongo.com.barcodescannertest1.view.RetrieveAppointmentsView;
  */
 public class AppointmentsPresenter extends GenericPresenter {
     private final RetrieveAppointmentsView view;
-    //private final QMeNowModel model = new QMeNowModel();
     private String message;
-    public enum MessageToUser {NOAPPOINTMENTSFOUND}
+    public enum MessageToUser {NOAPPOINTMENTSFOUND, CUSTOMER_NOT_IN_THIS_BUSINESS }
+
 
     public AppointmentsPresenter(RetrieveAppointmentsView getAppointmentsView) {
         super((GenericView)getAppointmentsView);
@@ -42,7 +42,4 @@ public class AppointmentsPresenter extends GenericPresenter {
         return message;
     }
 
-    public String getWebHelperBaseURL() {
-        return model.getWebHelperBaseURL(view.getAppSettingsSharedPreferences());
-    }
 }

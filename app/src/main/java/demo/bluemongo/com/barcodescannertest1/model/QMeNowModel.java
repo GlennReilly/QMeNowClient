@@ -24,30 +24,32 @@ public class QMeNowModel {
     public static final String FIRSTNAME = "firstName";
     public static final String LASTNAME = "lastName";
     public static final String CUSTOMERID = "customerId";
+    public static final String BUSINESS_ID = "businessId";
+    public static final String ERROR_CUSTOMER_NOT_IN_THIS_BUSINESS = "CUSTOMER_NOT_IN_THIS_BUSINESS";
     public final String EMPTY = "";
     public final String WEBHELPER_BASEURL = "WebHelperBaseUrl";
     public final String DEFAULT_WEBHELPER_BASEURL = "http://10.1.1.7:8080/";
 
     public final String BUSINESS_NAME = "BUSINESS_NAME";
+    public final String LOGO_FILE_NAME = "LOGO_FILE_NAME";
     public final String BUTTON_COLOUR_HEX_CODE = "BUTTON_COLOUR_HEX_CODE";
     public final String HEADER_COLOUR_HEX_CODE = "HEADER_COLOUR_HEX_CODE";
     public final String BACKGROUND_COLOUR_HEX_CODE = "BACKGROUND_COLOUR_HEX_CODE";
 
     private CustomerQRCodePayload  customerQRCodePayload = new CustomerQRCodePayload();
     private BusinessQRCodePayload businessQRCodePayload = new BusinessQRCodePayload();
+    //public BusinessDTO businessDTO;
 
 
     public boolean isBusinessBarcodeValid(String rawValue) {
         boolean result = false;
         //String dateTimeString = "";
-        String businessName = "";
-        String content = "";
+        //String businessName = "";
+        //String content = "";
 
         try {
             JSONObject jsonObject = new JSONObject(rawValue);
-            //dateTimeString = jsonObject.getString("dateTimeString");
-            //businessName = jsonObject.getString("businessName");
-            content = jsonObject.getString("Content");
+            JSONObject jsonBusinessDTO = jsonObject.getJSONObject("businessDTO");
 
             businessQRCodePayload.setDateTimeString(jsonObject.getString("dateTimeString"));
             Date barcodeDate = InputHelper.getDateFromISO8601String(businessQRCodePayload.getDateTimeString());
@@ -60,12 +62,13 @@ public class QMeNowModel {
             if (barcodeDateExpiryDate.compareTo(now) > 0){   //.. does the barcode expire in the future?
                 //barcodeDateWithAddedTime is later than now, so still within grace period.
                 businessQRCodePayload.setDateTimeString(jsonObject.getString("dateTimeString"));
-                businessQRCodePayload.setBusinessName(jsonObject.getString("businessName"));
                 businessQRCodePayload.setContent(jsonObject.getString("Content"));
-
-                businessQRCodePayload.setButtonColourHexCode(jsonObject.getString("buttonColourHexCode"));
-                businessQRCodePayload.setHeaderColourHexCode(jsonObject.getString("headerColourHexCode"));
-                businessQRCodePayload.setBackgroundColourHexCode(jsonObject.getString("backgroundColourHexCode"));
+                businessQRCodePayload.getBusinessDTO().setId(jsonBusinessDTO.getInt("id"));
+                businessQRCodePayload.setBusinessName(jsonBusinessDTO.getString("businessName"));
+                businessQRCodePayload.setButtonColourHexCode(jsonBusinessDTO.getString("buttonColourHexCode"));
+                businessQRCodePayload.setHeaderColourHexCode(jsonBusinessDTO.getString("headerColourHexCode"));
+                businessQRCodePayload.setBackgroundColourHexCode(jsonBusinessDTO.getString("backgroundColourHexCode"));
+                businessQRCodePayload.setLogoFileName(jsonBusinessDTO.getString("logoFileName"));
                 result = true;
             }
 
@@ -80,10 +83,18 @@ public class QMeNowModel {
 
         try {
             JSONObject jsonObject = new JSONObject(barcodeContent);
+            JSONObject jsonBusinessDTO = jsonObject.getJSONObject("businessDTO");
+            customerQRCodePayload.getBusinessDTO().setBusinessName(jsonBusinessDTO.getString("businessName"));
+            customerQRCodePayload.getBusinessDTO().setButtonColourHexCode(jsonBusinessDTO.getString("buttonColourHexCode"));
+            customerQRCodePayload.getBusinessDTO().setHeaderColourHexCode(jsonBusinessDTO.getString("headerColourHexCode"));
+            customerQRCodePayload.getBusinessDTO().setBackgroundColourHexCode(jsonBusinessDTO.getString("backgroundColourHexCode"));
+            customerQRCodePayload.getBusinessDTO().setLogoFileName(jsonBusinessDTO.getString("logoFileName"));
+
             customerQRCodePayload.setDateTimeString(jsonObject.getString("dateTimeString"));
             customerQRCodePayload.setCustomerFirstName(jsonObject.getString("customerFirstName"));
             customerQRCodePayload.setCustomerLastName(jsonObject.getString("customerLastName"));
             customerQRCodePayload.setCustomerId(jsonObject.getInt("customerId"));
+
             Date barcodeDate = InputHelper.getDateFromISO8601String(customerQRCodePayload.getDateTimeString()); //formatter.parse(dateTimeString);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(barcodeDate);
@@ -117,7 +128,7 @@ public class QMeNowModel {
         editor.putString(FIRSTNAME, userDetails.getFirstName());
         editor.putString(LASTNAME, userDetails.getLastName());
         editor.putInt(CUSTOMERID, userDetails.getCustomerId());
-        editor.commit();
+        editor.apply();
     }
 
     public UserDetails getUserDetails(SharedPreferences settings){
@@ -136,7 +147,7 @@ public class QMeNowModel {
     public void saveWebHelperBaseURL(String webHelperBaseURL, SharedPreferences settings){
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(WEBHELPER_BASEURL, webHelperBaseURL);
-        editor.commit();
+        editor.apply();
     }
 
     public BusinessQRCodePayload getBusinessQRCodePayload() {
@@ -147,13 +158,16 @@ public class QMeNowModel {
         return customerQRCodePayload;
     }
 
-    public void saveBusinessDetails(BusinessQRCodePayload businessQRCodePayload, SharedPreferences businessDetailsSharedPreferences) {
+    public void saveBusinessDetails(BusinessDTO businessDTO, SharedPreferences businessDetailsSharedPreferences) {
         SharedPreferences.Editor editor = businessDetailsSharedPreferences.edit();
-        editor.putString(BUSINESS_NAME, businessQRCodePayload.getBusinessName());
-        editor.putString(BUTTON_COLOUR_HEX_CODE, businessQRCodePayload.getButtonColourHexCode());
-        editor.putString(HEADER_COLOUR_HEX_CODE, businessQRCodePayload.getHeaderColourHexCode());
-        editor.putString(BACKGROUND_COLOUR_HEX_CODE, businessQRCodePayload.getBackgroundColourHexCode());
-        editor.commit();
+        editor.putInt(BUSINESS_ID, businessDTO.getId());
+        editor.putString(BUSINESS_NAME, businessDTO.getBusinessName());
+        editor.putString(BUTTON_COLOUR_HEX_CODE, businessDTO.getButtonColourHexCode());
+        editor.putString(HEADER_COLOUR_HEX_CODE, businessDTO.getHeaderColourHexCode());
+        editor.putString(BACKGROUND_COLOUR_HEX_CODE, businessDTO.getBackgroundColourHexCode());
+        editor.putString(LOGO_FILE_NAME, businessDTO.getLogoFileName());
+
+        editor.apply();
     }
 
     public void removeUserDetails(SharedPreferences settings) {
@@ -161,6 +175,6 @@ public class QMeNowModel {
         editor.putString(FIRSTNAME, "");
         editor.putString(LASTNAME, "");
         editor.putInt(CUSTOMERID, 0);
-        editor.commit();
+        editor.apply();
     }
 }

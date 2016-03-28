@@ -16,7 +16,8 @@ public class GenericView extends Fragment {
 
     public SharedPreferences getUserDetailsSharedPreferences() {
         Context cxt = getActivity();
-        return cxt.getSharedPreferences(presenter.getUserDetailsPrefsString(), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = cxt.getSharedPreferences(presenter.getUserDetailsPrefsString(), Context.MODE_PRIVATE);
+        return sharedPreferences;
     }
 
     public SharedPreferences getBusinessDetailsSharedPreferences() {

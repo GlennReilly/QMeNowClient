@@ -22,9 +22,9 @@ public class AppointmentsDetailsPresenter extends GenericPresenter{
     }
 
 
-    public void progressAppointmentStatus(Appointment appointment, List<AppointmentStatus> appointmentStatusList) {
+    public void checkInAppointment(Appointment appointment, List<AppointmentStatus> appointmentStatusList) {
         AppointmentDetailWebHelper appointmentDetailWebHelper = new AppointmentDetailWebHelper(this);
-        appointmentDetailWebHelper.progressAppointmentStatus(appointment,appointmentStatusList);
+        appointmentDetailWebHelper.checkInAppointment(appointment, appointmentStatusList);
     }
 
     public void setMessage(String message) {
