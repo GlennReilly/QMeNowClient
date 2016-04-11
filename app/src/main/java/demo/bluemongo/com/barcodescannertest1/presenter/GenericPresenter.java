@@ -78,10 +78,10 @@ public class GenericPresenter {
 
     public String getLogoFileName() {
         SharedPreferences businessDetailsSharedPreferences = view.getBusinessDetailsSharedPreferences();
-        return businessDetailsSharedPreferences.getString(model.LOGO_FILE_NAME, "noLogo.png");
+        return businessDetailsSharedPreferences.getString(model.LOGO_FILE_NAME, "no_logo.png");
     }
 
-    public void setGenericActionBarStuff() {
+    public void setGenericUIStuff() {
         int color = Color.parseColor(getHeaderBackgroundColour());
         String logoFileName = getLogoFileName();
 
@@ -114,7 +114,7 @@ public class GenericPresenter {
 
         @Override
         public void onBitmapFailed(Drawable errorDrawable) {
-
+            actionBar.setIcon(R.drawable.no_logo);
         }
 
         @Override

@@ -31,8 +31,10 @@ public class AppointmentsAdapter extends ArrayAdapter<Appointment> {
         LayoutInflater inflater = LayoutInflater.from(context);
         View viewRow = inflater.inflate(R.layout.list_item_appointment, parent, false);
         TextView tvAppointmentTime = (TextView) viewRow.findViewById(R.id.tvAppointmentTime);
+        TextView tvAppointmentRefNum = (TextView) viewRow.findViewById(R.id.tvAppointmentRefNum);
         TextView tvAppointmentStatus = (TextView) viewRow.findViewById(R.id.tvAppointmentStatus);
         tvAppointmentTime.setText(nextAppointment.getStrAppointmentTime());
+        tvAppointmentRefNum.setText(nextAppointment.getAppointmentTypePrefix() + nextAppointment.getId());
         tvAppointmentStatus.setText(nextAppointment.getStatusName());
 
         return viewRow;

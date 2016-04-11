@@ -77,7 +77,7 @@ public class SettingsFragment extends GenericView implements SettingsView {
 
         if(presenter.getHeaderBackgroundColour() !=  "") {
             int color = Color.parseColor(presenter.getHeaderBackgroundColour());
-            presenter.setGenericActionBarStuff();
+            presenter.setGenericUIStuff();
         }
     }
 

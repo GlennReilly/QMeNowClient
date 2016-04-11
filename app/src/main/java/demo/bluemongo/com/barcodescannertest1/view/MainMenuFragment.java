@@ -81,7 +81,7 @@ public class MainMenuFragment extends GenericView implements MainView {
 
         if(presenter.getHeaderBackgroundColour() !=  "") {
             int color = Color.parseColor(presenter.getHeaderBackgroundColour());
-            presenter.setGenericActionBarStuff();
+            presenter.setGenericUIStuff();
         }
     }
 

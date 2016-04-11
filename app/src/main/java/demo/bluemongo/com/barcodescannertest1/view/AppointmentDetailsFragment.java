@@ -113,13 +113,14 @@ public class AppointmentDetailsFragment extends GenericView implements Appointme
             }
         }
 
+        TextView tvAppointmentTypePrefix = (TextView) view.findViewById(R.id.appointmentTypePrefix);
         TextView tvMessageToCustomer = (TextView) view.findViewById(R.id.messageToCustomer);
         TextView tvStrAppointmentDate = (TextView) view.findViewById(R.id.strAppointmentDate);
         TextView tvStrAppointmentTime = (TextView) view.findViewById(R.id.strAppointmentTime);
         TextView tvLocationName = (TextView) view.findViewById(R.id.locationName);
         TextView tvStatusName = (TextView) view.findViewById(R.id.statusName);
         TextView tvAppointmentTypeName = (TextView) view.findViewById(R.id.appointmentTypeName);
-        TextView tvAppointmentTypePrefix = (TextView) view.findViewById(R.id.appointmentTypePrefix);
+
 
         tvMessageToCustomer.setText(appointment.getMessageToCustomer());
         tvStrAppointmentDate.setText(appointment.getStrAppointmentDate());
@@ -141,7 +142,7 @@ public class AppointmentDetailsFragment extends GenericView implements Appointme
         }
 
         tvAppointmentTypeName.setText(appointment.getAppointmentTypeName());
-        tvAppointmentTypePrefix.setText(appointment.getAppointmentTypePrefix());
+        tvAppointmentTypePrefix.setText(appointment.getAppointmentTypePrefix() + appointment.getId());
 
         ImageView ivAppointmentTypeCircle = (ImageView) view.findViewById(R.id.appointmentTypeCircle);
         Drawable drawableAppointmentTypeCircle = ivAppointmentTypeCircle.getDrawable();
@@ -169,7 +170,7 @@ public class AppointmentDetailsFragment extends GenericView implements Appointme
         if(presenter.getHeaderBackgroundColour() !=  "") {
 /*            int color = Color.parseColor(presenter.getHeaderBackgroundColour());
             String logoFileName = presenter.getLogoFileName();*/
-            presenter.setGenericActionBarStuff();
+            presenter.setGenericUIStuff();
         }
     }
 

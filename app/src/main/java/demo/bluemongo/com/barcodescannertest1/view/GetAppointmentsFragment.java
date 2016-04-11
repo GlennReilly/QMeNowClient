@@ -21,6 +21,7 @@ import demo.bluemongo.com.barcodescannertest1.api.AppointmentWebHelper;
 import demo.bluemongo.com.barcodescannertest1.model.Appointment;
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentWrapper;
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentsResponse;
+import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
 import demo.bluemongo.com.barcodescannertest1.model.UserDetails;
 import demo.bluemongo.com.barcodescannertest1.presenter.AppointmentsPresenter;
 
@@ -116,6 +117,12 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
                     mListener.showAppointmentDetails(appointmentWrapper);
                 }
             });
+            if (this.appointmentList.size()>0) {
+                int incomingCustomerId = this.appointmentList.get(0).getCustomerId();
+                UserDetails userDetails = new UserDetails();
+                userDetails.setCustomerId(incomingCustomerId);
+                new QMeNowModel().saveUserDetails(userDetails, getUserDetailsSharedPreferences());
+            }
         }
     }
 

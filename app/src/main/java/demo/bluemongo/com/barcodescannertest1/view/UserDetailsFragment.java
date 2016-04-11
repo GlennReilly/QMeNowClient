@@ -115,7 +115,7 @@ public class UserDetailsFragment extends GenericView implements UserDetailsView 
 
         if(presenter.getHeaderBackgroundColour() !=  "") {
             int color = Color.parseColor(presenter.getHeaderBackgroundColour());
-            presenter.setGenericActionBarStuff();
+            presenter.setGenericUIStuff();
         }
     }
 
