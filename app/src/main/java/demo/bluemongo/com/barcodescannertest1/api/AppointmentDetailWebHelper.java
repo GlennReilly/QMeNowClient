@@ -9,7 +9,7 @@ import demo.bluemongo.com.barcodescannertest1.model.Appointment;
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentCheckInDTO;
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentStatus;
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentsResponse;
-import demo.bluemongo.com.barcodescannertest1.view.AppointmentsDetailsPresenter;
+import demo.bluemongo.com.barcodescannertest1.presenter.AppointmentsDetailsPresenter;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;

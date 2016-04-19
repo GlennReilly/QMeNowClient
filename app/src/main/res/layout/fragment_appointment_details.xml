@@ -5,94 +5,182 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/appointmentTypePrefix"
-        android:textSize="@dimen/large_text_size"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:textSize="@dimen/general_text_size"
-        android:id="@+id/messageToCustomer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:textSize="@dimen/general_text_size"
-        android:id="@+id/strAppointmentDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:textSize="@dimen/general_text_size"
-        android:id="@+id/strAppointmentTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+<!--Ref Num-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/general_text_size"
+            android:text="@string/label_refnum"/>
+        <TextView
+            android:id="@+id/appointmentTypePrefix"
+            android:textSize="@dimen/large_text_size"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-        <ImageView
-            android:id="@+id/locationCircle"
-            android:layout_width="@dimen/circle_size"
-            android:layout_height="@dimen/circle_size"
-            android:src="@drawable/circle"
-            android:layout_alignParentRight="true" />
+<!--Customer Message-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:textSize="@dimen/general_text_size"
+            android:text="@string/label_customer_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="@dimen/general_text_size"
+            android:id="@+id/messageToCustomer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+<!--Appointment Date and time-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+        <TextView
+            android:textSize="@dimen/general_text_size"
+            android:text="@string/label_appointment_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <TextView
+                android:textSize="@dimen/general_text_size"
+                android:id="@+id/strAppointmentDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:textSize="@dimen/general_text_size"
+                android:id="@+id/strAppointmentTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--Location-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/tv_label_appointment_location"
+            android:textSize="@dimen/general_text_size"
+            android:text="@string/label_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/locationName"
             android:textSize="@dimen/general_text_size"
             android:layout_marginLeft="@dimen/circle_margin_left"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/tv_label_appointment_location"/>
 
         <ImageView
-            android:id="@+id/statusCircle"
+            android:id="@+id/locationCircle"
             android:layout_width="@dimen/circle_size"
             android:layout_height="@dimen/circle_size"
             android:src="@drawable/circle"
-            android:layout_alignParentRight="true" />
+            android:gravity="right"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
+
+    </RelativeLayout>
+
+    <!--Status-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/tv_label_appointment_status"
+            android:textSize="@dimen/general_text_size"
+            android:text="@string/label_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/statusName"
             android:textSize="@dimen/general_text_size"
             android:layout_marginLeft="@dimen/circle_margin_left"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv_label_appointment_status"
+            android:textStyle="bold"/>
 
         <ImageView
-            android:id="@+id/appointmentTypeCircle"
+            android:id="@+id/statusCircle"
             android:layout_width="@dimen/circle_size"
             android:layout_height="@dimen/circle_size"
             android:src="@drawable/circle"
-            android:layout_alignParentRight="true"/>
+            android:gravity="right"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
+
+    </RelativeLayout>
+
+    <!--Appointment type-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/tv_label_appointment_type"
+            android:textSize="@dimen/general_text_size"
+            android:text="@string/label_appointment_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/appointmentTypeName"
             android:textSize="@dimen/general_text_size"
             android:layout_marginLeft="@dimen/circle_margin_left"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/tv_label_appointment_type"/>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/appointmentTypeCircle"
+            android:layout_width="@dimen/circle_size"
+            android:layout_height="@dimen/circle_size"
+            android:src="@drawable/circle"
+            android:gravity="right"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
+    </RelativeLayout>
 
     <Button
         android:textSize="@dimen/general_text_size"

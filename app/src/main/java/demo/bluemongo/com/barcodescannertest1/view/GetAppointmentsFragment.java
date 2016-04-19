@@ -5,13 +5,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -24,6 +24,8 @@ import demo.bluemongo.com.barcodescannertest1.model.AppointmentsResponse;
 import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
 import demo.bluemongo.com.barcodescannertest1.model.UserDetails;
 import demo.bluemongo.com.barcodescannertest1.presenter.AppointmentsPresenter;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * Created by glenn on 5/10/15.
@@ -37,6 +39,9 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
     private ListView appointmentListView;
     private List<Appointment> appointmentList;
     private AppointmentsAdapter appointmentsAdapter;
+    private RealmConfiguration realmConfig;
+    private Realm realm;
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -51,6 +56,7 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
     public interface OnFragmentInteractionListener { //These are the ways this fragment communicates with the rest of the app, via the Activity.
         void showAppointmentDetails(AppointmentWrapper appointment);
         void showMainMenu();
+        void showMessage(String message);
     }
 
     @Override
@@ -69,6 +75,7 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
         super.onCreate(savedInstanceState);
         appointmentsPresenter = new AppointmentsPresenter(this);
         setPresenter(appointmentsPresenter);
+        setupRealm();
     }
 
     @Nullable
@@ -79,9 +86,26 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
         tvMessage.setText(getString(R.string.getting_appointments_message));
         tvMessage2 = (TextView) view.findViewById(R.id.tvMessage2);
         appointmentListView = (ListView) view.findViewById(R.id.appointment_list);
-        retrieveAppointments();
+        retrieveAppointments(); //or retrieve from cache?
 
         return view;
+    }
+
+    @Override
+    public void setupRealm() {
+        // Create the Realm configuration
+        realmConfig = new RealmConfiguration.Builder(getActivity()).build();
+        // Open the Realm for the UI thread.
+        realm = Realm.getInstance(realmConfig);
+    }
+
+    @Override
+    public Realm getRealm(){
+        if (realm == null) {
+            setupRealm();
+            Log.i("GetAppointmentsFragment", "recreating realm");
+        }
+        return realm;
     }
 
     @Override
@@ -130,15 +154,15 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
     public void showMessage(final String message) {
         progressDialog.dismiss();
         tvMessage2.setText(message);
-        Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG).show();
-        mListener.showMainMenu();
-
+        //Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG).show();
+        //mListener.showMainMenu();
+        mListener.showMessage(message);
     }
 
     @Override
     public String getMessage(AppointmentsPresenter.MessageToUser messageToUser) {
         String returnMessage = "";
-        if(messageToUser.equals(AppointmentsPresenter.MessageToUser.NOAPPOINTMENTSFOUND)) {
+        if(messageToUser.equals(AppointmentsPresenter.MessageToUser.NO_APPOINTMENTS_FOUND)) {
             returnMessage = getString(R.string.noAppointmentsFound);
         }
 

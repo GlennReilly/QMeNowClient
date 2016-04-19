@@ -25,6 +25,7 @@ import demo.bluemongo.com.barcodescannertest1.R;
 import demo.bluemongo.com.barcodescannertest1.model.Appointment;
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentStatus;
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentWrapper;
+import demo.bluemongo.com.barcodescannertest1.presenter.AppointmentsDetailsPresenter;
 
 public class AppointmentDetailsFragment extends GenericView implements AppointmentDetailsView {
     public static final String APPOINTMENT_WRAPPER_KEY = "APPOINTMENT_WRAPPER_KEY";

@@ -22,6 +22,7 @@ public class MainMenuFragment extends GenericView implements MainView {
     private MainPresenter presenter;
     private Button btnToEnterUserDetails;
     private Button btnToScanBarcode;
+    private Button btnViewAppointments;
     private LinearLayout parentLayout;
 
     public CameraPreviewView.BarcodeType barcodeType;
@@ -29,6 +30,7 @@ public class MainMenuFragment extends GenericView implements MainView {
     public interface OnFragmentInteractionListener {
         void showUserDetails(Bundle bundle);
         void openCameraPreview(CameraPreviewView.BarcodeType barcodeType);
+        void viewCachedAppointments();
     }
 
     @Override
@@ -59,6 +61,14 @@ public class MainMenuFragment extends GenericView implements MainView {
             }
         });
 
+        btnViewAppointments = (Button) view.findViewById(R.id.btn_view_appointments);
+        btnViewAppointments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.viewCachedAppointments();
+            }
+        });
+
         parentLayout = (LinearLayout) view.findViewById(R.id.ll_main);
 
         setUIElementsFromSavedDetails();
@@ -72,6 +82,7 @@ public class MainMenuFragment extends GenericView implements MainView {
             int colour = Color.parseColor(presenter.getButtonBackgroundColour());
             btnToEnterUserDetails.setBackgroundColor(colour);
             btnToScanBarcode.setBackgroundColor(colour);
+            btnViewAppointments.setBackgroundColor(colour);
         }
 
        if(presenter.getBackgroundBackgroundColour() !=  "") {

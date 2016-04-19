@@ -4,11 +4,13 @@ import android.content.SharedPreferences;
 
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentsResponse;
 import demo.bluemongo.com.barcodescannertest1.presenter.AppointmentsPresenter;
+import io.realm.Realm;
 
 /**
  * Created by glenn on 5/10/15.
  */
 public interface RetrieveAppointmentsView {
+
     void retrieveAppointments();
     void displayAppointments(AppointmentsResponse appointmentsResponse);
     void showMessage(String message);
@@ -16,4 +18,6 @@ public interface RetrieveAppointmentsView {
     SharedPreferences getUserDetailsSharedPreferences();
     SharedPreferences getBusinessDetailsSharedPreferences();
     SharedPreferences getAppSettingsSharedPreferences();
+    void setupRealm();
+    Realm getRealm();
 }

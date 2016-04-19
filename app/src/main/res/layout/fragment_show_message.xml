@@ -8,6 +8,8 @@
         android:id = "@+id/tvMessage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="" />
+        android:paddingTop="20dp"
+        android:text=""
+        android:textSize="@dimen/general_text_size"/>
 
 </FrameLayout>

@@ -1,9 +1,11 @@
 package demo.bluemongo.com.barcodescannertest1.model;
 
+import io.realm.RealmObject;
+
 /**
  * Created by glenn on 30/01/16.
  */
-public class BusinessDTO{
+public class RealmBusinessDTO extends RealmObject{
     private int id;
     private String businessName = "";
     private String buttonColourHexCode;

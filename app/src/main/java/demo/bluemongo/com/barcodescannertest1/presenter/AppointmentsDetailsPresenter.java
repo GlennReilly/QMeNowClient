@@ -1,4 +1,4 @@
-package demo.bluemongo.com.barcodescannertest1.view;
+package demo.bluemongo.com.barcodescannertest1.presenter;
 
 import java.util.List;
 
@@ -7,6 +7,8 @@ import demo.bluemongo.com.barcodescannertest1.model.Appointment;
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentStatus;
 import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
 import demo.bluemongo.com.barcodescannertest1.presenter.GenericPresenter;
+import demo.bluemongo.com.barcodescannertest1.view.AppointmentDetailsView;
+import demo.bluemongo.com.barcodescannertest1.view.GenericView;
 
 /**
  * Created by glenn on 30/12/15.

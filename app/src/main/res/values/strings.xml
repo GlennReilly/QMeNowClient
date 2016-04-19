@@ -3,7 +3,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="btn_scan_barcode_text">scan appointment barcode</string>
+    <string name="btn_scan_barcode_text">scan for appointments</string>
     <string name="ok">OK</string>
     <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
     <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
@@ -33,6 +33,13 @@
     <string name="remove_user_details">Remove saved user details</string>
     <string name="save">Save</string>
     <string name="user_removed_successfully">User details removed successfully</string>
-    <string name="customerDoesntExistAtThisBusiness">Sorry, that customer doesn\'t exist at this business</string>
+    <string name="customerDoesntExistAtThisBusiness">Sorry, that customer doesn\'t exist at this businessDTO</string>
     <string name="appointment_already_checked_in">Appointment already checked in at</string>
+    <string name="label_refnum">Ref:</string>
+    <string name="label_appointment_date">Appointment Date and time:</string>
+    <string name="label_appointment_type">Appointment type:</string>
+    <string name="label_status">Appointment Status:</string>
+    <string name="label_location">Location:</string>
+    <string name="label_customer_message">Message:</string>
+    <string name="btn_view_appointments_text">View Appointments</string>
 </resources>

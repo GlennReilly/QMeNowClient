@@ -56,6 +56,7 @@ public class AppointmentWebHelper {
 
                         if (appointmentsResponse.getErrorsList().size() > 0){
                             for(String errorMessage: appointmentsResponse.getErrorsList() ){
+                                Log.e("appntmntsRspnse error", errorMessage);
                                 switch (errorMessage){
                                     case QMeNowModel.ERROR_CUSTOMER_NOT_IN_THIS_BUSINESS:
                                         appointmentsPresenter.setMessage(AppointmentsPresenter.MessageToUser.CUSTOMER_NOT_IN_THIS_BUSINESS);
@@ -65,9 +66,10 @@ public class AppointmentWebHelper {
                         }
                         else {
                             if (appointmentsResponse.getAppointmentList().size() > 0) {
+                                appointmentsPresenter.setAppointmentsInCache(appointmentsResponse);
                                 appointmentsPresenter.showAppointmentsList(appointmentsResponse);
                             } else {
-                                appointmentsPresenter.setMessage(AppointmentsPresenter.MessageToUser.NOAPPOINTMENTSFOUND);
+                                appointmentsPresenter.setMessage(AppointmentsPresenter.MessageToUser.NO_APPOINTMENTS_FOUND);
                             }
                         }
                     }
@@ -80,6 +82,7 @@ public class AppointmentWebHelper {
 
             @Override
             public void onFailure(Throwable t) {
+                Log.e("webHelper failure", t.getMessage());
                 appointmentsPresenter.setMessage("Something went wrong: " + t.getMessage());
             }
         });

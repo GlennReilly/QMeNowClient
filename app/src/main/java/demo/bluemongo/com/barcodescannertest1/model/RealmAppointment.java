@@ -1,20 +1,15 @@
 package demo.bluemongo.com.barcodescannertest1.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import java.util.Date;
-
+import io.realm.RealmObject;
 
 /**
- * Created by glenn on 5/10/15.
+ * Created by glenn on 16/04/16.
  */
-public class Appointment implements Parcelable {
+public class RealmAppointment extends RealmObject{
     private int id;
     private String messageToCustomer;
     private String strAppointmentDate;
     private String strAppointmentTime;
-    private transient Date appointmentDate;
     private int locationId;
     private String locationName;
     private int customerId;
@@ -27,51 +22,7 @@ public class Appointment implements Parcelable {
     private String statusHexCode;
     private String appTypeHexCode;
     private String locationHexCode;
-    private transient Date checkInDate;
     private String strCheckInDateTime;
-
-    public Appointment() {
-    }
-
-    protected Appointment(Parcel in) {
-        id = in.readInt();
-        messageToCustomer = in.readString();
-        strAppointmentDate = in.readString();
-        strAppointmentTime = in.readString();
-        locationId = in.readInt();
-        locationName = in.readString();
-        customerId = in.readInt();
-        appointmentTypeId = in.readInt();
-        status = in.readInt();
-        statusName = in.readString();
-        isComplete = in.readByte() != 0;
-        appointmentTypeName = in.readString();
-        appointmentTypePrefix = in.readString();
-        statusHexCode = in.readString();
-        appTypeHexCode = in.readString();
-        locationHexCode = in.readString();
-        strCheckInDateTime = in.readString();
-    }
-
-    public static final Creator<Appointment> CREATOR = new Creator<Appointment>() {
-        @Override
-        public Appointment createFromParcel(Parcel in) {
-            return new Appointment(in);
-        }
-
-        @Override
-        public Appointment[] newArray(int size) {
-            return new Appointment[size];
-        }
-    };
-
-    public Date getAppointmentDate() {
-        return appointmentDate;
-    }
-
-    public void setAppointmentDate(Date appointmentDate) {
-        this.appointmentDate = appointmentDate;
-    }
 
     public int getAppointmentTypeId() {
         return appointmentTypeId;
@@ -125,8 +76,8 @@ public class Appointment implements Parcelable {
         return isComplete;
     }
 
-    public void setIsComplete(boolean isComplete) {
-        this.isComplete = isComplete;
+    public void setComplete(boolean complete) {
+        isComplete = complete;
     }
 
     public String getLocationHexCode() {
@@ -201,14 +152,6 @@ public class Appointment implements Parcelable {
         this.strAppointmentTime = strAppointmentTime;
     }
 
-    public void setCheckInDate(Date checkInDate) {
-        this.checkInDate = checkInDate;
-    }
-
-    public Date getCheckInDate() {
-        return checkInDate;
-    }
-
     public String getStrCheckInDateTime() {
         return strCheckInDateTime;
     }
@@ -216,32 +159,4 @@ public class Appointment implements Parcelable {
     public void setStrCheckInDateTime(String strCheckInDateTime) {
         this.strCheckInDateTime = strCheckInDateTime;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(messageToCustomer);
-        dest.writeString(strAppointmentDate);
-        dest.writeString(strAppointmentTime);
-        dest.writeInt(locationId);
-        dest.writeString(locationName);
-        dest.writeInt(customerId);
-        dest.writeInt(appointmentTypeId);
-        dest.writeInt(status);
-        dest.writeString(statusName);
-        dest.writeByte((byte) (isComplete ? 1 : 0));
-        dest.writeString(appointmentTypeName);
-        dest.writeString(appointmentTypePrefix);
-        dest.writeString(statusHexCode);
-        dest.writeString(appTypeHexCode);
-        dest.writeString(locationHexCode);
-        dest.writeString(strCheckInDateTime);
-    }
-
-
 }

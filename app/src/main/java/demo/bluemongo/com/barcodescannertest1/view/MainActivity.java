@@ -36,9 +36,12 @@ public class MainActivity extends Activity implements
     private static final String TAG_GET_SETTINGS_FRAGMENT = "TAG_GET_SETTINGS_FRAGMENT";
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         final FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
             @Override
@@ -52,6 +55,8 @@ public class MainActivity extends Activity implements
         showMainMenu();
         setContentView(R.layout.activity_main);
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -84,6 +89,18 @@ public class MainActivity extends Activity implements
     }
 
     @Override
+    public void showMessage(String message) {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        MessageFragment messageFragment = new MessageFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(MessageFragment.PARAM_MESSAGE, message);
+        messageFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.fragment_container, messageFragment, TAG_MESSAGE_FRAGMENT);
+        fragmentTransaction.commit();
+    }
+
+    @Override
     public void showUserDetails(Bundle bundle) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -111,6 +128,11 @@ public class MainActivity extends Activity implements
         //fragmentTransaction.add(R.id.fragment_container, cameraFragment, TAG_CAMERA_FRAGMENT);
         fragmentTransaction.addToBackStack(TAG_CAMERA_FRAGMENT);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void viewCachedAppointments() {
+
     }
 
     @Override

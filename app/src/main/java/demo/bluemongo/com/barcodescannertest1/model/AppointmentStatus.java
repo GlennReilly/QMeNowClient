@@ -14,6 +14,8 @@ public class AppointmentStatus implements Parcelable {
     private int sequenceNumber;
     private boolean customerInitiated;
 
+    public AppointmentStatus() {
+    }
 
     protected AppointmentStatus(Parcel in) {
         id = in.readInt();

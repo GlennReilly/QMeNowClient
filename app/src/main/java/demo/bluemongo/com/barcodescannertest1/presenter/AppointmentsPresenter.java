@@ -11,7 +11,16 @@ import demo.bluemongo.com.barcodescannertest1.view.RetrieveAppointmentsView;
 public class AppointmentsPresenter extends GenericPresenter {
     private final RetrieveAppointmentsView view;
     private String message;
-    public enum MessageToUser {NOAPPOINTMENTSFOUND, CUSTOMER_NOT_IN_THIS_BUSINESS }
+
+    public void setAppointmentsInCache(AppointmentsResponse appointmentsResponse) {
+        model.setAppointmentsInCache(appointmentsResponse, view.getRealm());
+    }
+
+    public AppointmentsResponse getAppointmentsFromCache() {
+        return model.getAppointmentsFromCache(view.getRealm());
+    }
+
+    public enum MessageToUser {NO_APPOINTMENTS_FOUND, CUSTOMER_NOT_IN_THIS_BUSINESS }
 
 
     public AppointmentsPresenter(RetrieveAppointmentsView getAppointmentsView) {
