@@ -3,8 +3,11 @@ package demo.bluemongo.com.barcodescannertest1.view;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import demo.bluemongo.com.barcodescannertest1.presenter.GenericPresenter;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * Created by glenn on 16/01/16.
@@ -12,6 +15,8 @@ import demo.bluemongo.com.barcodescannertest1.presenter.GenericPresenter;
 public class GenericView extends Fragment {
     private GenericView view;
     private GenericPresenter presenter;
+    private RealmConfiguration realmConfig;
+    private Realm realm;
 
 
     public SharedPreferences getUserDetailsSharedPreferences() {
@@ -40,5 +45,22 @@ public class GenericView extends Fragment {
 
     public GenericPresenter getPresenter() {
         return presenter;
+    }
+
+
+    public void setupRealm() {
+        // Create the Realm configuration
+        realmConfig = new RealmConfiguration.Builder(getActivity()).build();
+        // Open the Realm for the UI thread.
+        realm = Realm.getInstance(realmConfig);
+    }
+
+
+    public Realm getRealm(){
+        if (realm == null) {
+            setupRealm();
+            Log.i("GetAppointmentsFragment", "recreating realm");
+        }
+        return realm;
     }
 }

@@ -71,6 +71,7 @@ public class MainMenuFragment extends GenericView implements MainView {
 
         parentLayout = (LinearLayout) view.findViewById(R.id.ll_main);
 
+        btnViewAppointments.setEnabled(presenter.isAppointmentsCacheNotEmpty());
         setUIElementsFromSavedDetails();
 
         return view;

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +23,6 @@ import demo.bluemongo.com.barcodescannertest1.model.AppointmentsResponse;
 import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
 import demo.bluemongo.com.barcodescannertest1.model.UserDetails;
 import demo.bluemongo.com.barcodescannertest1.presenter.AppointmentsPresenter;
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 
 /**
  * Created by glenn on 5/10/15.
@@ -39,8 +36,7 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
     private ListView appointmentListView;
     private List<Appointment> appointmentList;
     private AppointmentsAdapter appointmentsAdapter;
-    private RealmConfiguration realmConfig;
-    private Realm realm;
+
 
 
     /**
@@ -91,22 +87,7 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
         return view;
     }
 
-    @Override
-    public void setupRealm() {
-        // Create the Realm configuration
-        realmConfig = new RealmConfiguration.Builder(getActivity()).build();
-        // Open the Realm for the UI thread.
-        realm = Realm.getInstance(realmConfig);
-    }
 
-    @Override
-    public Realm getRealm(){
-        if (realm == null) {
-            setupRealm();
-            Log.i("GetAppointmentsFragment", "recreating realm");
-        }
-        return realm;
-    }
 
     @Override
     public void retrieveAppointments(){

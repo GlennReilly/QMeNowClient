@@ -1,5 +1,6 @@
 package demo.bluemongo.com.barcodescannertest1.presenter;
 
+import demo.bluemongo.com.barcodescannertest1.model.AppointmentsResponse;
 import demo.bluemongo.com.barcodescannertest1.view.GenericView;
 import demo.bluemongo.com.barcodescannertest1.view.MainView;
 
@@ -13,6 +14,24 @@ public class MainPresenter extends GenericPresenter {
     public MainPresenter(MainView view){
         super((GenericView) view);
         this.view = view;
+    }
+
+    public boolean isAppointmentsCacheNotEmpty() {
+        boolean result = false;
+        AppointmentsResponse appointmentsResponse = model.getAppointmentsFromCache(view.getRealm());
+        if(appointmentsResponse == null){
+            result = false;
+        }
+        else {
+            if (appointmentsResponse.getAppointmentList().size() == 0) {
+                result = false;
+            }
+            else {
+                result = true;
+            }
+        }
+
+        return result;
     }
 
 
