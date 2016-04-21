@@ -132,6 +132,16 @@ public class MainActivity extends Activity implements
 
     @Override
     public void viewCachedAppointments() {
+        //same as showUsersAppointments() but need to populate the appointments from cache...
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        GetAppointmentsFragment getAppointmentsFragment = new GetAppointmentsFragment();
+        Bundle bundle  = new Bundle();
+        bundle.putBoolean(GetAppointmentsFragment.RETRIEVE_FROM_CACHE, true);
+
+        fragmentTransaction.replace(R.id.fragment_container, getAppointmentsFragment);
+        fragmentTransaction.addToBackStack(TAG_GET_APPOINTMENTS_FRAGMENT);
+        fragmentTransaction.commit();
 
     }
 

@@ -11,8 +11,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import demo.bluemongo.com.barcodescannertest1.utils.InputHelper;
 import io.realm.Realm;
@@ -196,10 +199,39 @@ public class QMeNowModel {
         Log.i("setAppointmentsInCache", "realmAppointmentsResponse successfully added to Realm");
     }
 
+    public void removeRealmAppointmentFromCache(List<RealmAppointment> realmAppointments, RealmAppointment realmAppointment, Realm realm){
+        realm.beginTransaction();
+        realmAppointments.remove(realmAppointment);
+        realm.commitTransaction();
+        Log.i("removeRealmAppointment", "realmAppointments successfully removed from Realm");
+    }
+
 
     public AppointmentsResponse getAppointmentsFromCache(Realm realm) {
         RealmResults<RealmAppointmentsResponse> results = realm.where(RealmAppointmentsResponse.class).findAll();
-        return realmAppointmentAdapter.getAppointmentsResponseFromRealmObject(results);
+        //only keep those appointments fro today and later, remove any earlier ones
+        Calendar cal = Calendar.getInstance();
+        InputHelper.resetTimeOfDate(cal);
+        Date dateAtMidnight = cal.getTime();
+        for(RealmAppointmentsResponse realmAppointmentsResponse : results) {
+            for (RealmAppointment realmAppointment : realmAppointmentsResponse.getAppointmentList()) {
+                if (!StringUtils.isBlank(realmAppointment.getStrAppointmentDate())){
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    try {
+                        Date appointmentDate = sdf.parse(realmAppointment.getStrAppointmentDate());
+                        if (appointmentDate.before(dateAtMidnight)){
+                            removeRealmAppointmentFromCache(realmAppointmentsResponse.getAppointmentList(), realmAppointment, realm);
+                            realmAppointmentsResponse.getAppointmentList().remove(realmAppointment);
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }
+        AppointmentsResponse appointmentsResponseFromRealmObject = realmAppointmentAdapter.getAppointmentsResponseFromRealmObject(results);
+        return appointmentsResponseFromRealmObject;
     }
 
 

@@ -13,6 +13,7 @@ import io.realm.RealmConfiguration;
  * Created by glenn on 16/01/16.
  */
 public class GenericView extends Fragment {
+    public static final String RETRIEVE_FROM_CACHE = "RETRIEVE_FROM_CACHE";
     private GenericView view;
     private GenericPresenter presenter;
     private RealmConfiguration realmConfig;

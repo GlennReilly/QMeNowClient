@@ -82,7 +82,13 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
         tvMessage.setText(getString(R.string.getting_appointments_message));
         tvMessage2 = (TextView) view.findViewById(R.id.tvMessage2);
         appointmentListView = (ListView) view.findViewById(R.id.appointment_list);
-        retrieveAppointments(); //or retrieve from cache?
+        boolean retrieveFromCache  = savedInstanceState.getBoolean(GetAppointmentsFragment.RETRIEVE_FROM_CACHE, false);
+        if(retrieveFromCache){
+            AppointmentsResponse appointmentsResponse = appointmentsPresenter.getAppointmentsFromCache();
+            appointmentsPresenter.showAppointmentsList(appointmentsResponse);
+        }else {
+            retrieveAppointmentsFromWeb();
+        }
 
         return view;
     }
@@ -90,7 +96,7 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
 
 
     @Override
-    public void retrieveAppointments(){
+    public void retrieveAppointmentsFromWeb(){
         progressDialog = ProgressDialog.show(getActivity(), getString(R.string.dialogTitle),
                 getString(R.string.dialogMessage), true);
         AppointmentWebHelper appointmentWebHelper = new AppointmentWebHelper(appointmentsPresenter);

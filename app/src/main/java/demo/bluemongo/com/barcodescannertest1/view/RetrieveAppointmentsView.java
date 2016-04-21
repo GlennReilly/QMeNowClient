@@ -11,7 +11,7 @@ import io.realm.Realm;
  */
 public interface RetrieveAppointmentsView {
 
-    void retrieveAppointments();
+    void retrieveAppointmentsFromWeb();
     void displayAppointments(AppointmentsResponse appointmentsResponse);
     void showMessage(String message);
     String getMessage(AppointmentsPresenter.MessageToUser messageToUser);

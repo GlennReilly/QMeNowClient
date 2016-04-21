@@ -40,7 +40,7 @@ public interface UserAppointmentService {
 /*    @GET("/SpringMVCJsonTest/FlexibleUIConfig/user/getAppointmentsTest/1234")
     Call<List<Appointment>> getUserAppointmentsTest();
 
-    @GET("/SpringMVCJsonTest/FlexibleUIConfig/user/retrieveAppointments/{userId}")
+    @GET("/SpringMVCJsonTest/FlexibleUIConfig/user/retrieveAppointmentsFromWeb/{userId}")
     Call<List<Appointment>> getUserAppointments(@Path("userId") int userId);
 
     @GET("/SpringMVCJsonTest/FlexibleUIConfig/user/getUserMatches?firstName={firstName}&lastName={lastName}")

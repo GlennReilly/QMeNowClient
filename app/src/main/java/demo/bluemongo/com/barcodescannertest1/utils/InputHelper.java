@@ -4,10 +4,10 @@ package demo.bluemongo.com.barcodescannertest1.utils;
  * Created by glenn on 11/10/15.
  */
 
-import java.text.Normalizer;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateParser;
 import org.apache.commons.lang3.time.FastDateFormat;
+
 import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.text.ParseException;
@@ -49,5 +49,12 @@ public class InputHelper {
             e.printStackTrace();
         }
         return dateFromString;
+    }
+
+    public static void resetTimeOfDate(Calendar cal) {
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
     }
 }
