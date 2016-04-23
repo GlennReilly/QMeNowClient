@@ -1,7 +1,7 @@
 package demo.bluemongo.com.barcodescannertest1.presenter;
 
 import demo.bluemongo.com.barcodescannertest1.model.UserDetails;
-import demo.bluemongo.com.barcodescannertest1.view.GenericView;
+import demo.bluemongo.com.barcodescannertest1.view.GenericViewImpl;
 import demo.bluemongo.com.barcodescannertest1.view.UserDetailsView;
 
 /**
@@ -16,7 +16,7 @@ public class UserDetailsPresenter extends GenericPresenter{
 
 
     public UserDetailsPresenter(UserDetailsView view) {
-        super((GenericView) view);
+        super((GenericViewImpl) view);
         this.userDetailsView = view;
     }
 

@@ -2,7 +2,7 @@ package demo.bluemongo.com.barcodescannertest1.presenter;
 
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentsResponse;
 import demo.bluemongo.com.barcodescannertest1.model.UserDetails;
-import demo.bluemongo.com.barcodescannertest1.view.GenericView;
+import demo.bluemongo.com.barcodescannertest1.view.GenericViewImpl;
 import demo.bluemongo.com.barcodescannertest1.view.RetrieveAppointmentsView;
 
 /**
@@ -24,7 +24,7 @@ public class AppointmentsPresenter extends GenericPresenter {
 
 
     public AppointmentsPresenter(RetrieveAppointmentsView getAppointmentsView) {
-        super((GenericView)getAppointmentsView);
+        super((GenericViewImpl)getAppointmentsView);
         this.view = getAppointmentsView;
     }
 

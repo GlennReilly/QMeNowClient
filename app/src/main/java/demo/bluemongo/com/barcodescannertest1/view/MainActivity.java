@@ -138,7 +138,8 @@ public class MainActivity extends Activity implements
         GetAppointmentsFragment getAppointmentsFragment = new GetAppointmentsFragment();
         Bundle bundle  = new Bundle();
         bundle.putBoolean(GetAppointmentsFragment.RETRIEVE_FROM_CACHE, true);
-
+        Log.i("MainActivity","RETRIEVE_FROM_CACHE set to true");
+        getAppointmentsFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.fragment_container, getAppointmentsFragment);
         fragmentTransaction.addToBackStack(TAG_GET_APPOINTMENTS_FRAGMENT);
         fragmentTransaction.commit();

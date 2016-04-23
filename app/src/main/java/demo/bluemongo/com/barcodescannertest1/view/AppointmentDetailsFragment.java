@@ -27,7 +27,7 @@ import demo.bluemongo.com.barcodescannertest1.model.AppointmentStatus;
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentWrapper;
 import demo.bluemongo.com.barcodescannertest1.presenter.AppointmentsDetailsPresenter;
 
-public class AppointmentDetailsFragment extends GenericView implements AppointmentDetailsView {
+public class AppointmentDetailsFragment extends GenericViewImpl implements AppointmentDetailsView {
     public static final String APPOINTMENT_WRAPPER_KEY = "APPOINTMENT_WRAPPER_KEY";
 
     private OnFragmentInteractionListener mListener;
@@ -150,7 +150,7 @@ public class AppointmentDetailsFragment extends GenericView implements Appointme
         if(appointment.getAppTypeHexCode() != null){
             drawableAppointmentTypeCircle.setColorFilter(new PorterDuffColorFilter(Color.parseColor(appointment.getAppTypeHexCode()), PorterDuff.Mode.MULTIPLY));
         }
-
+        setUIElementsFromSavedDetails();
         return view;
     }
 

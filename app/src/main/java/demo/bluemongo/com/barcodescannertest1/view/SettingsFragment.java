@@ -22,7 +22,7 @@ import demo.bluemongo.com.barcodescannertest1.presenter.SettingsPresenter;
 /**
  * Created by glenn on 13/01/16.
  */
-public class SettingsFragment extends GenericView implements SettingsView {
+public class SettingsFragment extends GenericViewImpl implements SettingsView {
     private SettingsDTO settingsValues = new SettingsDTO();
     SettingsPresenter presenter;
     TextView etWebHelperBaseURL;

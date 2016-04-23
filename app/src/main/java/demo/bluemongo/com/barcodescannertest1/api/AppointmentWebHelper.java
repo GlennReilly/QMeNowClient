@@ -70,6 +70,7 @@ public class AppointmentWebHelper {
                                 appointmentsPresenter.showAppointmentsList(appointmentsResponse);
                             } else {
                                 appointmentsPresenter.setMessage(AppointmentsPresenter.MessageToUser.NO_APPOINTMENTS_FOUND);
+
                             }
                         }
                     }

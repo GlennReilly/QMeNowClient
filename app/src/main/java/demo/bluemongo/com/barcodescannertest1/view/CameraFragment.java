@@ -45,7 +45,7 @@ import demo.bluemongo.com.barcodescannertest1.service.BarcodeTrackerFactory;
  * Use the {@link CameraFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CameraFragment extends GenericView implements CameraPreviewView {
+public class CameraFragment extends GenericViewImpl implements CameraPreviewView {
     private static final String TAG = "CameraFragment";
     private CameraSource mCameraSource = null;
     private CameraSourcePreview mPreview;

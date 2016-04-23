@@ -6,9 +6,8 @@ import demo.bluemongo.com.barcodescannertest1.api.AppointmentDetailWebHelper;
 import demo.bluemongo.com.barcodescannertest1.model.Appointment;
 import demo.bluemongo.com.barcodescannertest1.model.AppointmentStatus;
 import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
-import demo.bluemongo.com.barcodescannertest1.presenter.GenericPresenter;
 import demo.bluemongo.com.barcodescannertest1.view.AppointmentDetailsView;
-import demo.bluemongo.com.barcodescannertest1.view.GenericView;
+import demo.bluemongo.com.barcodescannertest1.view.GenericViewImpl;
 
 /**
  * Created by glenn on 30/12/15.
@@ -19,7 +18,7 @@ public class AppointmentsDetailsPresenter extends GenericPresenter{
     private String message;
 
     public AppointmentsDetailsPresenter(AppointmentDetailsView appointmentDetailsView) {
-        super((GenericView) appointmentDetailsView);
+        super((GenericViewImpl) appointmentDetailsView);
         this.view = appointmentDetailsView;
     }
 

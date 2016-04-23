@@ -20,7 +20,7 @@ import demo.bluemongo.com.barcodescannertest1.presenter.UserDetailsPresenter;
 /**
  * Created by glenn on 27/09/15.
  */
-public class UserDetailsFragment extends GenericView implements UserDetailsView {
+public class UserDetailsFragment extends GenericViewImpl implements UserDetailsView {
     private OnFragmentInteractionListener mListener;
     private UserDetailsPresenter presenter;
     private Button btnSubmitUserDetails;

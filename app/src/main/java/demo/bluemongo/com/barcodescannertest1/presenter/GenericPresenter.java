@@ -14,16 +14,16 @@ import com.squareup.picasso.Target;
 import demo.bluemongo.com.barcodescannertest1.R;
 import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
 import demo.bluemongo.com.barcodescannertest1.model.UserDetails;
-import demo.bluemongo.com.barcodescannertest1.view.GenericView;
+import demo.bluemongo.com.barcodescannertest1.view.GenericViewImpl;
 
 /**
  * Created by glenn on 16/01/16.
  */
 public class GenericPresenter {
-    protected final GenericView view;
+    protected final GenericViewImpl view;
     protected static final QMeNowModel model = new QMeNowModel();
 
-    public GenericPresenter(GenericView genericView){
+    public GenericPresenter(GenericViewImpl genericView){
         this.view = genericView;
     }
 

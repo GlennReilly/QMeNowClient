@@ -2,7 +2,7 @@ package demo.bluemongo.com.barcodescannertest1.presenter;
 
 import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
 import demo.bluemongo.com.barcodescannertest1.view.CameraPreviewView;
-import demo.bluemongo.com.barcodescannertest1.view.GenericView;
+import demo.bluemongo.com.barcodescannertest1.view.GenericViewImpl;
 
 /**
  * Created by glenn on 23/09/15.
@@ -12,7 +12,7 @@ public class CameraPreviewPresenter extends GenericPresenter {
     private final QMeNowModel model = new QMeNowModel();
 
     public CameraPreviewPresenter(CameraPreviewView view) {
-        super((GenericView) view);
+        super((GenericViewImpl) view);
         this.view = view;
     }
 

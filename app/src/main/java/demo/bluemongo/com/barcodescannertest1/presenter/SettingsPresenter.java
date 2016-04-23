@@ -2,7 +2,7 @@ package demo.bluemongo.com.barcodescannertest1.presenter;
 
 import demo.bluemongo.com.barcodescannertest1.model.QMeNowModel;
 import demo.bluemongo.com.barcodescannertest1.model.SettingsDTO;
-import demo.bluemongo.com.barcodescannertest1.view.GenericView;
+import demo.bluemongo.com.barcodescannertest1.view.GenericViewImpl;
 import demo.bluemongo.com.barcodescannertest1.view.SettingsView;
 
 /**
@@ -15,7 +15,7 @@ public class SettingsPresenter extends GenericPresenter{
 
 
     public SettingsPresenter(SettingsView settingsView) {
-        super((GenericView) settingsView);
+        super((GenericViewImpl) settingsView);
         this.view = settingsView;
     }
 

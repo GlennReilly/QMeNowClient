@@ -3,12 +3,15 @@ package demo.bluemongo.com.barcodescannertest1.view;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,15 +30,16 @@ import demo.bluemongo.com.barcodescannertest1.presenter.AppointmentsPresenter;
 /**
  * Created by glenn on 5/10/15.
  */
-public class GetAppointmentsFragment extends GenericView implements RetrieveAppointmentsView {
+public class GetAppointmentsFragment extends GenericViewImpl implements RetrieveAppointmentsView {
     private OnFragmentInteractionListener mListener;
     private AppointmentsPresenter appointmentsPresenter;
     private TextView tvMessage;
-    private TextView tvMessage2;
+    //private TextView tvMessage2;
     private ProgressDialog progressDialog;
     private ListView appointmentListView;
     private List<Appointment> appointmentList;
     private AppointmentsAdapter appointmentsAdapter;
+    private FrameLayout appointmentsFrameLayout;
 
 
 
@@ -79,17 +83,32 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_get_appointments,container,false);
         tvMessage = (TextView) view.findViewById(R.id.tvMessage);
-        tvMessage.setText(getString(R.string.getting_appointments_message));
-        tvMessage2 = (TextView) view.findViewById(R.id.tvMessage2);
+        //tvMessage.setText(getString(R.string.getting_appointments_message));
+        //tvMessage2 = (TextView) view.findViewById(R.id.tvMessage2);
         appointmentListView = (ListView) view.findViewById(R.id.appointment_list);
-        boolean retrieveFromCache  = savedInstanceState.getBoolean(GetAppointmentsFragment.RETRIEVE_FROM_CACHE, false);
+        appointmentsFrameLayout = (FrameLayout) view.findViewById(R.id.appointments_frame_layout);
+        progressDialog = ProgressDialog.show(getActivity(), getString(R.string.dialogTitle),
+                getString(R.string.dialogMessage), true);
+
+        Bundle bundle = this.getArguments();
+
+        boolean retrieveFromCache = false;
+        if (bundle != null) {
+            retrieveFromCache = bundle.getBoolean(GetAppointmentsFragment.RETRIEVE_FROM_CACHE, false);
+        }
+        else{
+            Log.i("getAppointments","savedInstanceState bundle is null");
+        }
+        Log.i("retrieveFromCache",String.valueOf(retrieveFromCache));
         if(retrieveFromCache){
+            Log.i("get appointments","get appointments from cache");
             AppointmentsResponse appointmentsResponse = appointmentsPresenter.getAppointmentsFromCache();
             appointmentsPresenter.showAppointmentsList(appointmentsResponse);
         }else {
+            Log.i("get appointments","get appointments from web");
             retrieveAppointmentsFromWeb();
         }
-
+        setUIElementsFromSavedDetails();
         return view;
     }
 
@@ -97,8 +116,6 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
 
     @Override
     public void retrieveAppointmentsFromWeb(){
-        progressDialog = ProgressDialog.show(getActivity(), getString(R.string.dialogTitle),
-                getString(R.string.dialogMessage), true);
         AppointmentWebHelper appointmentWebHelper = new AppointmentWebHelper(appointmentsPresenter);
         int currentBusinessId = appointmentsPresenter.getBusinessId();
         UserDetails userDetails = appointmentsPresenter.getSavedUserDetails();
@@ -115,7 +132,7 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
         if (this.appointmentList.size()>0){
             appointmentListView.setVisibility(View.VISIBLE);
             tvMessage.setVisibility(View.GONE);
-            tvMessage2.setVisibility(View.GONE);
+            //tvMessage2.setVisibility(View.GONE);
             appointmentsAdapter = new AppointmentsAdapter(getActivity().getApplicationContext(), appointmentsResponse);
             appointmentListView.setAdapter(appointmentsAdapter);
             appointmentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -140,7 +157,7 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
     @Override
     public void showMessage(final String message) {
         progressDialog.dismiss();
-        tvMessage2.setText(message);
+        //tvMessage2.setText(message);
         //Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG).show();
         //mListener.showMainMenu();
         mListener.showMessage(message);
@@ -164,6 +181,20 @@ public class GetAppointmentsFragment extends GenericView implements RetrieveAppo
         return getActivity().getSharedPreferences(appointmentsPresenter.getUserDetailsPrefsString(), Context.MODE_PRIVATE);
     }
 
+    @Override
+    public void setUIElementsFromSavedDetails(){
+
+        if(appointmentsPresenter.getBackgroundBackgroundColour() !=  "") {
+            int colour = Color.parseColor(appointmentsPresenter.getBackgroundBackgroundColour());
+            appointmentListView.setBackgroundColor(colour);
+            appointmentsFrameLayout.setBackgroundColor(colour);
+        }
+
+        if(appointmentsPresenter.getHeaderBackgroundColour() !=  "") {
+            int color = Color.parseColor(appointmentsPresenter.getHeaderBackgroundColour());
+            appointmentsPresenter.setGenericUIStuff();
+        }
+    }
 
 
     @Override

@@ -20,4 +20,5 @@ public interface RetrieveAppointmentsView {
     SharedPreferences getAppSettingsSharedPreferences();
     void setupRealm();
     Realm getRealm();
+    void setUIElementsFromSavedDetails();
 }

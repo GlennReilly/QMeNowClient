@@ -227,7 +227,6 @@ public class QMeNowModel {
                         e.printStackTrace();
                     }
                 }
-
             }
         }
         AppointmentsResponse appointmentsResponseFromRealmObject = realmAppointmentAdapter.getAppointmentsResponseFromRealmObject(results);

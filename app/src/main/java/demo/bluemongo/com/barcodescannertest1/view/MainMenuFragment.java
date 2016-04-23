@@ -17,7 +17,7 @@ import demo.bluemongo.com.barcodescannertest1.presenter.MainPresenter;
 /**
  * Created by glenn on 26/09/15.
  */
-public class MainMenuFragment extends GenericView implements MainView {
+public class MainMenuFragment extends GenericViewImpl implements MainView {
     private OnFragmentInteractionListener mListener;
     private MainPresenter presenter;
     private Button btnToEnterUserDetails;

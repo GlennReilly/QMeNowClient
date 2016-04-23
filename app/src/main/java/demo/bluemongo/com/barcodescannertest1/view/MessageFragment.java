@@ -2,14 +2,17 @@ package demo.bluemongo.com.barcodescannertest1.view;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import demo.bluemongo.com.barcodescannertest1.R;
+import demo.bluemongo.com.barcodescannertest1.presenter.MainPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,7 +22,7 @@ import demo.bluemongo.com.barcodescannertest1.R;
  * Use the {@link MessageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MessageFragment extends GenericView {
+public class MessageFragment extends GenericViewImpl implements GenericView {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +33,8 @@ public class MessageFragment extends GenericView {
     private String mParam1;
     private String mParam2;
     private String mMessage;
-
+    private FrameLayout messageFrameLayout;
+    private MainPresenter mainPresenter;
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -62,6 +66,8 @@ public class MessageFragment extends GenericView {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
             mMessage = getArguments().getString(PARAM_MESSAGE);
+            mainPresenter = new MainPresenter(this);
+            setPresenter(mainPresenter);
         }
     }
 
@@ -72,8 +78,17 @@ public class MessageFragment extends GenericView {
         View view = inflater.inflate(R.layout.fragment_show_message, container, false);
         TextView tvMessage = (TextView) view.findViewById(R.id.tvMessage);
         tvMessage.setText(mMessage);
-
+        messageFrameLayout = (FrameLayout) view.findViewById(R.id.appointments_frame_layout);
+        setUIElementsFromSavedDetails();
         return view;
+    }
+
+    @Override
+    public void setUIElementsFromSavedDetails() {
+        if(mainPresenter.getBackgroundBackgroundColour() !=  "") {
+            int colour = Color.parseColor(mainPresenter.getBackgroundBackgroundColour());
+            messageFrameLayout.setBackgroundColor(colour);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -99,6 +114,7 @@ public class MessageFragment extends GenericView {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
