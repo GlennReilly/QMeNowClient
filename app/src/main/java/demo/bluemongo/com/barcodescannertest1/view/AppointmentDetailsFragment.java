@@ -156,8 +156,6 @@ public class AppointmentDetailsFragment extends GenericViewImpl implements Appoi
 
     @Override
     public void setUIElementsFromSavedDetails(){
-
-
         if(presenter.getButtonBackgroundColour() !=  "") {
             int colour = Color.parseColor(presenter.getButtonBackgroundColour());
             btnCheckin.setBackgroundColor(colour);

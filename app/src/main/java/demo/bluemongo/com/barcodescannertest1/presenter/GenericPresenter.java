@@ -88,7 +88,7 @@ public class GenericPresenter {
         ActionBar actionBar = view.getActivity().getActionBar();
         actionBar.setTitle(getBusinessName());
         actionBar.setBackgroundDrawable(new ColorDrawable(color));
-        actionBar.setIcon(R.drawable.ic_launcher);
+        actionBar.setIcon(R.drawable.app_logo);
         PicassoActionBarIcon picasssoActionBar = new PicassoActionBarIcon(actionBar);
         //http://10.1.1.7:8080/resources/images/noLogo.png
         String URI = model.getWebHelperBaseURL(view.getBusinessDetailsSharedPreferences()) + "resources/images/" + logoFileName;

@@ -36,6 +36,7 @@
         android:text="@string/save"
         android:layout_width="wrap_content"
         android:layout_height="50dip"
+        android:drawableLeft="@drawable/save_icon"
         android:minWidth="@dimen/button_width" />
 
 
@@ -51,6 +52,7 @@
         android:text="@string/btn_scan_user_details"
         android:layout_width="wrap_content"
         android:layout_height="50dip"
+        android:drawableLeft="@drawable/scan_icon"
         android:minWidth="@dimen/button_width" />
 
     <Button
@@ -59,6 +61,7 @@
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="50dip"
+        android:drawableLeft="@drawable/delete_icon"
         android:minWidth="@dimen/button_width"
         />
 

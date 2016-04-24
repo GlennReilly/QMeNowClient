@@ -190,7 +190,8 @@ public class QMeNowModel {
 
         realm.beginTransaction();
         //clear existing..
-        realm.clear(RealmAppointmentsResponse.class);
+        realm.delete(RealmAppointmentsResponse.class);
+
 
         //..add new
         RealmAppointmentsResponse realmAppointmentsResponse = realm.createObject(RealmAppointmentsResponse.class);
@@ -200,9 +201,9 @@ public class QMeNowModel {
     }
 
     public void removeRealmAppointmentFromCache(List<RealmAppointment> realmAppointments, RealmAppointment realmAppointment, Realm realm){
-        realm.beginTransaction();
+//        realm.beginTransaction();
         realmAppointments.remove(realmAppointment);
-        realm.commitTransaction();
+//        realm.commitTransaction();
         Log.i("removeRealmAppointment", "realmAppointments successfully removed from Realm");
     }
 
@@ -212,23 +213,41 @@ public class QMeNowModel {
         //only keep those appointments fro today and later, remove any earlier ones
         Calendar cal = Calendar.getInstance();
         InputHelper.resetTimeOfDate(cal);
+
+        //testing only >>
+        Log.i("QMeNowModel - testing","cal.getTime().toString() before: " + cal.getTime().toString());
+        //cal.add(Calendar.DATE, 1);
+        //Log.i("QMeNowModel - testing","cal.getTime().toString() after: " + cal.getTime().toString());
+        //<< testing only
+
         Date dateAtMidnight = cal.getTime();
-        for(RealmAppointmentsResponse realmAppointmentsResponse : results) {
-            for (RealmAppointment realmAppointment : realmAppointmentsResponse.getAppointmentList()) {
-                if (!StringUtils.isBlank(realmAppointment.getStrAppointmentDate())){
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-                    try {
-                        Date appointmentDate = sdf.parse(realmAppointment.getStrAppointmentDate());
-                        if (appointmentDate.before(dateAtMidnight)){
-                            removeRealmAppointmentFromCache(realmAppointmentsResponse.getAppointmentList(), realmAppointment, realm);
-                            realmAppointmentsResponse.getAppointmentList().remove(realmAppointment);
+
+        RealmAppointmentsResponse realmAppointmentsResponse;
+        realm.beginTransaction();
+        for(int j=0; j< results.size(); j++) {
+            realmAppointmentsResponse = results.get(j);
+
+                for(int i=0; i < realmAppointmentsResponse.getAppointmentList().size(); i++){
+                    RealmAppointment realmAppointment = realmAppointmentsResponse.getAppointmentList().get(i);
+                    if (!StringUtils.isBlank(realmAppointment.getStrAppointmentDate())){
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                        try {
+                            Date appointmentDate = sdf.parse(realmAppointment.getStrAppointmentDate());
+                            Log.i("QMeNowModel","realmAppointment.getStrAppointmentDate(): " + realmAppointment.getStrAppointmentDate());
+                            if (appointmentDate.before(dateAtMidnight)){
+                                Log.i("QMeNowModel","appointment is before today");
+                                removeRealmAppointmentFromCache(realmAppointmentsResponse.getAppointmentList(), realmAppointment, realm);
+                                //realmAppointmentsResponse.getAppointmentList().remove(realmAppointment);
+                                //Log.i("QMeNowModel","appointment successfully removed from cache");
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
                     }
-                }
             }
         }
+        realm.commitTransaction();
+
         AppointmentsResponse appointmentsResponseFromRealmObject = realmAppointmentAdapter.getAppointmentsResponseFromRealmObject(results);
         return appointmentsResponseFromRealmObject;
     }

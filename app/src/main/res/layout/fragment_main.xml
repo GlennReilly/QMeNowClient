@@ -25,6 +25,7 @@
             android:padding="30dip"
             android:textSize="@dimen/general_text_size"
             android:layout_marginBottom="20dp"
+            android:drawableLeft="@drawable/user_icon"
             android:text="@string/btn_enter_user_text"/>
         <Button
             android:id="@+id/btn_scan_barcode"
@@ -33,6 +34,7 @@
             android:minWidth="@dimen/button_width"
             android:padding="30dip"
             android:textSize="@dimen/general_text_size"
+            android:drawableLeft="@drawable/scan_icon"
             android:layout_marginBottom="20dp"
             android:text="@string/btn_scan_barcode_text"/>
         <Button
@@ -43,6 +45,7 @@
             android:padding="30dip"
             android:enabled="false"
             android:textSize="@dimen/general_text_size"
+            android:drawableLeft="@drawable/agenda_icon"
             android:layout_marginBottom="20dp"
             android:text="@string/btn_view_appointments_text"/>
         <ImageView
