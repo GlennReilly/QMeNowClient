@@ -35,7 +35,7 @@
         android:id="@+id/btnSubmitUserDetails"
         android:text="@string/save"
         android:layout_width="wrap_content"
-        android:layout_height="50dip"
+        android:layout_height="75dip"
         android:drawableLeft="@drawable/save_icon"
         android:minWidth="@dimen/button_width" />
 
@@ -51,8 +51,8 @@
         android:id="@+id/btnScanUserDetails"
         android:text="@string/btn_scan_user_details"
         android:layout_width="wrap_content"
-        android:layout_height="50dip"
-        android:drawableLeft="@drawable/scan_icon"
+        android:layout_height="75dip"
+        android:drawableLeft="@drawable/scan_qr_icon"
         android:minWidth="@dimen/button_width" />
 
     <Button
@@ -60,7 +60,7 @@
         android:text="@string/remove_user_details"
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
-        android:layout_height="50dip"
+        android:layout_height="75dip"
         android:drawableLeft="@drawable/delete_icon"
         android:minWidth="@dimen/button_width"
         />

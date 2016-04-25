@@ -57,4 +57,5 @@ public class InputHelper {
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
     }
+
 }

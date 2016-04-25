@@ -7,10 +7,10 @@
 
 <!--Ref Num-->
     <LinearLayout
+        android:id="@+id/layout_refnum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/border">
+        android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -28,10 +28,10 @@
 
 <!--Customer Message-->
     <LinearLayout
+        android:id="@+id/layout_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/border">
+        android:orientation="horizontal">
         <TextView
             android:textSize="@dimen/general_text_size"
             android:text="@string/label_customer_message"
@@ -49,12 +49,12 @@
 
 <!--Appointment Date and time-->
     <LinearLayout
+        android:id="@+id/layout_date_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/border">
+        android:layout_marginBottom="10dp">
         <TextView
             android:textSize="@dimen/general_text_size"
             android:text="@string/label_appointment_date"
@@ -87,12 +87,12 @@
 
     <!--Location-->
     <RelativeLayout
+        android:id="@+id/layout_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/border">
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:id="@+id/tv_label_appointment_location"
@@ -126,12 +126,12 @@
 
     <!--Status-->
     <RelativeLayout
+        android:id="@+id/layout_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/border">
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:id="@+id/tv_label_appointment_status"
@@ -165,12 +165,12 @@
 
     <!--Appointment type-->
     <RelativeLayout
+        android:id="@+id/layout_appointment_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/border">
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:id="@+id/tv_label_appointment_type"
@@ -206,6 +206,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnCheckin"
+        android:drawableLeft="@drawable/check_in_icon"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:text="@string/check_in"/>

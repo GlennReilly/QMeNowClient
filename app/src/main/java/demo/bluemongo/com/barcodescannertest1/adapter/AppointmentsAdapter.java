@@ -30,11 +30,22 @@ public class AppointmentsAdapter extends ArrayAdapter<Appointment> {
         Appointment nextAppointment = appointmentResponse.getAppointmentList().get(position);
         LayoutInflater inflater = LayoutInflater.from(context);
         View viewRow = inflater.inflate(R.layout.list_item_appointment, parent, false);
-        TextView tvAppointmentTime = (TextView) viewRow.findViewById(R.id.tvAppointmentTime);
         TextView tvAppointmentRefNum = (TextView) viewRow.findViewById(R.id.tvAppointmentRefNum);
+        TextView tvAppointmentTime = (TextView) viewRow.findViewById(R.id.tvAppointmentTime);
+
+        TextView tvAppointmentLocationLabel = (TextView) viewRow.findViewById(R.id.tvAppointmentLocationLabel);
+        TextView tvAppointmentLocation = (TextView) viewRow.findViewById(R.id.tvAppointmentLocation);
+
+        TextView tvAppointmentStatusLabel = (TextView) viewRow.findViewById(R.id.tvAppointmentStatusLabel);
         TextView tvAppointmentStatus = (TextView) viewRow.findViewById(R.id.tvAppointmentStatus);
-        tvAppointmentTime.setText(nextAppointment.getStrAppointmentTime());
+
+
         tvAppointmentRefNum.setText(nextAppointment.getAppointmentTypePrefix() + nextAppointment.getId());
+        tvAppointmentTime.setText(nextAppointment.getStrAppointmentTime());
+
+        tvAppointmentLocationLabel.setText(context.getString(R.string.label_location));
+        tvAppointmentLocation.setText(nextAppointment.getLocationName());
+        tvAppointmentStatusLabel.setText(context.getString(R.string.label_status));
         tvAppointmentStatus.setText(nextAppointment.getStatusName());
 
         return viewRow;

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
@@ -34,6 +35,12 @@ public class AppointmentDetailsFragment extends GenericViewImpl implements Appoi
     private AppointmentsDetailsPresenter presenter;
     private Button btnCheckin;
     private LinearLayout parentLayout;
+    private LinearLayout layout_refnum;
+    private LinearLayout layout_message;
+    private LinearLayout layout_date_time;
+    private RelativeLayout layout_location;
+    private RelativeLayout layout_status;
+    private RelativeLayout layout_appointment_type;
 
 
     public AppointmentDetailsFragment() {
@@ -150,6 +157,14 @@ public class AppointmentDetailsFragment extends GenericViewImpl implements Appoi
         if(appointment.getAppTypeHexCode() != null){
             drawableAppointmentTypeCircle.setColorFilter(new PorterDuffColorFilter(Color.parseColor(appointment.getAppTypeHexCode()), PorterDuff.Mode.MULTIPLY));
         }
+
+        layout_refnum = (LinearLayout) view.findViewById(R.id.layout_refnum);
+        layout_message = (LinearLayout) view.findViewById(R.id.layout_message);
+        layout_date_time = (LinearLayout) view.findViewById(R.id.layout_date_time);
+        layout_location = (RelativeLayout) view.findViewById(R.id.layout_location);
+        layout_status = (RelativeLayout) view.findViewById(R.id.layout_status);
+        layout_appointment_type = (RelativeLayout) view.findViewById(R.id.layout_appointment_type);
+
         setUIElementsFromSavedDetails();
         return view;
     }
@@ -163,6 +178,25 @@ public class AppointmentDetailsFragment extends GenericViewImpl implements Appoi
 
         if(presenter.getBackgroundBackgroundColour() !=  "") {
             int colour = Color.parseColor(presenter.getBackgroundBackgroundColour());
+            float[] hsvArr = new float[3];
+            Color.colorToHSV(colour, hsvArr);
+            float brightness = hsvArr[2];
+
+            float difference = 1 - brightness;
+            hsvArr[2] += difference;
+            int lighterShade = Color.HSVToColor(hsvArr); //brighter
+
+            float difference2 = brightness/8;
+            hsvArr[2] -= difference2;
+            int darkerShade = Color.HSVToColor(hsvArr); //darker
+
+            layout_refnum.setBackgroundColor(darkerShade);
+            //layout_message.setBackgroundColor(lighterShade);
+            layout_date_time.setBackgroundColor(darkerShade);
+            //layout_location.setBackgroundColor(lighterShade);
+            layout_status.setBackgroundColor(darkerShade);
+            //layout_appointment_type.setBackgroundColor(lighterShade);
+
             parentLayout.setBackgroundColor(colour);
         }
 
