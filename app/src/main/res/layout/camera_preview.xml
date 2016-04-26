@@ -8,16 +8,16 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true">
 
-    <demo.bluemongo.com.barcodescannertest1.cameraui.CameraSourcePreview
+    <demo.bluemongo.com.QMeNowClient.cameraui.CameraSourcePreview
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <demo.bluemongo.com.barcodescannertest1.cameraui.GraphicOverlay
+        <demo.bluemongo.com.QMeNowClient.cameraui.GraphicOverlay
             android:id="@+id/faceOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </demo.bluemongo.com.barcodescannertest1.cameraui.CameraSourcePreview>
+    </demo.bluemongo.com.QMeNowClient.cameraui.CameraSourcePreview>
 
 </LinearLayout>
