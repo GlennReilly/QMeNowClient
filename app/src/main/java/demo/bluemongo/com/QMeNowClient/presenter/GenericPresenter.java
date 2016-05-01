@@ -11,6 +11,8 @@ import android.graphics.drawable.Drawable;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import org.apache.commons.lang3.StringUtils;
+
 import demo.bluemongo.com.QMeNowClient.R;
 import demo.bluemongo.com.QMeNowClient.model.QMeNowModel;
 import demo.bluemongo.com.QMeNowClient.model.UserDetails;
@@ -82,17 +84,18 @@ public class GenericPresenter {
     }
 
     public void setGenericUIStuff() {
-        int color = Color.parseColor(getHeaderBackgroundColour());
         String logoFileName = getLogoFileName();
-
         ActionBar actionBar = view.getActivity().getActionBar();
-        actionBar.setTitle(getBusinessName());
-        actionBar.setBackgroundDrawable(new ColorDrawable(color));
+        if (!StringUtils.isEmpty(getHeaderBackgroundColour())) {
+            int color = Color.parseColor(getHeaderBackgroundColour());
+            actionBar.setTitle(getBusinessName());
+            actionBar.setBackgroundDrawable(new ColorDrawable(color));
+        }
+
         actionBar.setIcon(R.drawable.app_logo);
         PicassoActionBarIcon picasssoActionBar = new PicassoActionBarIcon(actionBar);
         //http://10.1.1.7:8080/resources/images/noLogo.png
         String URI = model.getWebHelperBaseURL(view.getBusinessDetailsSharedPreferences()) + "resources/images/" + logoFileName;
-
         Picasso.with(view.getActivity()).load( URI).into(picasssoActionBar);
     }
 

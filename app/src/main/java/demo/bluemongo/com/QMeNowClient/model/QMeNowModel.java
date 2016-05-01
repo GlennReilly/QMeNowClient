@@ -201,9 +201,7 @@ public class QMeNowModel {
     }
 
     public void removeRealmAppointmentFromCache(List<RealmAppointment> realmAppointments, RealmAppointment realmAppointment, Realm realm){
-//        realm.beginTransaction();
         realmAppointments.remove(realmAppointment);
-//        realm.commitTransaction();
         Log.i("removeRealmAppointment", "realmAppointments successfully removed from Realm");
     }
 
@@ -214,11 +212,11 @@ public class QMeNowModel {
         Calendar cal = Calendar.getInstance();
         InputHelper.resetTimeOfDate(cal);
 
-        //testing only >>
-        Log.i("QMeNowModel - testing","cal.getTime().toString() before: " + cal.getTime().toString());
+    //testing only >>
+        //Log.i("QMeNowModel - testing","cal.getTime().toString() before: " + cal.getTime().toString());
         //cal.add(Calendar.DATE, 1);
         //Log.i("QMeNowModel - testing","cal.getTime().toString() after: " + cal.getTime().toString());
-        //<< testing only
+    //<< testing only
 
         Date dateAtMidnight = cal.getTime();
 
@@ -237,8 +235,6 @@ public class QMeNowModel {
                             if (appointmentDate.before(dateAtMidnight)){
                                 Log.i("QMeNowModel","appointment is before today");
                                 removeRealmAppointmentFromCache(realmAppointmentsResponse.getAppointmentList(), realmAppointment, realm);
-                                //realmAppointmentsResponse.getAppointmentList().remove(realmAppointment);
-                                //Log.i("QMeNowModel","appointment successfully removed from cache");
                             }
                         } catch (ParseException e) {
                             e.printStackTrace();
@@ -253,10 +249,25 @@ public class QMeNowModel {
     }
 
 
+    public void updateAppointmentCheckInTimeInCache(Realm realm, Appointment appointment) {
+        RealmResults<RealmAppointmentsResponse> results = realm.where(RealmAppointmentsResponse.class).findAll();
+        Calendar cal = Calendar.getInstance();
 
+        RealmAppointmentsResponse realmAppointmentsResponse;
+        realm.beginTransaction();
+        for(int j=0; j< results.size(); j++) {
+            realmAppointmentsResponse = results.get(j);
 
-
-
-
-
+            for(int i=0; i < realmAppointmentsResponse.getAppointmentList().size(); i++){
+                RealmAppointment realmAppointment = realmAppointmentsResponse.getAppointmentList().get(i);
+                if (realmAppointment.getId() == appointment.getId()){
+                    Date now = cal.getTime();
+                    String nowString = InputHelper.getISO8601StringFromDate(now);
+                    realmAppointment.setStrCheckInDateTime(nowString);
+                    Log.i("QMeNowModel","updated check-in date for appointment with id:" + appointment.getId());
+                }
+            }
+        }
+        realm.commitTransaction();
+    }
 }

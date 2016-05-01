@@ -37,4 +37,11 @@ public class AppointmentsDetailsPresenter extends GenericPresenter{
     }
 
 
+    public void notifyCheckinResult(boolean result) {
+        view.notifyCheckinResult(result);
+    }
+
+    public void updateAppointmentCheckInTimeInCache(Appointment appointment) {
+        model.updateAppointmentCheckInTimeInCache(view.getRealm(), appointment);
+    }
 }

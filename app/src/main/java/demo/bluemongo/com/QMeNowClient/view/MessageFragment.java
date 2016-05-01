@@ -87,7 +87,9 @@ public class MessageFragment extends GenericViewImpl implements GenericView {
     public void setUIElementsFromSavedDetails() {
         if(mainPresenter.getBackgroundBackgroundColour() !=  "") {
             int colour = Color.parseColor(mainPresenter.getBackgroundBackgroundColour());
-            messageFrameLayout.setBackgroundColor(colour);
+            if (messageFrameLayout != null) {
+                messageFrameLayout.setBackgroundColor(colour);
+            }
         }
     }
 

@@ -11,7 +11,34 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp">
+        <ImageView
+            android:id="@+id/appointment_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/appointment"/>
+
+        <TextView
+            android:id="@+id/tvAppointmentRefNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="@dimen/large_text_size"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginRight="50dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+        <!--android:layout_below="@id/appointment_image"-->
+
         <RelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -53,13 +80,13 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="80dp">
         <RelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/tvAppointmentRefNum"
+                android:id="@+id/tvAppointmentRefNum2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000000"

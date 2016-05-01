@@ -109,7 +109,7 @@ public class MainActivity extends Activity implements
             userDetailsFragment.setArguments(bundle);
         }
         fragmentTransaction.replace(R.id.fragment_container, userDetailsFragment, TAG_USER_DETAILS_FRAGMENT);
-        //fragmentTransaction.add(R.id.fragment_container, userDetailsFragment, TAG_USER_DETAILS_FRAGMENT);
+        Log.i("MainActivity", "userDetailsFragment now in fragment_container");
         fragmentTransaction.addToBackStack(TAG_USER_DETAILS_FRAGMENT);
         fragmentTransaction.commit();
     }
@@ -125,7 +125,7 @@ public class MainActivity extends Activity implements
         cameraFragment.setArguments(bundle);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.replace(R.id.fragment_container, cameraFragment, TAG_CAMERA_FRAGMENT);
-        //fragmentTransaction.add(R.id.fragment_container, cameraFragment, TAG_CAMERA_FRAGMENT);
+        Log.i("MainActivity", "cameraFragment now in fragment_container");
         fragmentTransaction.addToBackStack(TAG_CAMERA_FRAGMENT);
         fragmentTransaction.commit();
     }

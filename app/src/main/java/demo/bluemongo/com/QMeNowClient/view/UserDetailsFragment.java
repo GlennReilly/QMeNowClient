@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,8 +53,8 @@ public class UserDetailsFragment extends GenericViewImpl implements UserDetailsV
             String firstname = bundle.getString(getPresenter().getModel().FIRSTNAME);
             String lastname = bundle.getString(getPresenter().getModel().LASTNAME);
             int customerId = bundle.getInt(getPresenter().getModel().CUSTOMERID);
-            etFirstName.setText(String.valueOf(firstname));
-            etLastName.setText(String.valueOf(lastname));
+            etFirstName.setText(firstname);
+            etLastName.setText(lastname);
             etCustomerId.setText(String.valueOf(customerId));
             saveUserDetails(etFirstName, etLastName, etCustomerId);
         }else{
@@ -108,14 +109,18 @@ public class UserDetailsFragment extends GenericViewImpl implements UserDetailsV
             btnRemoveUserDetails.setBackgroundColor(colour);
         }
 
+        setBackgroundColour(parentLayout);
+        presenter.setGenericUIStuff();
+    }
+
+    private void setBackgroundColour(LinearLayout parentLayout) {
         if(presenter.getBackgroundBackgroundColour() !=  "") {
             int colour = Color.parseColor(presenter.getBackgroundBackgroundColour());
             parentLayout.setBackgroundColor(colour);
         }
-
-        if(presenter.getHeaderBackgroundColour() !=  "") {
-            int color = Color.parseColor(presenter.getHeaderBackgroundColour());
-            presenter.setGenericUIStuff();
+        else{
+            parentLayout.setBackgroundColor(Color.WHITE);
+            Log.i("UserDetailsFragment", "presented background colour is blank so setting to white instead.");
         }
     }
 

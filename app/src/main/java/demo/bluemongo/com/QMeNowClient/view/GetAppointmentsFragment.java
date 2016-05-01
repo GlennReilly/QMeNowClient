@@ -15,6 +15,8 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 
 import demo.bluemongo.com.QMeNowClient.R;
@@ -146,10 +148,15 @@ public class GetAppointmentsFragment extends GenericViewImpl implements Retrieve
                 }
             });
             if (this.appointmentList.size()>0) {
-                int incomingCustomerId = this.appointmentList.get(0).getCustomerId();
-                UserDetails userDetails = new UserDetails();
-                userDetails.setCustomerId(incomingCustomerId);
-                new QMeNowModel().saveUserDetails(userDetails, getUserDetailsSharedPreferences());
+                //Only save details at this point for anonymous customers
+                QMeNowModel qMeNowModel = new QMeNowModel();
+                UserDetails savedUserDetails = qMeNowModel.getUserDetails(getUserDetailsSharedPreferences());
+                if (StringUtils.isEmpty(savedUserDetails.getFirstName()) && StringUtils.isEmpty(savedUserDetails.getLastName())) {
+                    int incomingCustomerId = this.appointmentList.get(0).getCustomerId();
+                    UserDetails userDetails = new UserDetails();
+                    userDetails.setCustomerId(incomingCustomerId);
+                    qMeNowModel.saveUserDetails(userDetails, getUserDetailsSharedPreferences());
+                }
             }
         }
     }

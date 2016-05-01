@@ -21,7 +21,8 @@
             android:id="@+id/btn_enter_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="@dimen/button_width"
+            android:minWidth="@dimen/min_button_width"
+            android:maxWidth="@dimen/max_button_width"
             android:padding="30dip"
             android:textSize="@dimen/general_text_size"
             android:layout_marginBottom="20dp"
@@ -31,8 +32,9 @@
             android:id="@+id/btn_scan_barcode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="@dimen/button_width"
-            android:padding="30dip"
+            android:minWidth="@dimen/min_button_width"
+            android:maxWidth="@dimen/max_button_width"
+            android:padding="15dip"
             android:textSize="@dimen/general_text_size"
             android:drawableLeft="@drawable/scan_icon"
             android:layout_marginBottom="20dp"
@@ -41,16 +43,13 @@
             android:id="@+id/btn_view_appointments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="@dimen/button_width"
+            android:minWidth="@dimen/min_button_width"
+            android:maxWidth="@dimen/max_button_width"
             android:padding="30dip"
             android:enabled="false"
             android:textSize="@dimen/general_text_size"
-            android:drawableLeft="@drawable/agenda_icon"
+            android:drawableLeft="@drawable/agenda_icon_disabled"
             android:layout_marginBottom="20dp"
             android:text="@string/btn_view_appointments_text"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imgview"/>
     </LinearLayout>
 </FrameLayout>

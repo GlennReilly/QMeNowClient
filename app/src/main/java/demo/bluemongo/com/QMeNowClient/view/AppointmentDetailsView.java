@@ -6,6 +6,7 @@ import java.util.List;
 
 import demo.bluemongo.com.QMeNowClient.model.Appointment;
 import demo.bluemongo.com.QMeNowClient.model.AppointmentStatus;
+import io.realm.Realm;
 
 /**
  * Created by glenn on 30/12/15.
@@ -16,4 +17,7 @@ public interface AppointmentDetailsView {
     SharedPreferences getBusinessDetailsSharedPreferences();
     SharedPreferences getAppSettingsSharedPreferences();
     void setUIElementsFromSavedDetails();
+    void notifyCheckinResult(boolean result);
+    void setupRealm();
+    Realm getRealm();
 }

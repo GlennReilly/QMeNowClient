@@ -28,7 +28,7 @@ public class AppointmentDetailWebHelper {
             this.appointmentsDetailsPresenter = appointmentsDetailsPresenter;
     }
 
-    public void checkInAppointment(Appointment appointment, List<AppointmentStatus> appointmentStatusList) {
+    public void checkInAppointment(final Appointment appointment, List<AppointmentStatus> appointmentStatusList) {
         String webHelperBaseURL = appointmentsDetailsPresenter.getWebHelperBaseURL(); //http://10.1.1.7:8080/
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(webHelperBaseURL)
@@ -47,12 +47,17 @@ public class AppointmentDetailWebHelper {
             public void onResponse(Response<AppointmentsResponse> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
                     Log.i("checkIn successful",response.body().toString());
+                    appointmentsDetailsPresenter.notifyCheckinResult(true);
+                    appointmentsDetailsPresenter.updateAppointmentCheckInTimeInCache(appointment);
+                }else{
+                    appointmentsDetailsPresenter.notifyCheckinResult(false);
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
                 Log.i("checkIn failed", "checkIn failed");
+                appointmentsDetailsPresenter.notifyCheckinResult(false);
             }
         });
     }

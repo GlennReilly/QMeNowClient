@@ -7,6 +7,7 @@ import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.PUT;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * Created by glenn on 4/10/15.
@@ -16,8 +17,9 @@ import retrofit.http.Path;
 public interface UserAppointmentService {
 
 
-    @GET("/FlexibleUIConfig/api/v1/AppointmentsToday/{businessId}/{customerId}") //need to add the current business id
-    Call<AppointmentsResponse> getAppointments(@Path("businessId") int businessId, @Path("customerId") int customerId);
+    @GET("/FlexibleUIConfig/api/v1/AppointmentsToday/{businessId}/") //need to add the current business id
+    Call<AppointmentsResponse> getAppointments(@Path("businessId") int businessId, @Query("customerId") int customerId,
+                                               @Query("firstName") String firstName, @Query("lastName") String lastName );
 
     @PUT("/FlexibleUIConfig/api/v1/Appointment/{id}/CheckIn")
     Call<AppointmentsResponse> checkInAppointment(@Path("id") int id, @Body AppointmentCheckInDTO appointmentCheckIn);

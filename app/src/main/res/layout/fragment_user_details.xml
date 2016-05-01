@@ -14,14 +14,14 @@
         android:hint="@string/hint_first_name"
         android:layout_width="fill_parent"
         android:layout_height="50dip"
-        android:minWidth="@dimen/button_width" />
+        android:minWidth="@dimen/min_button_width" />
 
     <EditText
         android:id="@+id/etSurname"
         android:hint="@string/hint_surname"
         android:layout_width="fill_parent"
         android:layout_height="50dip"
-        android:minWidth="@dimen/button_width" />
+        android:minWidth="@dimen/min_button_width" />
 
     <EditText
         android:id="@+id/etCustomerId"
@@ -29,15 +29,16 @@
         android:layout_width="fill_parent"
         android:layout_height="50dip"
         android:inputType="number"
-        android:minWidth="@dimen/button_width" />
+        android:minWidth="@dimen/min_button_width" />
 
     <Button
         android:id="@+id/btnSubmitUserDetails"
         android:text="@string/save"
         android:layout_width="wrap_content"
         android:layout_height="75dip"
-        android:drawableLeft="@drawable/save_icon"
-        android:minWidth="@dimen/button_width" />
+        android:drawableLeft="@drawable/save_icon2"
+        android:minWidth="@dimen/min_button_width"
+        android:maxWidth="@dimen/max_button_width"/>
 
 
     <TextView
@@ -52,8 +53,9 @@
         android:text="@string/btn_scan_user_details"
         android:layout_width="wrap_content"
         android:layout_height="75dip"
-        android:drawableLeft="@drawable/scan_qr_icon"
-        android:minWidth="@dimen/button_width" />
+        android:drawableLeft="@drawable/scan_icon"
+        android:minWidth="@dimen/min_button_width"
+        android:maxWidth="@dimen/max_button_width"/>
 
     <Button
         android:id="@+id/btnRemoveUserDetails"
@@ -62,7 +64,8 @@
         android:layout_width="wrap_content"
         android:layout_height="75dip"
         android:drawableLeft="@drawable/delete_icon"
-        android:minWidth="@dimen/button_width"
+        android:minWidth="@dimen/min_button_width"
+        android:maxWidth="@dimen/max_button_width"
         />
 
     </LinearLayout>

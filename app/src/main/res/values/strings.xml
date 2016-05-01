@@ -20,7 +20,7 @@
     <string name="hint_surname">Surname</string>
     <string name="hint_CustomerId">Customer Id</string>
     <string name="user_saved_successfully">User saved successfully.</string>
-    <string name="btn_scan_user_details">Scan user details from barcode</string>
+    <string name="btn_scan_user_details">Scan user from barcode</string>
     <string name="or">or</string>
     <string name="getting_appointments_message">Searching for appointments...</string>
     <string name="dialogTitle">please wait...</string>
@@ -33,7 +33,7 @@
     <string name="remove_user_details">Remove saved user details</string>
     <string name="save">Save</string>
     <string name="user_removed_successfully">User details removed successfully</string>
-    <string name="customerDoesntExistAtThisBusiness">Sorry, that customer doesn\'t exist at this businessDTO</string>
+    <string name="customerDoesntExistAtThisBusiness">Sorry, that customer doesn\'t exist at this business</string>
     <string name="appointment_already_checked_in">Appointment already checked in at</string>
     <string name="label_refnum">Ref:</string>
     <string name="label_appointment_date">Date and time:</string>
@@ -42,4 +42,7 @@
     <string name="label_location">Location:</string>
     <string name="label_customer_message">Message:</string>
     <string name="btn_view_appointments_text">View Appointments</string>
+    <string name="btn_check_in_progress">checking in...</string>
+    <string name="check_in_failed">Sorry, Check-in failed, please see a member of staff.</string>
+    <string name="check_in_successful">Check-in Successful</string>
 </resources>

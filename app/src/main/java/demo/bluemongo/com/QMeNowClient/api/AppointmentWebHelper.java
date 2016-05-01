@@ -37,7 +37,8 @@ public class AppointmentWebHelper {
 
 
         UserAppointmentService userAppointmentService = retrofit.create(UserAppointmentService.class);
-        Call<AppointmentsResponse> retrofitResponse = userAppointmentService.getAppointments(currentBusinessId, userDetails.getCustomerId());
+        Call<AppointmentsResponse> retrofitResponse = userAppointmentService.getAppointments(currentBusinessId, userDetails.getCustomerId(),
+                userDetails.getFirstName(), userDetails.getLastName());
 
         retrofitResponse.enqueue(new Callback<AppointmentsResponse>() {
             @Override
@@ -83,8 +84,9 @@ public class AppointmentWebHelper {
 
             @Override
             public void onFailure(Throwable t) {
-                Log.e("webHelper failure", t.getMessage());
-                appointmentsPresenter.setMessage("Something went wrong: " + t.getMessage());
+                String errorMessage = t.getMessage() == null? "":t.getMessage();
+                Log.e("webHelper failure", errorMessage);
+                appointmentsPresenter.setMessage("Something went wrong: " + errorMessage);
             }
         });
     }

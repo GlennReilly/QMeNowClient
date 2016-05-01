@@ -105,7 +105,7 @@ public class AppointmentDetailsFragment extends GenericViewImpl implements Appoi
                     btnCheckin.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            checkInButtonClicked(appointment, appointmentStatusList);
+                            checkInButtonClicked(btnCheckin, appointment, appointmentStatusList);
                         }
                     });
                 }
@@ -130,7 +130,7 @@ public class AppointmentDetailsFragment extends GenericViewImpl implements Appoi
         TextView tvAppointmentTypeName = (TextView) view.findViewById(R.id.appointmentTypeName);
 
 
-        tvMessageToCustomer.setText(appointment.getMessageToCustomer());
+        //tvMessageToCustomer.setText(appointment.getMessageToCustomer());
         tvStrAppointmentDate.setText(appointment.getStrAppointmentDate());
         tvStrAppointmentTime.setText(appointment.getStrAppointmentTime());
         tvLocationName.setText(appointment.getLocationName());
@@ -184,19 +184,15 @@ public class AppointmentDetailsFragment extends GenericViewImpl implements Appoi
 
             float difference = 1 - brightness;
             hsvArr[2] += difference;
-            int lighterShade = Color.HSVToColor(hsvArr); //brighter
+            //int lighterShade = Color.HSVToColor(hsvArr); //brighter
 
             float difference2 = brightness/8;
             hsvArr[2] -= difference2;
             int darkerShade = Color.HSVToColor(hsvArr); //darker
 
             layout_refnum.setBackgroundColor(darkerShade);
-            //layout_message.setBackgroundColor(lighterShade);
             layout_date_time.setBackgroundColor(darkerShade);
-            //layout_location.setBackgroundColor(lighterShade);
             layout_status.setBackgroundColor(darkerShade);
-            //layout_appointment_type.setBackgroundColor(lighterShade);
-
             parentLayout.setBackgroundColor(colour);
         }
 
@@ -207,7 +203,18 @@ public class AppointmentDetailsFragment extends GenericViewImpl implements Appoi
         }
     }
 
-    private void checkInButtonClicked(Appointment appointment, List<AppointmentStatus> appointmentStatusList) {
+    @Override
+    public void notifyCheckinResult(boolean result) {
+       if(result){
+           btnCheckin.setText(getString(R.string.check_in_successful));
+       }
+        else{
+           btnCheckin.setText(getString(R.string.check_in_failed));
+       }
+    }
+
+    private void checkInButtonClicked(Button btnCheckin, Appointment appointment, List<AppointmentStatus> appointmentStatusList) {
+        btnCheckin.setText(getString(R.string.btn_check_in_progress));
         checkInAppointment(appointment, appointmentStatusList);
 
     }
