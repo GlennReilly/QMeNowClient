@@ -3,31 +3,43 @@
     android:id="@+id/ll_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp">
 
 <!--Ref Num-->
     <LinearLayout
         android:id="@+id/layout_refnum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/dark_gray"
         android:orientation="horizontal">
-        <TextView
+
+        <ImageView
+            android:id="@+id/appointment_image"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="@dimen/large_text_size"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="@string/label_refnum"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/appointment_light"/>
+
         <TextView
-            android:id="@+id/appointmentTypePrefix"
+            android:id="@+id/tvAppointmentRefNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#f3f3f3"
             android:textSize="@dimen/large_text_size"
             android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:layout_marginRight="50dp"
+            />
+
     </LinearLayout>
 
 <!--Customer Message-->
-    <LinearLayout
+<!--    <LinearLayout
         android:id="@+id/layout_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,7 +57,7 @@
             android:id="@+id/messageToCustomer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </LinearLayout>
+    </LinearLayout>-->
 
 <!--Appointment Date and time-->
     <LinearLayout
@@ -155,7 +167,7 @@
             android:id="@+id/statusCircle"
             android:layout_width="@dimen/circle_size"
             android:layout_height="@dimen/circle_size"
-            android:src="@drawable/circle"
+            android:src="@drawable/square"
             android:gravity="right"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="5dp"

@@ -121,8 +121,8 @@ public class AppointmentDetailsFragment extends GenericViewImpl implements Appoi
             }
         }
 
-        TextView tvAppointmentTypePrefix = (TextView) view.findViewById(R.id.appointmentTypePrefix);
-        TextView tvMessageToCustomer = (TextView) view.findViewById(R.id.messageToCustomer);
+        TextView tvAppointmentRefNum = (TextView) view.findViewById(R.id.tvAppointmentRefNum);
+        //TextView tvMessageToCustomer = (TextView) view.findViewById(R.id.messageToCustomer);
         TextView tvStrAppointmentDate = (TextView) view.findViewById(R.id.strAppointmentDate);
         TextView tvStrAppointmentTime = (TextView) view.findViewById(R.id.strAppointmentTime);
         TextView tvLocationName = (TextView) view.findViewById(R.id.locationName);
@@ -150,7 +150,7 @@ public class AppointmentDetailsFragment extends GenericViewImpl implements Appoi
         }
 
         tvAppointmentTypeName.setText(appointment.getAppointmentTypeName());
-        tvAppointmentTypePrefix.setText(appointment.getAppointmentTypePrefix() + appointment.getId());
+        tvAppointmentRefNum.setText(appointment.getAppointmentTypePrefix() + appointment.getId());
 
         ImageView ivAppointmentTypeCircle = (ImageView) view.findViewById(R.id.appointmentTypeCircle);
         Drawable drawableAppointmentTypeCircle = ivAppointmentTypeCircle.getDrawable();
@@ -159,7 +159,7 @@ public class AppointmentDetailsFragment extends GenericViewImpl implements Appoi
         }
 
         layout_refnum = (LinearLayout) view.findViewById(R.id.layout_refnum);
-        layout_message = (LinearLayout) view.findViewById(R.id.layout_message);
+        //layout_message = (LinearLayout) view.findViewById(R.id.layout_message);
         layout_date_time = (LinearLayout) view.findViewById(R.id.layout_date_time);
         layout_location = (RelativeLayout) view.findViewById(R.id.layout_location);
         layout_status = (RelativeLayout) view.findViewById(R.id.layout_status);
@@ -190,7 +190,7 @@ public class AppointmentDetailsFragment extends GenericViewImpl implements Appoi
             hsvArr[2] -= difference2;
             int darkerShade = Color.HSVToColor(hsvArr); //darker
 
-            layout_refnum.setBackgroundColor(darkerShade);
+            //layout_refnum.setBackgroundColor(darkerShade);
             layout_date_time.setBackgroundColor(darkerShade);
             layout_status.setBackgroundColor(darkerShade);
             parentLayout.setBackgroundColor(colour);
