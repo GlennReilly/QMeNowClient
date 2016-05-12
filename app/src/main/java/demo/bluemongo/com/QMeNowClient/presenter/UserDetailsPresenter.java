@@ -21,11 +21,17 @@ public class UserDetailsPresenter extends GenericPresenter{
     }
 
     public void saveUserDetails(String firstName, String lastName, Integer customerId) {
+        UserDetails currentUserDetails = model.getUserDetails(userDetailsView.getUserDetailsSharedPreferences());
+        if(currentUserDetails.getCustomerId() != customerId){
+            model.clearRealmAppointmentCache(view.getRealm());
+        }
+
         userDetails = new UserDetails();
         userDetails.setFirstName(firstName);
         userDetails.setLastName(lastName);
         userDetails.setCustomerId(customerId);
         model.saveUserDetails(userDetails, userDetailsView.getUserDetailsSharedPreferences());
+
     }
 
     public void removeUserDetails() {

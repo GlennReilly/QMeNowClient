@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,6 +29,7 @@ import demo.bluemongo.com.QMeNowClient.model.Appointment;
 import demo.bluemongo.com.QMeNowClient.model.AppointmentStatus;
 import demo.bluemongo.com.QMeNowClient.model.AppointmentWrapper;
 import demo.bluemongo.com.QMeNowClient.presenter.AppointmentsDetailsPresenter;
+import demo.bluemongo.com.QMeNowClient.utils.InputHelper;
 
 public class AppointmentDetailsFragment extends GenericViewImpl implements AppointmentDetailsView {
     public static final String APPOINTMENT_WRAPPER_KEY = "APPOINTMENT_WRAPPER_KEY";
@@ -117,7 +120,14 @@ public class AppointmentDetailsFragment extends GenericViewImpl implements Appoi
                 btnCheckin.setVisibility(View.VISIBLE);
                 buttonSetToVisible = true;
                 btnCheckin.setEnabled(false);
-                btnCheckin.setText(getString(R.string.appointment_already_checked_in) + " " + appointment.getStrCheckInDateTime());
+                try{
+                    Date checkinDate = InputHelper.getDateFromISO8601String(appointment.getStrCheckInDateTime());
+                    final String pattern = "dd/MM/yyyy HH:mm";
+                    SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+                    btnCheckin.setText(getString(R.string.appointment_already_checked_in) + " " + sdf.format(checkinDate));
+                }catch (Exception ex) {
+                    btnCheckin.setText(getString(R.string.appointment_already_checked_in) + " " + appointment.getStrCheckInDateTime());
+                }
             }
         }
 

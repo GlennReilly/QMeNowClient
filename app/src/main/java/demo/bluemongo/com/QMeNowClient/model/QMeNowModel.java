@@ -270,4 +270,10 @@ public class QMeNowModel {
         }
         realm.commitTransaction();
     }
+
+    public void clearRealmAppointmentCache(Realm realm) {
+        realm.beginTransaction();
+        realm.delete(RealmAppointmentsResponse.class);
+        realm.commitTransaction();
+    }
 }
