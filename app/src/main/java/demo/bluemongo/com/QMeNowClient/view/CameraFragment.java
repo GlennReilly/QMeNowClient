@@ -76,6 +76,11 @@ public class CameraFragment extends GenericViewImpl implements CameraPreviewView
         // Required empty public constructor
     }
 
+    @Override
+    public void setUIElementsFromSavedDetails() {
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

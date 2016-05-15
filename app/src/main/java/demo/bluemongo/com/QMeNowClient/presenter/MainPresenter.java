@@ -21,16 +21,11 @@ public class MainPresenter extends GenericPresenter {
         AppointmentsResponse appointmentsResponse = model.getAppointmentsFromCache(view.getRealm());
         if(appointmentsResponse == null){
             result = false;
-        }
-        else {
-            if (appointmentsResponse.getAppointmentList().size() == 0) {
-                result = false;
-            }
-            else {
+        } else {
+            if (appointmentsResponse.getAppointmentList().size() > 0) {
                 result = true;
             }
         }
-
         return result;
     }
 

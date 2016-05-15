@@ -1,5 +1,8 @@
 package demo.bluemongo.com.QMeNowClient.presenter;
 
+import android.content.SharedPreferences;
+
+import demo.bluemongo.com.QMeNowClient.model.BusinessDTO;
 import demo.bluemongo.com.QMeNowClient.model.QMeNowModel;
 import demo.bluemongo.com.QMeNowClient.view.CameraPreviewView;
 import demo.bluemongo.com.QMeNowClient.view.GenericViewImpl;
@@ -32,16 +35,25 @@ public class CameraPreviewPresenter extends GenericPresenter {
 
     private void processBusinessBarcode(String barcodeContent) {
         if (model.isBusinessBarcodeValid(barcodeContent)) {
-            model.saveBusinessDetails(model.getBusinessQRCodePayload().getBusinessDTO(), view.getBusinessDetailsSharedPreferences());
+
+            BusinessDTO businessDTO = model.getBusinessQRCodePayload().getBusinessDTO();
+            int incomingBusinessId = businessDTO.getId();
+            SharedPreferences businessDetailsSharedPreferences = view.getBusinessDetailsSharedPreferences();
+            model.clearCacheIfDifferentBusiness(incomingBusinessId, businessDetailsSharedPreferences, view.getRealm());
+
+            model.saveBusinessDetails(businessDTO, businessDetailsSharedPreferences);
+            model.saveWebHelperBaseURL(businessDTO.getServerURL(), view.getAppSettingsSharedPreferences());
             view.showUsersAppointments(model.getBusinessQRCodePayload());
         }else{
             view.showInvalidBusinessBarcodeMessage();
         }
     }
 
+
     private void processCustomerBarcode(String barcodeContent) {
         if (model.isCustomerBarcodeValid(barcodeContent)) {
             model.saveBusinessDetails(model.getBusinessQRCodePayload().getBusinessDTO(), view.getBusinessDetailsSharedPreferences());
+            model.saveWebHelperBaseURL(model.getBusinessQRCodePayload().getBusinessDTO().getServerURL(), view.getAppSettingsSharedPreferences());
             view.onValidCustomerBarcodeResult(model.getCustomerQRCodePayload());
         }else{
             view.showInvalidCustomerBarcodeMessage();

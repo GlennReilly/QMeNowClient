@@ -5,6 +5,7 @@ package demo.bluemongo.com.QMeNowClient.model;
  */
 
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
@@ -49,9 +50,6 @@ public class QMeNowModel {
 
     public boolean isBusinessBarcodeValid(String rawValue) {
         boolean result = false;
-        //String dateTimeString = "";
-        //String businessName = "";
-        //String content = "";
 
         try {
             JSONObject jsonObject = new JSONObject(rawValue);
@@ -75,6 +73,7 @@ public class QMeNowModel {
                 businessQRCodePayload.setHeaderColourHexCode(jsonBusinessDTO.getString("headerColourHexCode"));
                 businessQRCodePayload.setBackgroundColourHexCode(jsonBusinessDTO.getString("backgroundColourHexCode"));
                 businessQRCodePayload.setLogoFileName(jsonBusinessDTO.getString("logoFileName"));
+                businessQRCodePayload.getBusinessDTO().setServerURL(jsonBusinessDTO.getString("serverURL"));
                 result = true;
             }
 
@@ -117,6 +116,7 @@ public class QMeNowModel {
                     customerQRCodePayload.setCustomerLastName(jsonObject.getString("customerLastName"));
                     customerQRCodePayload.setCustomerId(jsonObject.getInt("customerId"));
                     customerQRCodePayload.setContent(jsonObject.getString("Content"));
+                    customerQRCodePayload.getBusinessDTO().setServerURL(jsonBusinessDTO.getString("serverURL"));
                     result = true;
             }
             else{
@@ -165,6 +165,7 @@ public class QMeNowModel {
     }
 
     public void saveBusinessDetails(BusinessDTO businessDTO, SharedPreferences businessDetailsSharedPreferences) {
+
         SharedPreferences.Editor editor = businessDetailsSharedPreferences.edit();
         editor.putInt(BUSINESS_ID, businessDTO.getId());
         editor.putString(BUSINESS_NAME, businessDTO.getBusinessName());
@@ -275,5 +276,13 @@ public class QMeNowModel {
         realm.beginTransaction();
         realm.delete(RealmAppointmentsResponse.class);
         realm.commitTransaction();
+    }
+
+    @NonNull
+    public void clearCacheIfDifferentBusiness(int incomingBusinessId, SharedPreferences businessDetailsSharedPreferences, Realm realm) {
+        int existingBusinessId = businessDetailsSharedPreferences.getInt(BUSINESS_ID,0);
+        if (existingBusinessId != incomingBusinessId){
+            clearRealmAppointmentCache(realm);
+        }
     }
 }

@@ -83,8 +83,6 @@ public class MainActivity extends Activity implements
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         MainMenuFragment mainMenuFragment = new MainMenuFragment();
         fragmentTransaction.replace(R.id.fragment_container, mainMenuFragment, TAG_MAIN_FRAGMENT);
-        //fragmentTransaction.add(R.id.fragment_container, mainMenuFragment, TAG_MAIN_FRAGMENT);
-        //fragmentTransaction.addToBackStack(TAG_MAIN_FRAGMENT);
         fragmentTransaction.commit();
     }
 

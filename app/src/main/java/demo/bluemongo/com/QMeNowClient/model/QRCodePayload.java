@@ -4,7 +4,7 @@ package demo.bluemongo.com.QMeNowClient.model;
  * Created by glenn on 29/09/15.
  */
 public class QRCodePayload {
-    private String dateTimeString;
+/*    private String dateTimeString;
     private String businessName;
     private String customerFirstName;
     private String customerLastName;
@@ -57,5 +57,5 @@ public class QRCodePayload {
 
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
-    }
+    }*/
 }

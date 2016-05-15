@@ -34,7 +34,8 @@
     <string name="save">Save</string>
     <string name="user_removed_successfully">User details removed successfully</string>
     <string name="customerDoesntExistAtThisBusiness">Sorry, that customer doesn\'t exist at this business</string>
-    <string name="appointment_already_checked_in">Appointment already checked in at</string>
+    <string name="appointment_already_checked_in">Appointment already checked in.</string>
+    <string name="appointment_checked_in_at">Appointment checked in at</string>
     <string name="label_refnum">Ref:</string>
     <string name="label_appointment_date">Date and time:</string>
     <string name="label_appointment_type">Type:</string>

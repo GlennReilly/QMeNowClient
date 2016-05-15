@@ -25,7 +25,6 @@ public class UserDetailsPresenter extends GenericPresenter{
         if(currentUserDetails.getCustomerId() != customerId){
             model.clearRealmAppointmentCache(view.getRealm());
         }
-
         userDetails = new UserDetails();
         userDetails.setFirstName(firstName);
         userDetails.setLastName(lastName);

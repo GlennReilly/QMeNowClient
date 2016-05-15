@@ -6,7 +6,7 @@ package demo.bluemongo.com.QMeNowClient.model;
 public class BusinessQRCodePayload {
     private BusinessDTO businessDTO = new BusinessDTO();
     private String dateTimeString;
-
+    private String serverAndApplicationURL;
     private String Content;
 
 
@@ -68,5 +68,13 @@ public class BusinessQRCodePayload {
 
     public void setLogoFileName(String logoFileName) {
         this.businessDTO.setLogoFileName(logoFileName);
+    }
+
+    public String getServerAndApplicationURL() {
+        return serverAndApplicationURL;
+    }
+
+    public void setServerAndApplicationURL(String serverAndApplicationURL) {
+        this.serverAndApplicationURL = serverAndApplicationURL;
     }
 }

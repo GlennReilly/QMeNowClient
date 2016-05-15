@@ -8,7 +8,7 @@ import demo.bluemongo.com.QMeNowClient.model.CustomerQRCodePayload;
 /**
  * Created by glenn on 23/09/15.
  */
-public interface CameraPreviewView {
+public interface CameraPreviewView extends GenericView {
     public final String ScanningForBarcodeType = "ScanningForBarcodeType";
     public enum BarcodeType{BUSINESS, CUSTOMER}
 

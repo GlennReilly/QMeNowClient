@@ -71,12 +71,9 @@ public class MainMenuFragment extends GenericViewImpl implements MainView {
 
         parentLayout = (LinearLayout) view.findViewById(R.id.ll_main);
 
-
         if (presenter.isAppointmentsCacheNotEmpty()) {
             btnViewAppointments.setEnabled(true);
-            //Drawable img = ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.agenda_icon );
-            //btnViewAppointments.setBackground(img);
-            btnViewAppointments.setCompoundDrawablesWithIntrinsicBounds(R.drawable.agenda_icon, 0, 0, 0);
+            btnViewAppointments.setCompoundDrawablesWithIntrinsicBounds(R.drawable.enabled_agenda_icon, 0, 0, 0);
         }
         setUIElementsFromSavedDetails();
 

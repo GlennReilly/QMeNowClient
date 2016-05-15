@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -99,35 +100,34 @@ public class AppointmentDetailsFragment extends GenericViewImpl implements Appoi
         while(statusIterator.hasNext() && !buttonSetToVisible){
             AppointmentStatus appointmentStatus = statusIterator.next();
 
-            if ( StringUtils.isEmpty(appointment.getStrCheckInDateTime()) ) {
-                if (appointmentStatus.isCustomerInitiated() && (appointmentStatus.getName().equals(appointment.getStatusName()))){
-                    btnCheckin.setVisibility(View.VISIBLE);
-                    buttonSetToVisible = true;
-                    btnCheckin.setText(getString(R.string.check_in));
+            btnCheckin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    checkInButtonClicked(btnCheckin, appointment, appointmentStatusList);
+                }
+            });
 
-                    btnCheckin.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            checkInButtonClicked(btnCheckin, appointment, appointmentStatusList);
-                        }
-                    });
-                }
-                else {
-                    btnCheckin.setVisibility(View.INVISIBLE);
-                }
-            }
-            else{
+            if (appointmentStatus.isCustomerInitiated() && (appointmentStatus.getName().equals(appointment.getStatusName()))){
                 btnCheckin.setVisibility(View.VISIBLE);
                 buttonSetToVisible = true;
-                btnCheckin.setEnabled(false);
-                try{
-                    Date checkinDate = InputHelper.getDateFromISO8601String(appointment.getStrCheckInDateTime());
-                    final String pattern = "dd/MM/yyyy HH:mm";
-                    SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-                    btnCheckin.setText(getString(R.string.appointment_already_checked_in) + " " + sdf.format(checkinDate));
-                }catch (Exception ex) {
-                    btnCheckin.setText(getString(R.string.appointment_already_checked_in) + " " + appointment.getStrCheckInDateTime());
+
+                if ( StringUtils.isEmpty(appointment.getStrCheckInDateTime()) ) {
+                    btnCheckin.setText(getString(R.string.check_in));
                 }
+                else{
+                    try{
+                        Date checkinDate = InputHelper.getDateFromISO8601String(appointment.getStrCheckInDateTime());
+                        final String pattern = "dd/MM/yyyy HH:mm";
+                        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+                        btnCheckin.setText(getString(R.string.appointment_checked_in_at) + " " + sdf.format(checkinDate));
+                    }catch (Exception ex) {
+                        btnCheckin.setText(getString(R.string.appointment_checked_in_at) + " " + appointment.getStrCheckInDateTime());
+                    }
+                }
+
+            }
+            else {
+                btnCheckin.setVisibility(View.INVISIBLE);
             }
         }
 
@@ -224,9 +224,12 @@ public class AppointmentDetailsFragment extends GenericViewImpl implements Appoi
     }
 
     private void checkInButtonClicked(Button btnCheckin, Appointment appointment, List<AppointmentStatus> appointmentStatusList) {
-        btnCheckin.setText(getString(R.string.btn_check_in_progress));
-        checkInAppointment(appointment, appointmentStatusList);
-
+        if ( StringUtils.isEmpty(appointment.getStrCheckInDateTime()) ) {
+            btnCheckin.setText(getString(R.string.btn_check_in_progress));
+            checkInAppointment(appointment, appointmentStatusList);
+        }else {
+            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.appointment_already_checked_in), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
