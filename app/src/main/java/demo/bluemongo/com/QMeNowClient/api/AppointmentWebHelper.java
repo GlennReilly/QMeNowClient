@@ -30,11 +30,11 @@ public class AppointmentWebHelper {
 
     public void GetUserAppointments(int currentBusinessId, UserDetails userDetails){
         String webHelperBaseURL = appointmentsPresenter.getWebHelperBaseURL(); //http://10.1.1.7:8080/
+        Log.i("webHelperBaseURL", webHelperBaseURL);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(webHelperBaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
 
         UserAppointmentService userAppointmentService = retrofit.create(UserAppointmentService.class);
         Call<AppointmentsResponse> retrofitResponse = userAppointmentService.getAppointments(currentBusinessId, userDetails.getCustomerId(),
@@ -78,6 +78,7 @@ public class AppointmentWebHelper {
                 } else {
                     int statusCode = response.code();
                     Log.e("error statusCode", String.valueOf(statusCode));
+                    appointmentsPresenter.setMessage("Something went wrong: " + String.valueOf(statusCode));
                 }
             }
 

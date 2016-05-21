@@ -17,11 +17,11 @@ import retrofit.http.Query;
 public interface UserAppointmentService {
 
 
-    @GET("/FlexibleUIConfig/api/v1/AppointmentsToday/{businessId}/") //need to add the current business id
+    @GET("/QMeNow/FlexibleUIConfig/api/v1/AppointmentsToday/{businessId}/")
     Call<AppointmentsResponse> getAppointments(@Path("businessId") int businessId, @Query("customerId") int customerId,
                                                @Query("firstName") String firstName, @Query("lastName") String lastName );
 
-    @PUT("/FlexibleUIConfig/api/v1/Appointment/{id}/CheckIn")
+    @PUT("/QMeNow/FlexibleUIConfig/api/v1/Appointment/{id}/CheckIn")
     Call<AppointmentsResponse> checkInAppointment(@Path("id") int id, @Body AppointmentCheckInDTO appointmentCheckIn);
 
 

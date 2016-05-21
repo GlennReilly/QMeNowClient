@@ -74,6 +74,7 @@ public class QMeNowModel {
                 businessQRCodePayload.setBackgroundColourHexCode(jsonBusinessDTO.getString("backgroundColourHexCode"));
                 businessQRCodePayload.setLogoFileName(jsonBusinessDTO.getString("logoFileName"));
                 businessQRCodePayload.getBusinessDTO().setServerURL(jsonBusinessDTO.getString("serverURL"));
+                Log.i("BizBarcode ServerURL", businessQRCodePayload.getBusinessDTO().getServerURL());
                 result = true;
             }
 
