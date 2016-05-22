@@ -52,8 +52,10 @@ public class CameraPreviewPresenter extends GenericPresenter {
 
     private void processCustomerBarcode(String barcodeContent) {
         if (model.isCustomerBarcodeValid(barcodeContent)) {
-            model.saveBusinessDetails(model.getBusinessQRCodePayload().getBusinessDTO(), view.getBusinessDetailsSharedPreferences());
-            model.saveWebHelperBaseURL(model.getBusinessQRCodePayload().getBusinessDTO().getServerURL(), view.getAppSettingsSharedPreferences());
+            model.saveBusinessDetails(model.getCustomerQRCodePayload().getBusinessDTO(), view.getBusinessDetailsSharedPreferences());
+            model.saveWebHelperBaseURL(model.getCustomerQRCodePayload().getBusinessDTO().getServerURL(), view.getAppSettingsSharedPreferences());
+            /*model.saveBusinessDetails(model.getBusinessQRCodePayload().getBusinessDTO(), view.getBusinessDetailsSharedPreferences());
+            model.saveWebHelperBaseURL(model.getBusinessQRCodePayload().getBusinessDTO().getServerURL(), view.getAppSettingsSharedPreferences());*/
             view.onValidCustomerBarcodeResult(model.getCustomerQRCodePayload());
         }else{
             view.showInvalidCustomerBarcodeMessage();
