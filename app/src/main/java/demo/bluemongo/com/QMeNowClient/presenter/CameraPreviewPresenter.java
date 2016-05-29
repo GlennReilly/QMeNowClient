@@ -42,7 +42,7 @@ public class CameraPreviewPresenter extends GenericPresenter {
             model.clearCacheIfDifferentBusiness(incomingBusinessId, businessDetailsSharedPreferences, view.getRealm());
 
             model.saveBusinessDetails(businessDTO, businessDetailsSharedPreferences);
-            model.saveWebHelperBaseURL(businessDTO.getServerURL(), view.getAppSettingsSharedPreferences());
+            model.saveWebHelperBaseURL(businessDTO.getServerURL(), view.getBusinessDetailsSharedPreferences());
             view.showUsersAppointments(model.getBusinessQRCodePayload());
         }else{
             view.showInvalidBusinessBarcodeMessage();
@@ -53,7 +53,7 @@ public class CameraPreviewPresenter extends GenericPresenter {
     private void processCustomerBarcode(String barcodeContent) {
         if (model.isCustomerBarcodeValid(barcodeContent)) {
             model.saveBusinessDetails(model.getCustomerQRCodePayload().getBusinessDTO(), view.getBusinessDetailsSharedPreferences());
-            model.saveWebHelperBaseURL(model.getCustomerQRCodePayload().getBusinessDTO().getServerURL(), view.getAppSettingsSharedPreferences());
+            model.saveWebHelperBaseURL(model.getCustomerQRCodePayload().getBusinessDTO().getServerURL(), view.getBusinessDetailsSharedPreferences());
             /*model.saveBusinessDetails(model.getBusinessQRCodePayload().getBusinessDTO(), view.getBusinessDetailsSharedPreferences());
             model.saveWebHelperBaseURL(model.getBusinessQRCodePayload().getBusinessDTO().getServerURL(), view.getAppSettingsSharedPreferences());*/
             view.onValidCustomerBarcodeResult(model.getCustomerQRCodePayload());

@@ -22,7 +22,7 @@ public class SettingsPresenter extends GenericPresenter{
     public void saveSettings(SettingsDTO settingsValues) {
         QMeNowModel model = new QMeNowModel();
         //model.saveWebHelperBaseURL(settingsValues.getWebHelperBaseURL(), view.getUserDetailsSharedPreferences());
-        model.saveWebHelperBaseURL(settingsValues.getWebHelperBaseURL(), view.getAppSettingsSharedPreferences());
+        model.saveWebHelperBaseURL(settingsValues.getWebHelperBaseURL(), view.getBusinessDetailsSharedPreferences());
     }
 
     public String getWebHelperBaseURL() {

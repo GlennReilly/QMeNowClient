@@ -95,7 +95,7 @@ public class GenericPresenter {
         actionBar.setIcon(R.drawable.app_logo);
         PicassoActionBarIcon picasssoActionBar = new PicassoActionBarIcon(actionBar);
         //http://10.1.1.7:8080/resources/images/noLogo.png
-        String URI = model.getWebHelperBaseURL(view.getBusinessDetailsSharedPreferences()) + "resources/images/" + logoFileName;
+        String URI = model.getWebHelperBaseURL(view.getBusinessDetailsSharedPreferences()) + "/QMeNow/resources/images/" + logoFileName;
         Picasso.with(view.getActivity()).load( URI).into(picasssoActionBar);
     }
 
